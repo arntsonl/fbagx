@@ -266,7 +266,7 @@ static int DamMain()
 
   return 0;
 }
-
+/*
 int main(int argc, char **argv)
 {
 	switch (argc) {
@@ -287,4 +287,5 @@ int main(int argc, char **argv)
 	fclose(Out); Out=NULL;
 	return 0;
 }
+*/
 

@@ -8175,6 +8175,8 @@ void EmitCode(void)
 	CodeSegmentEnd();
 }
 
+// Huh, there was a main in this guy, might need to investigate this more!
+/*
 int main(int argc, char **argv)
 {
 	int dwLoop;
@@ -8200,7 +8202,7 @@ int main(int argc, char **argv)
 		exit(3);
 	}
 
-	/* Emit the code */
+	* Emit the code *
 	fp = fopen(argv[1], "w");
 	if (!fp)
 	{
@@ -8228,7 +8230,7 @@ int main(int argc, char **argv)
 
 	printf("\n%d Unique Opcodes\n",Opcount);
 
-	/* output Jump table to separate file */
+	* output Jump table to separate file *
 	fp = fopen(argv[2], "w");
 	if (!fp)
 	{
@@ -8242,3 +8244,4 @@ int main(int argc, char **argv)
 
 	exit(0);
 }
+*/

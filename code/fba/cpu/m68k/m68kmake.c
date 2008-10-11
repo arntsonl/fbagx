@@ -15,7 +15,7 @@
  * All other lisencing terms must be negotiated with the author
  * (Karl Stenerud).
  *
- * The latest version of this code can be obtained at:
+ * The latest version of this code can be obtained at:ma
  * http://kstenerud.cjb.net
  */
 
@@ -1235,20 +1235,20 @@ void read_insert(char* insert)
 /* ======================================================================== */
 /* ============================= MAIN FUNCTION ============================ */
 /* ======================================================================== */
-
+/*
 int main(int argc, char **argv)
 {
-	/* File stuff */
+	/* File stuff *
 	char output_path[M68K_MAX_DIR] = "";
 	char filename[M68K_MAX_PATH];
-	/* Section identifier */
+	/* Section identifier *
 	char section_id[MAX_LINE_LENGTH+1];
-	/* Inserts */
+	/* Inserts *
 	char temp_insert[MAX_INSERT_LENGTH+1];
 	char prototype_footer_insert[MAX_INSERT_LENGTH+1];
 	char table_footer_insert[MAX_INSERT_LENGTH+1];
 	char ophandler_footer_insert[MAX_INSERT_LENGTH+1];
-	/* Flags if we've processed certain parts already */
+	/* Flags if we've processed certain parts already *
 	int prototype_header_read = 0;
 	int prototype_footer_read = 0;
 	int table_header_read = 0;
@@ -1261,7 +1261,7 @@ int main(int argc, char **argv)
 	printf("\n\t\tMusashi v%s 68000, 68008, 68010, 68EC020, 68020 emulator\n", g_version);
 	printf("\t\tCopyright 1998-2000 Karl Stenerud (karl@mame.net)\n\n");
 
-	/* Check if output path and source for the input file are given */
+	/* Check if output path and source for the input file are given *
     if(argc > 1)
 	{
 		char *ptr;
@@ -1282,7 +1282,7 @@ int main(int argc, char **argv)
 
 #if defined(__DECC) && defined(VMS)
 
-	/* Open the files we need */
+	/* Open the files we need *
 	sprintf(filename, "%s%s", output_path, FILENAME_PROTOTYPE);
 	if((g_prototype_file = fopen(filename, "w")) == NULL)
 		perror_exit("Unable to create prototype file (%s)\n", filename);
@@ -1309,7 +1309,7 @@ int main(int argc, char **argv)
 #else
 
 
-	/* Open the files we need */
+	/* Open the files we need *
 	sprintf(filename, "%s%s", output_path, FILENAME_PROTOTYPE);
 	if((g_prototype_file = fopen(filename, "wt")) == NULL)
 		perror_exit("Unable to create prototype file (%s)\n", filename);
@@ -1335,13 +1335,13 @@ int main(int argc, char **argv)
 
 #endif
 
-	/* Get to the first section of the input file */
+	/* Get to the first section of the input file *
 	section_id[0] = 0;
 	while(strcmp(section_id, ID_INPUT_SEPARATOR) != 0)
 		if(fgetline(section_id, MAX_LINE_LENGTH, g_input_file) < 0)
 			error_exit("Premature EOF while reading input file");
 
-	/* Now process all sections */
+	/* Now process all sections *
 	for(;;)
 	{
 		if(fgetline(section_id, MAX_LINE_LENGTH, g_input_file) < 0)
@@ -1428,7 +1428,7 @@ int main(int argc, char **argv)
 		}
 		else if(strcmp(section_id, ID_END) == 0)
 		{
-			/* End of input file.  Do a sanity check and then write footers */
+			/* End of input file.  Do a sanity check and then write footers *
 			if(!prototype_header_read)
 				error_exit("Missing prototype header");
 			if(!prototype_footer_read)
@@ -1462,7 +1462,7 @@ int main(int argc, char **argv)
 		}
 	}
 
-	/* Close all files and exit */
+	/* Close all files and exit *
 	fclose(g_prototype_file);
 	fclose(g_table_file);
 	fclose(g_ops_ac_file);
@@ -1474,7 +1474,7 @@ int main(int argc, char **argv)
 
 	return 0;
 }
-
+*/
 
 
 /* ======================================================================== */
