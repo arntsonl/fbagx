@@ -206,7 +206,7 @@ int BurnUpdateProgress(double dProgressStep, const char* pszText, bool bAbs);
 #define DRV_ASCIIONLY	 (1 << 12)
 #define DRV_UNICODEONLY	 (1 << 13)
 
-TCHAR* BurnDrvGetText(unsigned int i);
+char* BurnDrvGetText(unsigned int i);
 char* BurnDrvGetTextA(unsigned int i);
 
 int BurnDrvGetZipName(char** pszName, unsigned int i);

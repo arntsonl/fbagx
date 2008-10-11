@@ -8,7 +8,7 @@
 // filler function, used if the application is not printing debug messages
 static int __cdecl BurnbprintfFiller(int, char* , ...) { return 0; }
 // pointer to burner printing function
-int (__cdecl *bprintf)(int nStatus, TCHAR* szFormat, ...) = BurnbprintfFiller;
+int (__cdecl *bprintf)(int nStatus, char* szFormat, ...) = BurnbprintfFiller;
 
 int nBurnVer = BURN_VERSION;		// Version number of the library
 
@@ -49,11 +49,14 @@ int nMaxPlayers;
 
 bool BurnCheckMMXSupport()
 {
+/*
 	unsigned int nSignatureEAX = 0, nSignatureEBX = 0, nSignatureECX = 0, nSignatureEDX = 0;
 
 	CPUID(1, nSignatureEAX, nSignatureEBX, nSignatureECX, nSignatureEDX);
 
 	return (nSignatureEDX >> 23) & 1;						// bit 23 of edx indicates MMX support
+*/
+	return 0;
 }
 
 extern "C" int BurnLibInit()
@@ -139,7 +142,7 @@ void BurnStateExit();
 int BurnStateInit();
 
 // Luke: some windows stuff I can remove
-// Get the text fields for the driver in TCHARs
+// Get the text fields for the driver in chars
 extern "C" char* BurnDrvGetText(unsigned int i)
 {
 	char* pszStringA = NULL;
@@ -160,7 +163,7 @@ extern "C" char* BurnDrvGetText(unsigned int i)
 			case DRV_FULLNAME:
 				if (i & DRV_NEXTNAME) {
 					if (pszCurrentNameW && pDriver[nBurnDrvSelect]->szFullNameW) {
-						pszCurrentNameW += wcslen(pszCurrentNameW) + 1;
+						pszCurrentNameW += strlen(pszCurrentNameW) + 1;
 						if (!pszCurrentNameW[0]) {
 							return NULL;
 						}
@@ -169,7 +172,7 @@ extern "C" char* BurnDrvGetText(unsigned int i)
 				} else {
 
 #if !defined (_UNICODE)
-
+/*
 					// Ensure all of the Unicode titles are printable in the current locale
 					pszCurrentNameW = pDriver[nBurnDrvSelect]->szFullNameW;
 					if (pszCurrentNameW && pszCurrentNameW[0]) {
@@ -185,7 +188,7 @@ extern "C" char* BurnDrvGetText(unsigned int i)
 							pszStringW = pszCurrentNameW = pDriver[nBurnDrvSelect]->szFullNameW;
 						}
 					}
-
+*/
 #else
 
 					pszStringW = pszCurrentNameW = pDriver[nBurnDrvSelect]->szFullNameW;
@@ -195,13 +198,14 @@ extern "C" char* BurnDrvGetText(unsigned int i)
 				}
 				break;
 			case DRV_COMMENT:
-				pszStringW = pDriver[nBurnDrvSelect]->szCommentW;
+				//pszStringW = pDriver[nBurnDrvSelect]->szCommentW;
 				break;
 			case DRV_MANUFACTURER:
-				pszStringW = pDriver[nBurnDrvSelect]->szManufacturerW;
+				//pszStringW = pDriver[nBurnDrvSelect]->szManufacturerW;
 				break;
 			case DRV_SYSTEM:
-				pszStringW = pDriver[nBurnDrvSelect]->szSystemW;
+				//pszStringW = pDriver[nBurnDrvSelect]->szSystemW;
+				break;
 		}
 
 #if defined (_UNICODE)
@@ -240,9 +244,9 @@ extern "C" char* BurnDrvGetText(unsigned int i)
 		}
 
 		if (pszStringW && pszStringA && pszStringW[0]) {
-			if (wcstombs(pszStringA, pszStringW, 256) != -1U) {
+			/*if (wcstombs(pszStringA, pszStringW, 256) != -1U) {
 				return pszStringA;
-			}
+			}*/
 
 		}
 
@@ -475,9 +479,9 @@ extern "C" int BurnDrvInit()
 /*
 #if defined (FBA_DEBUG)
 	{
-		TCHAR szText[1024] = _T("");
-		TCHAR* pszPosition = szText;
-		TCHAR* pszName = BurnDrvGetText(DRV_FULLNAME);
+		char szText[1024] = _T("");
+		char* pszPosition = szText;
+		char* pszName = BurnDrvGetText(DRV_FULLNAME);
 		int nName = 1;
 
 		while ((pszName = BurnDrvGetText(DRV_NEXTNAME | DRV_FULLNAME)) != NULL) {
