@@ -82,6 +82,8 @@ int main(){
 
     // Set Default Settings
     DefaultSettings();
+
+	/*****  Settings and Setup for Final Burn Alpha *****/
 /*
     FBAUnmapAllControls();
     SetDefaultButtonMap();
