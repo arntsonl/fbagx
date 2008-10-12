@@ -26,41 +26,41 @@ extern "C" {
 }
 #endif
 
-#include "snes9x.h"
-#include "memmap.h"
-#include "debug.h"
-#include "cpuexec.h"
-#include "ppu.h"
-#include "apu.h"
-#include "display.h"
-#include "gfx.h"
-#include "soundux.h"
-#include "spc700.h"
-#include "spc7110.h"
-#include "controls.h"
-#include "cheats.h"
+//#include "snes9x.h"
+//#include "memmap.h"
+//#include "debug.h"
+//#include "cpuexec.h"
+//#include "ppu.h"
+//#include "apu.h"
+//#include "display.h"
+//#include "gfx.h"
+//#include "soundux.h"
+//#include "spc700.h"
+//#include "spc7110.h"
+//#include "controls.h"
+//#include "cheats.h"
 
-#include "snes9xGX.h"
-#include "aram.h"
+#include "fbagx.h"
+//#include "aram.h"
 #include "video.h"
 #include "filesel.h"
 #include "unzip.h"
 #include "smbop.h"
-#include "memcardop.h"
+//#include "memcardop.h"
 #include "fileop.h"
-#include "freeze.h"
+//#include "freeze.h"
 #include "dvd.h"
-#include "s9xconfig.h"
-#include "sram.h"
+#include "fbaconfig.h"
+//#include "sram.h"
 #include "preferences.h"
 #include "button_mapping.h"
 #include "menudraw.h"
-#include "cheatmgr.h"
+//#include "cheatmgr.h"
 #include "input.h"
 
 extern void DrawMenu (char items[][50], char *title, int maxitems, int selected, int fontsize);
 
-extern SCheatData Cheat;
+//extern SCheatData Cheat;
 
 extern int menu;
 extern unsigned long ARAM_ROMSIZE;
@@ -95,10 +95,10 @@ int
 LoadManager ()
 {
 	int loadROM = OpenROM(GCSettings.LoadMethod);
-
+/*
 	/***
 	* check for autoloadsram / freeze
-	***/
+	***
 	if ( loadROM == 1 ) // if ROM was loaded, load the SRAM & settings
 	{
 		if ( GCSettings.AutoLoad == 1 )
@@ -112,17 +112,17 @@ LoadManager ()
 		// reset zoom
 		zoom_reset ();
 	}
-
+*/
 	return loadROM;
 }
 
 /****************************************************************************
  * Cheat Menu
  ***************************************************************************/
-static int cheatmenuCount = 0;
-static char cheatmenu[MAX_CHEATS][50];
-static char cheatmenuvalue[MAX_CHEATS][50];
-
+//static int cheatmenuCount = 0;
+//static char cheatmenu[MAX_CHEATS][50];
+//static char cheatmenuvalue[MAX_CHEATS][50];
+/*
 void CheatMenu()
 {
 	int ret = -1;
@@ -191,14 +191,14 @@ void CheatMenu()
 			wh = WPAD_ButtonsHeld (0);
 			#endif
 
-			/*** Check for exit combo ***/
+			/*** Check for exit combo ***
 			if ( (gc_sx < -70) || (wm_sx < -70) || (wp & WPAD_BUTTON_HOME) || (wp & WPAD_CLASSIC_BUTTON_HOME) )
 				break;
 
 			if ( (p & PAD_BUTTON_B) || (wp & (WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B)) )
 				break;
 
-			/*** Check buttons, perform actions ***/
+			/*** Check buttons, perform actions ***
 			if ( (p & PAD_BUTTON_A) || selectit || (wp & (WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A)) )
 			{
 				if ( selectit )
@@ -210,11 +210,11 @@ void CheatMenu()
 
 			if ( ((p | ph) & PAD_BUTTON_DOWN) || ((wp | wh) & (WPAD_BUTTON_DOWN | WPAD_CLASSIC_BUTTON_DOWN)) || (gc_ay < -PADCAL) || (wm_ay < -PADCAL) )
 			{
-				if ( (p & PAD_BUTTON_DOWN) || (wp & (WPAD_BUTTON_DOWN | WPAD_CLASSIC_BUTTON_DOWN)) ) { /*** Button just pressed ***/
+				if ( (p & PAD_BUTTON_DOWN) || (wp & (WPAD_BUTTON_DOWN | WPAD_CLASSIC_BUTTON_DOWN)) ) { /*** Button just pressed ***
 					scroll_delay = SCROLL_INITIAL_DELAY;	// reset scroll delay.
 					move_selection = 1;	//continue (move selection)
 				}
-				else if (scroll_delay == 0) { 		/*** Button is held ***/
+				else if (scroll_delay == 0) { 		/*** Button is held ***
 					scroll_delay = SCROLL_LOOP_DELAY;
 					move_selection = 1;	//continue (move selection)
 				} else {
@@ -234,11 +234,11 @@ void CheatMenu()
 			}	// End of down
 			if ( ((p | ph) & PAD_BUTTON_UP) || ((wp | wh) & (WPAD_BUTTON_UP | WPAD_CLASSIC_BUTTON_UP)) || (gc_ay > PADCAL) || (wm_ay > PADCAL) )
 			{
-				if ( (p & PAD_BUTTON_UP) || (wp & (WPAD_BUTTON_UP | WPAD_CLASSIC_BUTTON_UP)) ) { /*** Button just pressed***/
+				if ( (p & PAD_BUTTON_UP) || (wp & (WPAD_BUTTON_UP | WPAD_CLASSIC_BUTTON_UP)) ) { /*** Button just pressed***
 					scroll_delay = SCROLL_INITIAL_DELAY;	// reset scroll delay.
 					move_selection = 1;	//continue (move selection)
 				}
-				else if (scroll_delay == 0) { 		/*** Button is held ***/
+				else if (scroll_delay == 0) { 		/*** Button is held ***
 					scroll_delay = SCROLL_LOOP_DELAY;
 					move_selection = 1;	//continue (move selection)
 				} else {
@@ -262,7 +262,7 @@ void CheatMenu()
 			}	// End of Up
 			if ( (p & PAD_BUTTON_LEFT) || (wp & (WPAD_BUTTON_LEFT | WPAD_CLASSIC_BUTTON_LEFT)) )
 			{
-				/*** Go back a page ***/
+				/*** Go back a page ***
 				selection -= PAGESIZE;
 				if (selection < 0)
 				{
@@ -277,7 +277,7 @@ void CheatMenu()
 			}
 			if ( (p & PAD_BUTTON_RIGHT) || (wp & (WPAD_BUTTON_RIGHT | WPAD_CLASSIC_BUTTON_RIGHT)) )
 			{
-				/*** Go forward a page ***/
+				/*** Go forward a page ***
 				selection += PAGESIZE;
 				if (selection > cheatmenuCount - 1)
 					selection = offset = 0;
@@ -293,7 +293,7 @@ void CheatMenu()
 	}
 	menu = oldmenu;
 }
-
+*/
 /****************************************************************************
  * Game Options Menu
  ***************************************************************************/
@@ -338,7 +338,7 @@ GameMenu ()
 		}
 
 		// hide cheats menu if cheats file not present
-		if(Cheat.num_cheats == 0)
+//		if(Cheat.num_cheats == 0)
 			gamemenu[3][0] = '\0';
 
 		ret = RunMenu (gamemenu, gamemenuCount, (char*)"Game Menu");
@@ -351,7 +351,7 @@ GameMenu ()
 
 			case 1: // Reset Game
 				zoom_reset ();
-				S9xSoftReset ();
+				//S9xSoftReset ();
 				quit = retval = 1;
 				break;
 
@@ -361,25 +361,25 @@ GameMenu ()
 				break;
 
 			case 3: // load cheats
-				CheatMenu();
+				//CheatMenu();
 				break;
 
 			case 4: // Load SRAM
 				zoom_reset ();
-				quit = retval = LoadSRAM(GCSettings.SaveMethod, NOTSILENT);
+				//quit = retval = LoadSRAM(GCSettings.SaveMethod, NOTSILENT);
 				break;
 
 			case 5: // Save SRAM
-				SaveSRAM(GCSettings.SaveMethod, NOTSILENT);
+				//SaveSRAM(GCSettings.SaveMethod, NOTSILENT);
 				break;
 
 			case 6: // Load Freeze
 				zoom_reset ();
-				quit = retval = NGCUnfreezeGame (GCSettings.SaveMethod, NOTSILENT);
+				//quit = retval = NGCUnfreezeGame (GCSettings.SaveMethod, NOTSILENT);
 				break;
 
 			case 7: // Save Freeze
-				NGCFreezeGame (GCSettings.SaveMethod, NOTSILENT);
+				//NGCFreezeGame (GCSettings.SaveMethod, NOTSILENT);
 				break;
 
 			case 8:	// Reset Zoom
@@ -571,12 +571,12 @@ VideoOptions ()
 	menu = 0;
 	while (quit == 0)
 	{
-		sprintf (videomenu[0], "Transparency %s",
+/*		sprintf (videomenu[0], "Transparency %s",
 			Settings.Transparency == true ? " ON" : "OFF");
 
 		sprintf (videomenu[1], "Display Frame Rate %s",
 			Settings.DisplayFrameRate == true ? " ON" : "OFF");
-
+*/
 		sprintf (videomenu[2], "Enable Zooming %s",
 			GCSettings.NGCZoom == true ? " ON" : "OFF");
 
@@ -600,6 +600,7 @@ VideoOptions ()
 
 		switch (ret)
 		{
+/*
 			case 0:
 				Settings.Transparency ^= 1;
 				break;
@@ -607,7 +608,7 @@ VideoOptions ()
 			case 1:
 				Settings.DisplayFrameRate ^= 1;
 				break;
-
+*/
 			case 2:
 				GCSettings.NGCZoom ^= 1;
 				break;
@@ -806,19 +807,19 @@ ConfigureButtons (u16 ctrlr_type)
 	/*** Update Menu Title (based on controller we're configuring) ***/
 	switch (ctrlr_type) {
 		case CTRLR_NUNCHUK:
-			menu_title = (char*)"SNES     -  NUNCHUK";
+			menu_title = (char*)"CONTROLS -  NUNCHUK";
 			currentpadmap = ncpadmap;
 			break;
 		case CTRLR_CLASSIC:
-			menu_title = (char*)"SNES     -  CLASSIC";
+			menu_title = (char*)"CONTROLS -  CLASSIC";
 			currentpadmap = ccpadmap;
 			break;
 		case CTRLR_GCPAD:
-			menu_title = (char*)"SNES     -   GC PAD";
+			menu_title = (char*)"CONTROLS -   GC PAD";
 			currentpadmap = gcpadmap;
 			break;
 		case CTRLR_WIIMOTE:
-			menu_title = (char*)"SNES     -  WIIMOTE";
+			menu_title = (char*)"CONTROLS -  WIIMOTE";
 			currentpadmap = wmpadmap;
 			break;
 	};
@@ -915,8 +916,8 @@ ConfigureControllers ()
 
 	while (quit == 0)
 	{
-		sprintf (ctlrmenu[0], "MultiTap %s", Settings.MultiPlayer5Master == true ? " ON" : "OFF");
-
+		//sprintf (ctlrmenu[0], "MultiTap %s", Settings.MultiPlayer5Master == true ? " ON" : "OFF");
+/*
 		if (GCSettings.Superscope > 0) sprintf (ctlrmenu[1], "Superscope: Pad %d", GCSettings.Superscope);
 		else sprintf (ctlrmenu[1], "Superscope     OFF");
 
@@ -925,12 +926,13 @@ ConfigureControllers ()
 
 		if (GCSettings.Justifier > 0) sprintf (ctlrmenu[3], "Justifiers:   %d", GCSettings.Justifier);
 		else sprintf (ctlrmenu[3], "Justifiers: OFF");
-
+*/
 		/*** Controller Config Menu ***/
         ret = RunMenu (ctlrmenu, ctlrmenucount, (char*)"Configure Controllers");
 
 		switch (ret)
 		{
+/*
 			case 0:
 				Settings.MultiPlayer5Master ^= 1;
 				break;
@@ -949,7 +951,7 @@ ConfigureControllers ()
 				if (GCSettings.Justifier > 2)
 					GCSettings.Justifier = 0;
 				break;
-
+*/
 			case 4:
 				/*** Configure Nunchuk ***/
 				ConfigureButtons (CTRLR_NUNCHUK);
@@ -1055,10 +1057,10 @@ MainMenu (int selectedMenu)
 	int ret;
 
 	// disable game-specific menu items if a ROM isn't loaded
-	if ( ARAM_ROMSIZE == 0 )
+//	if ( ARAM_ROMSIZE == 0 )
     	menuitems[2][0] = '\0';
-	else
-		sprintf (menuitems[2], "Game Menu");
+//	else
+//		sprintf (menuitems[2], "Game Menu");
 
 	#ifndef HW_DOL
 	// don't show dvd motor off on the wii

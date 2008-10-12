@@ -403,7 +403,7 @@ int FileSelector (int method)
 					//ARAM_ROMSIZE = LoadSMBFile ((char *)Memory.ROM, 0);
 					break;
 				}
-
+/*
 				if (ARAM_ROMSIZE > 0)
 				{
 					hasloaded = 1; // indicator for memmap.cpp
@@ -416,6 +416,7 @@ int FileSelector (int method)
 				{
 					WaitPrompt((char*) "Error loading ROM!");
 				}
+*/
 			}
 			redraw = 1;
 		}	// End of A

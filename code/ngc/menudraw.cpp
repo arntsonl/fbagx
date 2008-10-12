@@ -35,8 +35,8 @@
 #include "video.h"
 #include "menudraw.h"
 #include "fbagx.h"
-//#include "filesel.h"
-//#include "dvd.h"
+#include "filesel.h"
+#include "dvd.h"
 //#include "aram.h"
 #include "images/gfx_bg.h"
 #include "input.h"
@@ -244,14 +244,14 @@ Credits ()
 
 	setfontsize (16);
 
-	DrawText (75, ypos += 30, (char*)"Snes9x GX 00x");
-	DrawText (350, ypos, (char*)"michniewski & Tantric");
-	DrawText (75, ypos += 20, (char*)"Snes9X GX 2.0.1 GameCube");
-	DrawText (350, ypos, (char*)"crunchy2, eke-eke, others");
-	DrawText (75, ypos += 20, (char*)"Snes9x GX GameCube Port");
-	DrawText (350, ypos, (char*)"SoftDev");
-	DrawText (75, ypos += 20, (char*)"Snes9x 1.5.1");
-	DrawText (350, ypos, (char*)"Snes9x Team");
+	DrawText (75, ypos += 30, (char*)"Final Burn Alpha GX v000");
+	DrawText (350, ypos, (char*)"Cthulhu32");
+	DrawText (75, ypos += 20, (char*)"Final Burn Alpha");
+	DrawText (350, ypos, (char*)"fba authors go here");
+	DrawText (75, ypos += 20, (char*)"Final Burn");
+	DrawText (350, ypos, (char*)"original fb authors go here");
+	DrawText (75, ypos += 20, (char*)"Final Burn X,XXX,XXX Pro");
+	DrawText (350, ypos, (char*)"put some authors here");
 	DrawText (75, ypos += 20, (char*)"GX");
 	DrawText (350, ypos, (char*)"http://www.gc-linux.org");
 	DrawText (75, ypos += 20, (char*)"libogc");
@@ -261,10 +261,10 @@ Credits ()
 	DrawText (-1, ypos += 40, (char*)"Testing");
 
 	setfontsize (16);
-	DrawText (-1, ypos += 30, (char*)"TehSkeen users");
+	DrawText (-1, ypos += 30, (char*)"Nobody yet :D");
 
 	setfontsize (12);
-	DrawText (-1, ypos += 75, (char*)"Snes9x - Copyright (c) Snes9x Team 1996 - 2006");
+	DrawText (-1, ypos += 75, (char*)"Final Burn - Copyright (c) Final Burn Team 1998 - 2008?");
 	DrawText (-1, ypos += 15, (char*)"This software is open source and may be copied, distributed, or modified");
 	DrawText (-1, ypos += 15, (char*)"under the terms of the GNU General Public License (GPL) Version 2.");
 
