@@ -262,7 +262,7 @@ STD_ROM_PICK(Area88); STD_ROM_FN(Area88);
 struct BurnDriver BurnDrvCpsArea88 = {
 	"area88", "unsquad", NULL, "1989",
 	"Area 88 (Japan)\0", NULL, "Daipro / Capcom", "CPS1",
-	L"\u30A8\u30EA\u30A2\uFF18\uFF18 (Japan)\0Area 88 (Japan)\0", NULL, NULL, NULL,
+	"\u30A8\u30EA\u30A2\uFF18\uFF18 (Japan)\0Area 88 (Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE,2,HARDWARE_CAPCOM_CPS1,
 	NULL,Area88RomInfo,Area88RomName,DrvInputInfo, unsquadDIPInfo,
 	DrvInit,DrvExit,Cps1Frame,CpsRedraw,CpsAreaScan,

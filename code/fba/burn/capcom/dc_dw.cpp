@@ -261,7 +261,7 @@ STD_ROM_PICK(Dwj) STD_ROM_FN(Dwj)
 struct BurnDriver BurnDrvCpsDwj = {
 	"dynwarj", "dynwar", NULL, "1989",
 	"Tenchi wo Kurau (Japan)\0", NULL, "Capcom", "CPS1",
-	L"\u8EE2\u5730\u3092\u55B0\u3089\u3046 (Japan)\0Tenchi wo Kurau (Japan)\0", NULL, NULL, NULL,
+	"\u8EE2\u5730\u3092\u55B0\u3089\u3046 (Japan)\0Tenchi wo Kurau (Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE,2,HARDWARE_CAPCOM_CPS1,
 	NULL,DwjRomInfo,DwjRomName,DrvInputInfo, dwDIPInfo,
 	dwjInit,DrvExit,Cps1Frame,CpsRedraw,CpsAreaScan,

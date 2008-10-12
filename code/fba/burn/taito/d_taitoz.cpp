@@ -1995,7 +1995,7 @@ void __fastcall Aquajack68K1WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2012,7 +2012,7 @@ unsigned char __fastcall Aquajack68K2ReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #2 Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -2042,7 +2042,7 @@ unsigned short __fastcall Aquajack68K2ReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #2 Read word => %06X\n"), a);
 		}
 	}
 	
@@ -2083,7 +2083,7 @@ void __fastcall Aquajack68K2WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #2 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2129,7 +2129,7 @@ unsigned char __fastcall Bshark68K1ReadByte(unsigned int a)
 		
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #1 Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -2145,7 +2145,7 @@ void __fastcall Bshark68K1WriteByte(unsigned int a, unsigned char d)
 	
 	switch (a) {
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -2192,7 +2192,7 @@ void __fastcall Bshark68K1WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2214,7 +2214,7 @@ unsigned short __fastcall Bshark68K2ReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #2 Read word => %06X\n"), a);
 		}
 	}
 	
@@ -2260,7 +2260,7 @@ void __fastcall Bshark68K2WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #2 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2305,7 +2305,7 @@ unsigned char __fastcall Chasehq68K1ReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #1 Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -2341,7 +2341,7 @@ void __fastcall Chasehq68K1WriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -2358,7 +2358,7 @@ unsigned short __fastcall Chasehq68K1ReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #1 Read word => %06X\n"), a);
 		}
 	}
 	
@@ -2397,7 +2397,7 @@ void __fastcall Chasehq68K1WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2456,7 +2456,7 @@ void __fastcall Contcirc68K1WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL,("68K #1 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2469,7 +2469,7 @@ unsigned char __fastcall Contcirc68K2ReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL,("68K #2 Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -2485,7 +2485,7 @@ void __fastcall Contcirc68K2WriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL,("68K #2 Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -2506,7 +2506,7 @@ unsigned short __fastcall Contcirc68K2ReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL,("68K #2 Read word => %06X\n"), a);
 		}
 	}
 	
@@ -2537,7 +2537,7 @@ void __fastcall Contcirc68K2WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL,("68K #2 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2550,7 +2550,7 @@ unsigned short __fastcall Enforce68K1ReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL,("68K #1 Read word => %06X\n"), a);
 		}
 	}
 	
@@ -2584,7 +2584,7 @@ void __fastcall Enforce68K1WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2597,7 +2597,7 @@ unsigned char __fastcall Enforce68K2ReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #2 Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -2613,7 +2613,7 @@ void __fastcall Enforce68K2WriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #2 Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -2634,7 +2634,7 @@ unsigned short __fastcall Enforce68K2ReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #2 Read word => %06X\n"), a);
 		}
 	}
 	
@@ -2665,7 +2665,7 @@ void __fastcall Enforce68K2WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #2 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2725,7 +2725,7 @@ unsigned char __fastcall Nightstr68K1ReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #1 Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -2748,7 +2748,7 @@ void __fastcall Nightstr68K1WriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -2765,7 +2765,7 @@ unsigned short __fastcall Nightstr68K1ReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #1 Read word => %06X\n"), a);
 		}
 	}
 	
@@ -2841,7 +2841,7 @@ void __fastcall Nightstr68K1WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2880,7 +2880,7 @@ unsigned char __fastcall Sci68K1ReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #1 Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -2916,7 +2916,7 @@ void __fastcall Sci68K1WriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -2937,7 +2937,7 @@ void __fastcall Sci68K1WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2991,7 +2991,7 @@ unsigned short __fastcall Spacegun68K1ReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #1 Read word => %06X\n"), a);
 		}
 	}
 	
@@ -3020,7 +3020,7 @@ void __fastcall Spacegun68K1WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #1 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #1 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -3050,7 +3050,7 @@ unsigned char __fastcall Spacegun68K2ReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #2 Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -3076,7 +3076,7 @@ void __fastcall Spacegun68K2WriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #2 Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -3100,7 +3100,7 @@ unsigned short __fastcall Spacegun68K2ReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K #2 Read word => %06X\n"), a);
 		}
 	}
 	
@@ -3160,7 +3160,7 @@ void __fastcall Spacegun68K2WriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K #2 Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K #2 Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -3195,7 +3195,7 @@ unsigned char __fastcall TaitoZZ80Read(unsigned short a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 Read => %04X\n"), a);
 		}
 	}
 
@@ -3262,7 +3262,7 @@ void __fastcall TaitoZZ80Write(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }
@@ -3399,7 +3399,7 @@ static int AquajackInit()
 	// Make sure we use Musashi
 	if (bBurnUseASMCPUEmulation) {
 #if 1 && defined FBA_DEBUG
-		bprintf(PRINT_NORMAL, _T("Switching to Musashi 68000 core\n"));
+		bprintf(PRINT_NORMAL, ("Switching to Musashi 68000 core\n"));
 #endif
 		bUseAsm68KCoreOldValue = bBurnUseASMCPUEmulation;
 		bBurnUseASMCPUEmulation = false;
@@ -3527,7 +3527,7 @@ static int BsharkInit()
 	// Make sure we use Musashi
 	if (bBurnUseASMCPUEmulation) {
 #if 1 && defined FBA_DEBUG
-		bprintf(PRINT_NORMAL, _T("Switching to Musashi 68000 core\n"));
+		bprintf(PRINT_NORMAL, ("Switching to Musashi 68000 core\n"));
 #endif
 		bUseAsm68KCoreOldValue = bBurnUseASMCPUEmulation;
 		bBurnUseASMCPUEmulation = false;
@@ -3664,7 +3664,7 @@ static int ChasehqInit()
 	// Make sure we use Musashi
 	if (bBurnUseASMCPUEmulation) {
 #if 1 && defined FBA_DEBUG
-		bprintf(PRINT_NORMAL, _T("Switching to Musashi 68000 core\n"));
+		bprintf(PRINT_NORMAL, ("Switching to Musashi 68000 core\n"));
 #endif
 		bUseAsm68KCoreOldValue = bBurnUseASMCPUEmulation;
 		bBurnUseASMCPUEmulation = false;
@@ -3791,7 +3791,7 @@ static int ContcircInit()
 	// Make sure we use Musashi
 	if (bBurnUseASMCPUEmulation) {
 #if 1 && defined FBA_DEBUG
-		bprintf(PRINT_NORMAL, _T("Switching to Musashi 68000 core\n"));
+		bprintf(PRINT_NORMAL, ("Switching to Musashi 68000 core\n"));
 #endif
 		bUseAsm68KCoreOldValue = bBurnUseASMCPUEmulation;
 		bBurnUseASMCPUEmulation = false;
@@ -3882,7 +3882,7 @@ static int EnforceInit()
 	// Make sure we use Musashi
 	if (bBurnUseASMCPUEmulation) {
 #if 1 && defined FBA_DEBUG
-		bprintf(PRINT_NORMAL, _T("Switching to Musashi 68000 core\n"));
+		bprintf(PRINT_NORMAL, ("Switching to Musashi 68000 core\n"));
 #endif
 		bUseAsm68KCoreOldValue = bBurnUseASMCPUEmulation;
 		bBurnUseASMCPUEmulation = false;
@@ -4011,7 +4011,7 @@ static int NightstrInit()
 	// Make sure we use Musashi
 	if (bBurnUseASMCPUEmulation) {
 #if 1 && defined FBA_DEBUG
-		bprintf(PRINT_NORMAL, _T("Switching to Musashi 68000 core\n"));
+		bprintf(PRINT_NORMAL, ("Switching to Musashi 68000 core\n"));
 #endif
 		bUseAsm68KCoreOldValue = bBurnUseASMCPUEmulation;
 		bBurnUseASMCPUEmulation = false;
@@ -4149,7 +4149,7 @@ static int SciInit()
 	// Make sure we use Musashi
 	if (bBurnUseASMCPUEmulation) {
 #if 1 && defined FBA_DEBUG
-		bprintf(PRINT_NORMAL, _T("Switching to Musashi 68000 core\n"));
+		bprintf(PRINT_NORMAL, ("Switching to Musashi 68000 core\n"));
 #endif
 		bUseAsm68KCoreOldValue = bBurnUseASMCPUEmulation;
 		bBurnUseASMCPUEmulation = false;
@@ -4278,7 +4278,7 @@ static int SpacegunInit()
 	// Make sure we use Musashi
 	if (bBurnUseASMCPUEmulation) {
 #if 1 && defined FBA_DEBUG
-		bprintf(PRINT_NORMAL, _T("Switching to Musashi 68000 core\n"));
+		bprintf(PRINT_NORMAL, ("Switching to Musashi 68000 core\n"));
 #endif
 		bUseAsm68KCoreOldValue = bBurnUseASMCPUEmulation;
 		bBurnUseASMCPUEmulation = false;
@@ -4421,7 +4421,7 @@ static int TaitoZExit()
 	// Switch back CPU core if needed
 	if (bUseAsm68KCoreOldValue) {
 #if 1 && defined FBA_DEBUG
-		bprintf(PRINT_NORMAL, _T("Switching back to A68K core\n"));
+		bprintf(PRINT_NORMAL, ("Switching back to A68K core\n"));
 #endif
 		bUseAsm68KCoreOldValue = false;
 		bBurnUseASMCPUEmulation = true;
@@ -4555,7 +4555,7 @@ static void AquajackRenderSprites(int PriorityDraw)
 		Data = SpriteRam[Offset + 1];
 		Priority = (Data & 0x8000) >> 15;
 		
-		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, _T("Unused Priority %x\n"), Priority);
+		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, ("Unused Priority %x\n"), Priority);
 		if (Priority != PriorityDraw) continue;
 		
 		xFlip = (Data & 0x4000) >> 14;
@@ -4622,7 +4622,7 @@ static void BsharkRenderSprites(int PriorityDraw, int yOffset)
 		Data = SpriteRam[Offset + 1];
 		Priority = (Data & 0x8000) >> 15;
 		
-		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, _T("Unused Priority %x\n"), Priority);
+		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, ("Unused Priority %x\n"), Priority);
 		if (Priority != PriorityDraw) continue;
 		
 		Colour = (Data & 0x7f80) >> 7;
@@ -4689,7 +4689,7 @@ static void ChasehqRenderSprites(int PriorityDraw)
 		Data = SpriteRam[Offset + 1];
 		Priority = (Data & 0x8000) >> 15;
 		
-		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, _T("Unused Priority %x\n"), Priority);
+		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, ("Unused Priority %x\n"), Priority);
 		if (Priority != PriorityDraw) continue;
 		
 		Colour = (Data & 0x7f80) >> 7;
@@ -4803,7 +4803,7 @@ static void ContcircRenderSprites(int PriorityDraw, int VisibleYOffset)
 		Data = SpriteRam[Offset + 2];
 		Priority = (Data & 0x8000) >> 15;
 			
-		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, _T("Unused Priority %x\n"), Priority);
+		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, ("Unused Priority %x\n"), Priority);
 		if (Priority != PriorityDraw) continue;
 		
 		xFlip = (Data & 0x4000) >> 14;
@@ -4871,7 +4871,7 @@ static void SciRenderSprites(int PriorityDraw, int yOffs)
 		Data = SpriteRam[Offset + 1];
 		Priority = (Data & 0x8000) >> 15;
 		
-		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, _T("Unused Priority %x\n"), Priority);
+		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, ("Unused Priority %x\n"), Priority);
 		if (Priority != PriorityDraw) continue;
 		
 		Colour = (Data & 0x7f80) >> 7;
@@ -4937,7 +4937,7 @@ static void SpacegunRenderSprites(int PriorityDraw)
 		Data = SpriteRam[Offset + 1];
 		Priority = (Data & 0x8000) >> 15;
 		
-		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, _T("Unused Priority %x\n"), Priority);
+		if (Priority != 0 && Priority != 1) bprintf(PRINT_NORMAL, ("Unused Priority %x\n"), Priority);
 		if (Priority != PriorityDraw) continue;
 		
 		xFlip = (Data & 0x4000) >> 14;

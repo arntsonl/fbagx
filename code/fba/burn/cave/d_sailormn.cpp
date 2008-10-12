@@ -1098,7 +1098,7 @@ STD_ROM_FN(agallet);
 struct BurnDriver BurnDrvSailorMoonB = {
 	"sailormn", NULL, NULL, "1995",
 	"Pretty Soldier Sailor Moon (version 95/03/22B)\0", NULL, "BanPresto / Gazelle", "Cave",
-	L"Pretty Soldier Sailor Moon (version 95/03/22B)\0\u7F8E\u5C11\u5973\u6226\u58EB \u30BB\u30FC\u30E9\u30FC\u30E0\u30FC\u30F3 (version 95/03/22B)\0", NULL, NULL, NULL,
+	"Pretty Soldier Sailor Moon (version 95/03/22B)\0\u7F8E\u5C11\u5973\u6226\u58EB \u30BB\u30FC\u30E9\u30FC\u30E0\u30FC\u30F3 (version 95/03/22B)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_Z80,
 	NULL, sailormnRomInfo, sailormnRomName, sailormnInputInfo, sailormnDIPInfo,
 	sailormnInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,
@@ -1108,7 +1108,7 @@ struct BurnDriver BurnDrvSailorMoonB = {
 struct BurnDriver BurnDrvSailorMoon = {
 	"sailormo", "sailormn", NULL, "1995",
 	"Pretty Soldier Sailor Moon (version 95/03/22)\0", NULL, "BanPresto / Gazelle", "Cave",
-	L"Pretty Soldier Sailor Moon (version 95/03/22)\0\u7F8E\u5C11\u5973\u6226\u58EB \u30BB\u30FC\u30E9\u30FC\u30E0\u30FC\u30F3 (version 95/03/22)\0", NULL, NULL, NULL,
+	"Pretty Soldier Sailor Moon (version 95/03/22)\0\u7F8E\u5C11\u5973\u6226\u58EB \u30BB\u30FC\u30E9\u30FC\u30E0\u30FC\u30F3 (version 95/03/22)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_Z80,
 	NULL, sailormoRomInfo, sailormoRomName, sailormnInputInfo, sailormnDIPInfo,
 	sailormnInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,
@@ -1118,7 +1118,7 @@ struct BurnDriver BurnDrvSailorMoon = {
 struct BurnDriver BurnDrvAirGallet = {
 	"agallet", NULL, NULL, "1996",
 	"Air Gallet\0", NULL, "BanPresto / Gazelle", "Cave",
-	L"Air Gallet\0\u30A2\u30EF\u30A6\u30AE\u30E3\u30EC\u30C3\u30C8\0", NULL, NULL, NULL,
+	"Air Gallet\0\u30A2\u30EF\u30A6\u30AE\u30E3\u30EC\u30C3\u30C8\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_ORIENTATION_VERTICAL | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_Z80,
 	NULL, agalletRomInfo, agalletRomName, sailormnInputInfo, sailormnDIPInfo,
 	agalletInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,

@@ -485,7 +485,7 @@ static int LoadRoms(NeoGameInfo* pInfo)
 			BurnLoadRom(NeoTextROM + 0x020000, pInfo->nTextOffset, 1);
 		} else {
 			// Extract data from the end of C ROMS
-			BurnUpdateProgress(0.0, _T("Generating text layer graphics..."), 0);
+			BurnUpdateProgress(0.0, ("Generating text layer graphics..."), 0);
 			NeoExtractSData(NeoSpriteROM, NeoTextROM + 0x020000, nSpriteSize, nNeoTextROMSize);
 		}
 	}
@@ -582,7 +582,7 @@ static int LoadRoms(NeoGameInfo* pInfo)
 	}
 
 	// Decode text data
-	BurnUpdateProgress(0.0, _T("Decoding text layer graphics..."), 0);
+	BurnUpdateProgress(0.0, ("Decoding text layer graphics..."), 0);
 	NeoDecodeText(NeoTextROM, nNeoTextROMSize);
 
 	// Decode sprite data
@@ -2533,7 +2533,7 @@ int NeoFrame()
 	// If the watchdog isn't reset every 8 frames, reset the system
 	// This can't be 100% accurate, as the 68000 instruction timings are not 100%
 	if (nNeoWatchdog > nCyclesTotal[0] * 8) {
-		bprintf(PRINT_IMPORTANT, _T(" ** Watchdog triggered system reset\n"));
+		bprintf(PRINT_IMPORTANT, (" ** Watchdog triggered system reset\n"));
 		neogeoReset();
 	}
 #endif

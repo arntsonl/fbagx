@@ -595,7 +595,7 @@ struct BurnDriver BurnDrvUoPoko = {
 struct BurnDriver BurnDrvUoPokoj = {
 	"uopokoj", "uopoko", NULL, "1999",
 	"Uo Poko (Japan, ver. 1998 Feb 06)\0", NULL, "Cave / Jaleco", "Cave",
-	L"\u30D1\u30BA\u30EB - \u9B5A\u30DD\u30B3 (Japan, ver. 1998 Feb 06)\0Uo Poko (Japan, ver. 1998 Feb 06)\0", NULL, NULL, NULL,
+	"\u30D1\u30BA\u30EB - \u9B5A\u30DD\u30B3 (Japan, ver. 1998 Feb 06)\0Uo Poko (Japan, ver. 1998 Feb 06)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_ONLY,
 	NULL, uopokojRomInfo, uopokojRomName, uopokoInputInfo, NULL,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,

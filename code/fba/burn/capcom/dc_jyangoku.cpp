@@ -42,7 +42,7 @@ STD_ROM_PICK(jyangoku) STD_ROM_FN(jyangoku)
 struct BurnDriver BurnDrvCpsJyangoku = {
 	"jyangoku", NULL, NULL, "1999",
 	"Jyangokushi  -Haoh no Saihai- (990527 Japan)\0", NULL, "Mitchell", "CPS2",
-	L"\u96C0\u570B\u5FD7 -\u8987\u738B\u306E\u91C7\u724C- (Jyangokushi 990527 Japan)\0", NULL, NULL, NULL,
+	"\u96C0\u570B\u5FD7 -\u8987\u738B\u306E\u91C7\u724C- (Jyangokushi 990527 Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_CAPCOM_CPS2 | HARDWARE_CAPCOM_CPS2_SIMM,
 	NULL, jyangokuRomInfo, jyangokuRomName, DrvInputInfo, NULL,
 	Cps2Init,CpsExit,Cps2Frame,CpsRedraw,CpsAreaScan,

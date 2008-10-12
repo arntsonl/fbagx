@@ -360,7 +360,7 @@ STD_ROM_PICK(Striderj) STD_ROM_FN(Striderj)
 struct BurnDriver BurnDrvCpsStriderj = {
 	"striderj", "strider", NULL, "1989",
 	"Strider Hiryu (Japan set 1)\0", NULL, "Capcom", "CPS1",
-	L"\u30B9\u30C8\u30E9\u30A4\u30C0\u30FC\u98DB\u7ADC (Japan set 1)\0Strider Hiryu (Japan set 1)\0", NULL, NULL, NULL,
+	"\u30B9\u30C8\u30E9\u30A4\u30C0\u30FC\u98DB\u7ADC (Japan set 1)\0Strider Hiryu (Japan set 1)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE,2,HARDWARE_CAPCOM_CPS1,
 	NULL,StriderjRomInfo,StriderjRomName,DrvInputInfo, striderDIPInfo,
 	StriderjInit,DrvExit,Cps1Frame,CpsRedraw,CpsAreaScan,
@@ -403,7 +403,7 @@ STD_ROM_PICK(Stridrja); STD_ROM_FN(Stridrja);
 struct BurnDriver BurnDrvCpsStridrja = {
 	"stridrja", "strider", NULL, "1989",
 	"Strider Hiryu (Japan set 2)\0", NULL, "Capcom", "CPS1",
-	L"\u30B9\u30C8\u30E9\u30A4\u30C0\u30FC\u98DB\u7ADC (Japan set 2)\0Strider Hiryu (Japan set 2)\0", NULL, NULL, NULL,
+	"\u30B9\u30C8\u30E9\u30A4\u30C0\u30FC\u98DB\u7ADC (Japan set 2)\0Strider Hiryu (Japan set 2)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE,2,HARDWARE_CAPCOM_CPS1,
 	NULL,StridrjaRomInfo,StridrjaRomName,DrvInputInfo, striderDIPInfo,
 	StriderInit,DrvExit,Cps1Frame,CpsRedraw,CpsAreaScan,

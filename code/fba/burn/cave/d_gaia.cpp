@@ -792,7 +792,7 @@ STD_ROM_FN(gaia);
 struct BurnDriver BurnDrvGaia = {
 	"gaia", NULL, NULL, "1999",
 	"Gaia Crusaders\0", NULL, "Noise Factory", "Cave",
-	L"Gaia Crusaders \u5F81\u6226\u8005\0Gaia Crusaders \u30AC\u30A4\u30A2\u30AF\u30EB\u30BB\u30A4\u30C0\u30FC\u30BA\0", NULL, NULL, NULL,
+	"Gaia Crusaders \u5F81\u6226\u8005\0Gaia Crusaders \u30AC\u30A4\u30A2\u30AF\u30EB\u30BB\u30A4\u30C0\u30FC\u30BA\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_ONLY,
 	NULL, gaiaRomInfo, gaiaRomName, gaiaInputInfo, gaiaDIPInfo,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,
@@ -821,7 +821,7 @@ STD_ROM_FN(theroes);
 struct BurnDriver BurnDrvTheroes = {
 	"theroes", NULL, NULL, "2001",
 	"Thunder Heroes\0", NULL, "Primetek Investments", "Cave",
-	L"Thunder Heroes\0\u9739\u96F3\u82F1\u96C4 Thunder Heroes\0", NULL, NULL, NULL,
+	"Thunder Heroes\0\u9739\u96F3\u82F1\u96C4 Thunder Heroes\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_ONLY,
 	NULL, theroesRomInfo, theroesRomName, gaiaInputInfo, theroesDIPInfo,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,

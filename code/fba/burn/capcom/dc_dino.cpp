@@ -260,7 +260,7 @@ STD_ROM_PICK(Dinoj) STD_ROM_FN(Dinoj)
 struct BurnDriver BurnDrvCpsDinoj = {
 	"dinoj", "dino", NULL, "1993",
 	"Cadillacs Kyouryuu-Shinseiki (Cadillacs 930201 Japan)\0", NULL, "Capcom", "CPS1, QSound",
-	L"Cadillacs \u6050\u7ADC\u65B0\u4E16\u7D00 (Cadillacs 930201 Japan)\0Cadillacs Kyouryuu-Shinseiki (Cadillacs 930201 Japan)\0", NULL, NULL, NULL,
+	"Cadillacs \u6050\u7ADC\u65B0\u4E16\u7D00 (Cadillacs 930201 Japan)\0Cadillacs Kyouryuu-Shinseiki (Cadillacs 930201 Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE,3,HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL,DinojRomInfo,DinojRomName,DrvInputInfo, dinoDIPInfo,
 	DrvInit,DrvExit,Cps1Frame,CpsRedraw,CpsAreaScan,

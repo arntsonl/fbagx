@@ -659,7 +659,7 @@ static int DrvFrame()
 struct BurnDriver BurnDrvMahouDai = {
 	"mahoudai", NULL, NULL, "1993",
 	"Mahou Daisakusen (Japan)\0", NULL, "Raizing", "Toaplan GP9001 based",
-	L"\u9B54\u6CD5\u5927\u4F5C\u6226 (Japan)\0Mahou Daisakusen (Japan)\0", NULL, NULL, NULL,
+	"\u9B54\u6CD5\u5927\u4F5C\u6226 (Japan)\0Mahou Daisakusen (Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | TOA_ROTATE_GRAPHICS_CCW, 2, HARDWARE_TOAPLAN_RAIZING,
 	NULL, mahoudaiRomInfo, mahoudaiRomName, mahoudaiInputInfo, mahoudaiDIPInfo,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &ToaRecalcPalette,

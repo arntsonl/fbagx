@@ -35,7 +35,7 @@ struct BurnDriver {
 	// szFullNameA, szCommentA, szManufacturerA and szSystemA should always contain valid info
 	// szFullNameW, szCommentW, szManufacturerW and szSystemW should be used only if characters or scripts are needed that ASCII can't handle
 	char*    szFullNameA; char*    szCommentA; char*    szManufacturerA; char*    szSystemA;
-	wchar_t* szFullNameW; wchar_t* szCommentW; wchar_t* szManufacturerW; wchar_t* szSystemW;
+	char* szFullNameW; char* szCommentW; char* szManufacturerW; char* szSystemW;
 
 	int flags;			// See burn.h
 	int players;		// Max number of players a game supports (so we can remove single player games from netplay)
