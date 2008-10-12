@@ -2131,7 +2131,7 @@ struct BurnDriver BurnDrvLoffire = {
 struct BurnDriver BurnDrvLoffirej = {
 	"loffirej", "loffire", NULL, "1989",
 	"Line of Fire / Bakudan Yarou (Japan, FD1094 317-0134)\0", NULL, "Sega", "X-Board",
-	L"Line of Fire / Bakudan Yarou (Japan, FD1094 317-0134)\0\u7206\u5F3E\u91CE\u90CE\0", NULL, NULL, NULL,
+	"Line of Fire / Bakudan Yarou (Japan, FD1094 317-0134)\0\u7206\u5F3E\u91CE\u90CE\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_SEGA_SYSTEMX | HARDWARE_SEGA_SPRITE_LOAD32 | HARDWARE_SEGA_FD1094_ENC,
 	NULL, LoffirejRomInfo, LoffirejRomName, LoffireInputInfo, LoffireDIPInfo,
 	LoffireInit, XBoardExit, XBoardFrame, NULL, XBoardScan,

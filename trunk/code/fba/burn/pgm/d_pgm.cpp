@@ -349,7 +349,7 @@ STD_ROM_FN(orlegend);
 struct BurnDriver BurnDrvOrlegend = {
 	"orlegend", NULL, "pgm", "1997",
 	"Oriental Legend - Xi Yo Gi Shi Re Zuang (V126)\0", NULL, "IGS", "PGM",
-	L"Oriental Legend\0\u897F\u6E38\u91CA\u5384\u4F20 (V126)\0", NULL, NULL, NULL,
+	"Oriental Legend\0\u897F\u6E38\u91CA\u5384\u4F20 (V126)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, orlegendRomInfo, orlegendRomName, pgmInputInfo, orlegendDIPInfo,
 	pgmInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -384,7 +384,7 @@ STD_ROM_FN(orlegnde);
 struct BurnDriver BurnDrvOrlegnde = {
 	"orlegnde", "orlegend", "pgm", "1997",
 	"Oriental Legend - Xi Yo Gi Shi Re Zuang (V112)\0", NULL, "IGS", "PGM",
-	L"Oriental Legend\0\u897F\u6E38\u91CA\u5384\u4F20 (V112)\0", NULL, NULL, NULL,
+	"Oriental Legend\0\u897F\u6E38\u91CA\u5384\u4F20 (V112)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, orlegndeRomInfo, orlegndeRomName, pgmInputInfo, orlegendDIPInfo,
 	pgmInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -419,7 +419,7 @@ STD_ROM_FN(orlegndc);
 struct BurnDriver BurnDrvOrlegndc = {
 	"orlegndc", "orlegend", "pgm", "1997",
 	"Oriental Legend - Xi Yo Gi Shi Re Zuang (V112, Chinese Board)\0", NULL, "IGS", "PGM",
-	L"Oriental Legend\0\u897F\u6E38\u91CA\u5384\u4F20 (V112, Chinese Board)\0", NULL, NULL, NULL,
+	"Oriental Legend\0\u897F\u6E38\u91CA\u5384\u4F20 (V112, Chinese Board)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, orlegndcRomInfo, orlegndcRomName, pgmInputInfo, orlegndcDIPInfo,
 	pgmInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -457,7 +457,7 @@ STD_ROM_FN(orld111c);
 struct BurnDriver BurnDrvOrld111c = {
 	"orld111c", "orlegend", "pgm", "1997",
 	"Oriental Legend - Xi Yo Gi Shi Re Zuang (V111, Chinese Board)\0", NULL, "IGS", "PGM",
-	L"Oriental Legend\0\u897F\u6E38\u91CA\u5384\u4F20 (V111, Chinese Board)\0", NULL, NULL, NULL,
+	"Oriental Legend\0\u897F\u6E38\u91CA\u5384\u4F20 (V111, Chinese Board)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, orld111cRomInfo, orld111cRomName, pgmInputInfo, orld111cDIPInfo,
 	pgmInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -585,7 +585,7 @@ STD_ROM_FN(drgw2c);
 struct BurnDriver BurnDrvDrgw2c = {
 	"drgw2c", "drgw2", "pgm", "1997",
 	"Zhong Guo Long II (V100C, China)\0", NULL, "IGS", "PGM",
-	L"\u4E2D\u570B\u9F8D II (V100C, China)\0", NULL, NULL, NULL,
+	"\u4E2D\u570B\u9F8D II (V100C, China)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, drgw2cRomInfo, drgw2cRomName, pgmInputInfo, pgmDIPInfo,
 	drgw2Init,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -613,7 +613,7 @@ STD_ROM_FN(drgw2j);
 struct BurnDriverD BurnDrvDrgw2j = {
 	"drgw2j", "drgw2", "pgm", "1997",
 	"Chuugokuryuu II (V100J, Japan)\0", "Unemulated protection", "IGS", "PGM",
-	L"\u4E2D\u570B\u9F8D II (V100J, Japan)\0", NULL, NULL, NULL,
+	"\u4E2D\u570B\u9F8D II (V100J, Japan)\0", NULL, NULL, NULL,
 	BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, drgw2jRomInfo, drgw2jRomName, pgmInputInfo, pgmDIPInfo,
 	drgw2Init,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -653,7 +653,7 @@ STD_ROM_FN(killbld);
 struct BurnDriver BurnDrvKillbld = {
 	"killbld", NULL, "pgm", "1998",
 	"The Killing Blade (V104)\0", "Not working", "IGS", "PGM",
-	L"The Killing Blade\0\u50B2\u5251\u72C2\u5200\0\u50B2\u528D\u72C2\u5200 (V104)\0", NULL, NULL, NULL,
+	"The Killing Blade\0\u50B2\u5251\u72C2\u5200\0\u50B2\u528D\u72C2\u5200 (V104)\0", NULL, NULL, NULL,
 	BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, killbldRomInfo, killbldRomName, pgmInputInfo, pgmDIPInfo,
 	pgmInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -744,7 +744,7 @@ static int killbldtInit()
 struct BurnDriver BurnDrvKillbldt = {
 	"killbldt", "killbld", "pgm", "1998",
 	"The Killing Blade (V109, Chinese Board)\0", "Unemulated protection", "IGS", "PGM",
-	L"The Killing Blade\0\u50B2\u5251\u72C2\u5200\0\u50B2\u528D\u72C2\u5200 (V109, Chinese Board)\0", NULL, NULL, NULL,
+	"The Killing Blade\0\u50B2\u5251\u72C2\u5200\0\u50B2\u528D\u72C2\u5200 (V109, Chinese Board)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, killbldtRomInfo, killbldtRomName, pgmInputInfo, killbldtDIPInfo,
 	killbldtInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1013,7 +1013,7 @@ static int photoy2kInit()
 struct BurnDriver BurnDrvPhotoy2k = {
 	"photoy2k", NULL, "pgm", "1999",
 	"Photo Y2K\0Real and Fake (V104)\0", NULL, "IGS", "PGM",
-	L"Photo Y2K\0\u30EA\u30A2\u30EB\u30A2\u30F3\u30C9 \u30D5\u30A7\u30A4\u30AF\0\u5927\u5BB6\u6765 \u627E\u78B4\0\u8D85\u7EA7 \u6BD4\u4E00\u6BD4 (V104)\0", NULL, NULL, NULL,
+	"Photo Y2K\0\u30EA\u30A2\u30EB\u30A2\u30F3\u30C9 \u30D5\u30A7\u30A4\u30AF\0\u5927\u5BB6\u6765 \u627E\u78B4\0\u8D85\u7EA7 \u6BD4\u4E00\u6BD4 (V104)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, photoy2kRomInfo, photoy2kRomName, pgmInputInfo, photoy2kDIPInfo,
 	photoy2kInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1050,7 +1050,7 @@ STD_ROM_FN(raf102j);
 struct BurnDriver BurnDrvRaf102j = {
 	"raf102j", "photoy2k", "pgm", "1999",
 	"Real and Fake\0Photo Y2K (V102, Japanese Board)\0", NULL, "IGS", "PGM",
-	L"\u30EA\u30A2\u30EB\u30A2\u30F3\u30C9 \u30D5\u30A7\u30A4\u30AF\0Photo Y2K\0\u5927\u5BB6\u6765 \u627E\u78B4\0\u8D85\u7EA7 \u6BD4\u4E00\u6BD4 (V102, Japanese Board)\0", NULL, NULL, NULL,
+	"\u30EA\u30A2\u30EB\u30A2\u30F3\u30C9 \u30D5\u30A7\u30A4\u30AF\0Photo Y2K\0\u5927\u5BB6\u6765 \u627E\u78B4\0\u8D85\u7EA7 \u6BD4\u4E00\u6BD4 (V102, Japanese Board)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY | BDF_CLONE, 4, HARDWARE_IGS_PGM,
 	NULL, raf102jRomInfo, raf102jRomName, pgmInputInfo, raf102jDIPInfo,
 	photoy2kInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1089,7 +1089,7 @@ static int kovInit()
 struct BurnDriver BurnDrvKov = {
 	"kov", NULL, "pgm", "1999",
 	"Knights of Valour - Sangoku Senki (V117)\0", NULL, "IGS", "PGM",
-	L"Knights of Valour\0\u4E09\u56FD\u6226\u7D00\0\u4E09\u56FD\u6218\u7EAA (V117)\0", NULL, NULL, NULL,
+	"Knights of Valour\0\u4E09\u56FD\u6226\u7D00\0\u4E09\u56FD\u6218\u7EAA (V117)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, kovRomInfo, kovRomName, pgmInputInfo, sangoDIPInfo,
 	kovInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1121,7 +1121,7 @@ STD_ROM_FN(kov115);
 struct BurnDriver BurnDrvKov115 = {
 	"kov115", "kov", "pgm", "1999",
 	"Knights of Valour - Sangoku Senki (V115)\0", NULL, "IGS", "PGM",
-	L"Knights of Valour\0\u4E09\u56FD\u6226\u7D00\0\u4E09\u56FD\u6218\u7EAA (V115)\0", NULL, NULL, NULL,
+	"Knights of Valour\0\u4E09\u56FD\u6226\u7D00\0\u4E09\u56FD\u6218\u7EAA (V115)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, kov115RomInfo, kov115RomName, pgmInputInfo, sangoDIPInfo,
 	kovInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1157,7 +1157,7 @@ STD_ROM_FN(kovj);
 struct BurnDriver BurnDrvKovj = {
 	"kovj", "kov", "pgm", "1999",
 	"Knights of Valour - Sangoku Senki (V100, Japanese Board)\0", NULL, "IGS", "PGM",
-	L"Knights of Valour\0\u4E09\u56FD\u6226\u7D00\0\u4E09\u56FD\u6218\u7EAA (V100, Japanese Board)\0", NULL, NULL, NULL,
+	"Knights of Valour\0\u4E09\u56FD\u6226\u7D00\0\u4E09\u56FD\u6218\u7EAA (V100, Japanese Board)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, kovjRomInfo, kovjRomName, pgmInputInfo, kovjDIPInfo,
 	kovInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1189,7 +1189,7 @@ STD_ROM_FN(kovplus);
 struct BurnDriver BurnDrvKovplus = {
 	"kovplus", "kov", "pgm", "1999",
 	"Knights of Valour Plus - Sangoku Senki Plus (V119)\0", NULL, "IGS", "PGM",
-	L"Knights of Valour Plus\0\u4E09\u56FD\u6226\u7D00 Plus\0\u4E09\u56FD\u6218\u7EAA Plus (V119)\0", NULL, NULL, NULL,
+	"Knights of Valour Plus\0\u4E09\u56FD\u6226\u7D00 Plus\0\u4E09\u56FD\u6218\u7EAA Plus (V119)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, kovplusRomInfo, kovplusRomName, pgmInputInfo, sangoDIPInfo,
 	kovInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1225,7 +1225,7 @@ STD_ROM_FN(kovplusa);
 struct BurnDriver BurnDrvKovplusa = {
 	"kovplusa", "kov", "pgm", "1999",
 	"Knights of Valour Plus - Sangoku Senki Plus (V119 alt)\0", NULL, "IGS", "PGM",
-	L"Knights of Valour Plus\0\u4E09\u56FD\u6226\u7D00 Plus\0\u4E09\u56FD\u6218\u7EAA Plus (V119 alt)\0", NULL, NULL, NULL,
+	"Knights of Valour Plus\0\u4E09\u56FD\u6226\u7D00 Plus\0\u4E09\u56FD\u6218\u7EAA Plus (V119 alt)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, kovplusaRomInfo, kovplusaRomName, pgmInputInfo, sangoDIPInfo,
 	kovInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1303,7 +1303,7 @@ int puzlstarInit()
 struct BurnDriver BurnDrvPuzlstar = {
 	"puzlstar", NULL, "pgm", "1999",
 	"Puzzle Star (V100MG)\0", "Unemulated protection", "IGS", "PGM",
-	L"Puzzle Star\0\u30D1\u30BA\u30EB\u30B9\u30BF\u30FC\0\u9B54\u5E7B\u661F\u5EA7 (V100MG)\0", NULL, NULL, NULL,
+	"Puzzle Star\0\u30D1\u30BA\u30EB\u30B9\u30BF\u30FC\0\u9B54\u5E7B\u661F\u5EA7 (V100MG)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM,
 	NULL, puzlstarRomInfo, puzlstarRomName, pgmInputInfo, sangoDIPInfo,
 	puzlstarInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1612,7 +1612,7 @@ int dmnfrntInit()
 struct BurnDriverD BurnDrvDmnfrnt = {
 	"dmnfrnt", NULL, "pgm", "2002",
 	"Demon Front (V102)\0", NULL, "IGS", "PGM",
-	L"Demon Front\0\u9B54\u57DF\u6218\u7EBF\0\u9B54\u57DF\u6230\u7DDA (V102)\0", NULL, NULL, NULL,
+	"Demon Front\0\u9B54\u57DF\u6218\u7EBF\0\u9B54\u57DF\u6230\u7DDA (V102)\0", NULL, NULL, NULL,
 	BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM | HARDWARE_IGS_USE_ARM_CPU,
 	NULL, dmnfrntRomInfo, dmnfrntRomName, pgmInputInfo, pgmDIPInfo,
 	dmnfrntInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1647,7 +1647,7 @@ STD_ROM_FN(dmnfrnta);
 struct BurnDriverD BurnDrvDmnfrnta = {
 	"dmnfrnta", "dmnfrnt", "pgm", "2002",
 	"Demon Front (V105)\0", NULL, "IGS", "PGM",
-	L"Demon Front\0\u9B54\u57DF\u6218\u7EBF\0\u9B54\u57DF\u6230\u7DDA (V105)\0", NULL, NULL, NULL,
+	"Demon Front\0\u9B54\u57DF\u6218\u7EBF\0\u9B54\u57DF\u6230\u7DDA (V105)\0", NULL, NULL, NULL,
 	BDF_CLONE | BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM | HARDWARE_IGS_USE_ARM_CPU,
 	NULL, dmnfrntaRomInfo, dmnfrntaRomName, pgmInputInfo, pgmDIPInfo,
 	dmnfrntInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,
@@ -1680,7 +1680,7 @@ STD_ROM_FN(theglad);
 struct BurnDriverD BurnDrvTheglad = {
 	"theglad", NULL, "pgm", "2001",
 	"The Gladiator\0Shen Jian (V100)\0", "Needs second CPU emulated (ARM7)", "IGS", "PGM",
-	L"The Gladiator\0\u795E\u5251\u98CE\u4E91\0\u795E\u528D\u98A8\u96F2 (V100)\0", NULL, NULL, NULL,
+	"The Gladiator\0\u795E\u5251\u98CE\u4E91\0\u795E\u528D\u98A8\u96F2 (V100)\0", NULL, NULL, NULL,
 	BDF_16BIT_ONLY, 4, HARDWARE_IGS_PGM | HARDWARE_IGS_USE_ARM_CPU,
 	NULL, thegladRomInfo, thegladRomName, pgmInputInfo, pgmDIPInfo,
 	pgmInit,pgmExit,pgmFrame,pgmDraw,pgmScan,&nPgmPalRecalc,

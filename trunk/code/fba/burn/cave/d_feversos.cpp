@@ -625,7 +625,7 @@ struct BurnDriver BurnDrvFeverSOS = {
 struct BurnDriver BurnDrvDFeveron = {
 	"dfeveron", "feversos", NULL, "1998",
 	"Dangun Feveron (Japan ver. Thu Sep 17 1998)\0", NULL, "Cave / Nihon System inc.", "Cave",
-	L"\u5F3E\u9283 Feveron (Japan ver. Thu Sep 17 1998)\0Dangun Feveron (Japan ver. Thu Sep 17 1998)\0", NULL, NULL, NULL,
+	"\u5F3E\u9283 Feveron (Japan ver. Thu Sep 17 1998)\0Dangun Feveron (Japan ver. Thu Sep 17 1998)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_ONLY,
 	NULL, dfeveronRomInfo, dfeveronRomName, feversosInputInfo, NULL,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,

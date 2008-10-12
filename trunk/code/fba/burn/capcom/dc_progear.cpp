@@ -114,7 +114,7 @@ struct BurnDriver BurnDrvCpsProgear = {
 struct BurnDriver BurnDrvCpsProgearj = {
 	"progearj", "progear", NULL, "2001",
 	"Progear No Arashi (010117 Japan)\0", NULL, "Capcom / Cave", "CPS2",
-	L"\u30D7\u30ED\u30AE\u30A2\u306E\u5D50 (Progear No Arashi 010117 Japan)\0", NULL, NULL, NULL,
+	"\u30D7\u30ED\u30AE\u30A2\u306E\u5D50 (Progear No Arashi 010117 Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_CAPCOM_CPS2 | HARDWARE_CAPCOM_CPS2_SIMM,
 	NULL, progearjRomInfo, progearjRomName, DrvInputInfo, NULL,
 	Cps2Init,CpsExit,Cps2Frame,CpsRedraw,CpsAreaScan,

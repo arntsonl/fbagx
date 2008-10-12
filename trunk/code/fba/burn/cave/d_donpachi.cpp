@@ -729,7 +729,7 @@ struct BurnDriver BurnDrvDonpachi = {
 struct BurnDriver BurnDrvDonpachj = {
 	"donpacjp", "donpachi", NULL, "1995",
 	"DonPachi (ver. 1.01 1995/05/11, Japan)\0", NULL, "Atlus / Cave", "Cave",
-	L"DonPachi (ver. 1.01 1995/05/11, Japan)\0\u9996\u9818\u8702 (ver. 1.01 1995/05/11, Japan)\0", NULL, NULL, NULL,
+	"DonPachi (ver. 1.01 1995/05/11, Japan)\0\u9996\u9818\u8702 (ver. 1.01 1995/05/11, Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_ONLY | HARDWARE_CAVE_M6295,
 	NULL, donpachjRomInfo, donpachjRomName, donpachiInputInfo, NULL,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,
@@ -739,7 +739,7 @@ struct BurnDriver BurnDrvDonpachj = {
 struct BurnDriver BurnDrvDonpachkr = {
 	"donpackr", "donpachi", NULL, "1995",
 	"DonPachi (ver. 1.12 1995/05/2x, Korea)\0", NULL, "Atlus / Cave", "Cave",
-	L"DonPachi (ver. 1.01 1995/05/2x, Korea)\0\u9996\u9818\u8702 (ver. 1.01 1995/05/2x, Korea)\0", NULL, NULL, NULL,
+	"DonPachi (ver. 1.01 1995/05/2x, Korea)\0\u9996\u9818\u8702 (ver. 1.01 1995/05/2x, Korea)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_ONLY | HARDWARE_CAVE_M6295,
 	NULL, donpackrRomInfo, donpackrRomName, donpachiInputInfo, NULL,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,
@@ -749,7 +749,7 @@ struct BurnDriver BurnDrvDonpachkr = {
 struct BurnDriver BurnDrvDonpachk = {
 	"donpachk", "donpachi", NULL, "1995",
 	"DonPachi (ver. 1.12 1995/05/2x, Hong Kong)\0", NULL, "Atlus / Cave", "Cave",
-	L"DonPachi (ver. 1.01 1995/05/2x, Hong Kong)\0\u9996\u9818\u8702 (ver. 1.01 1995/05/2x, Hong Kong)\0", NULL, NULL, NULL,
+	"DonPachi (ver. 1.01 1995/05/2x, Hong Kong)\0\u9996\u9818\u8702 (ver. 1.01 1995/05/2x, Hong Kong)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_ONLY | HARDWARE_CAVE_M6295,
 	NULL, donpachkRomInfo, donpachkRomName, donpachiInputInfo, NULL,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,

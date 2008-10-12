@@ -611,7 +611,7 @@ STD_ROM_FN(snowbro2);
 struct BurnDriver BurnDrvSnowbro2 = {
 	"snowbro2", NULL, NULL, "1994",
 	"Snow Bros. 2 - with new elves\0", NULL, "[Toaplan] Hanafram", "Toaplan GP9001 based",
-	L"Snow Bros. 2 - with new elves\0\u304A\u3066\u3093\u304D\u30D1\u30E9\u30C0\u30A4\u30B9\0\u96EA\u4EBA\u5144\u5F1F\uFF12\0\uB208\uC0AC\uB78C\uD615\uC81C\uFF12\0", NULL, NULL, NULL,
+	"Snow Bros. 2 - with new elves\0\u304A\u3066\u3093\u304D\u30D1\u30E9\u30C0\u30A4\u30B9\0\u96EA\u4EBA\u5144\u5F1F\uFF12\0\uB208\uC0AC\uB78C\uD615\uC81C\uFF12\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 4, HARDWARE_TOAPLAN_68K_ONLY,
 	NULL, snowbro2RomInfo, snowbro2RomName, snowbro2InputInfo, snowbro2DIPInfo,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &ToaRecalcPalette,

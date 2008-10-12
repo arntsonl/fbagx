@@ -225,7 +225,7 @@ STD_ROM_PICK(Cworld2j) STD_ROM_FN(Cworld2j)
 struct BurnDriver BurnDrvCpsCworld2j = {
 	"cworld2j", NULL, NULL, "1992",
 	"Capcom World 2 (920611 Japan)\0", NULL, "Capcom", "CPS1",
-	L"Capcom World 2 (\u30AF\u30A4\u30BA\uFF15 \u3042\u3069\u3079\u3093\u3061\u3083\u30FC\u304F\u3044\u305A \u304B\u3077\u3053\u3093\u308F\u30FC\u308B\u3069\uFF12 920611 Japan)\0", NULL, NULL, NULL,
+	"Capcom World 2 (\u30AF\u30A4\u30BA\uFF15 \u3042\u3069\u3079\u3093\u3061\u3083\u30FC\u304F\u3044\u305A \u304B\u3077\u3053\u3093\u308F\u30FC\u308B\u3069\uFF12 920611 Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING,2,HARDWARE_CAPCOM_CPS1,
 	NULL,Cworld2jRomInfo,Cworld2jRomName,DrvInputInfo, cworld2jDIPInfo,
 	DrvInit,DrvExit,Cps1Frame,CpsRedraw,CpsAreaScan,

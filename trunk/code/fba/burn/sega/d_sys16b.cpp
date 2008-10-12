@@ -6732,7 +6732,7 @@ struct BurnDriver BurnDrvAltbeast = {
 struct BurnDriver BurnDrvAltbeasj = {
 	"altbeasj", "altbeast", NULL, "1988",
 	"Juuouki (set 6, Japan, 8751 317-0077)\0", "Incomplete Sound", "Sega", "System 16B",
-	L"Juuoki (set 6, Japan, 8751 317-0077)\0\u7363\u738B\u8A18\0", NULL, NULL, NULL,
+	"Juuoki (set 6, Japan, 8751 317-0077)\0\u7363\u738B\u8A18\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_SEGA_SYSTEM16B,
 	NULL, AltbeasjRomInfo, AltbeasjRomName, System16bfire3InputInfo, AltbeastDIPInfo,
 	AltbeasjInit, System16Exit, System16BFrame, NULL, System16Scan,
@@ -6752,7 +6752,7 @@ struct BurnDriver BurnDrvAltbeas2 = {
 struct BurnDriver BurnDrvAltbeaj3 = {
 	"altbeaj3", "altbeast", NULL, "1988",
 	"Juuouki (set 3, Japan, FD1094 317-0068)\0", "Incomplete Sound", "Sega", "System 16B",
-	L"Juuoki (set 3, Japan, FD1094 317-0068)\0\u7363\u738B\u8A18\0", NULL, NULL, NULL,
+	"Juuoki (set 3, Japan, FD1094 317-0068)\0\u7363\u738B\u8A18\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_SEGA_SYSTEM16B | HARDWARE_SEGA_FD1094_ENC,
 	NULL, Altbeaj3RomInfo, Altbeaj3RomName, System16bfire3InputInfo, AltbeastDIPInfo,
 	Altbeaj3Init, System16Exit, System16BFrame, NULL, System16Scan,
@@ -7152,7 +7152,7 @@ struct BurnDriver BurnDrvRiotcity = {
 struct BurnDriver BurnDrvRyukyu = {
 	"ryukyu", NULL, NULL, "1990",
 	"RyuKyu (Japan, FD1094 317-5023)\0", "Incomplete Sound", "Success / Sega", "System 16B",
-	L"RyuKyu \u7409\u7403 (Japan, FD1094 317-5023)\0", NULL, NULL, NULL,
+	"RyuKyu \u7409\u7403 (Japan, FD1094 317-5023)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_SEGA_SYSTEM16B | HARDWARE_SEGA_FD1094_ENC,
 	NULL, RyukyuRomInfo, RyukyuRomName, RyukyuInputInfo, RyukyuDIPInfo,
 	RyukyuInit, System16Exit, System16BFrame, NULL, System16Scan,
@@ -7222,7 +7222,7 @@ struct BurnDriver BurnDrvShinobi4 = {
 struct BurnDriver BurnDrvSjryuko = {
 	"sjryuko", NULL, NULL, "1987",
 	"Sukeban Jansi Ryuko (set 2, System 16B, FD1089B 317-5021)\0", "Incomplete Sound", "White Board", "System 16B",
-	L"Sukeban Jansi Ryuko (set 2, System 16B, FD1089B 317-5021)\0\u30B9\u30B1\u30D0\u30F3\u96C0\u58EB \u7ADC\u5B50\0", NULL, NULL, NULL,
+	"Sukeban Jansi Ryuko (set 2, System 16B, FD1089B 317-5021)\0\u30B9\u30B1\u30D0\u30F3\u96C0\u58EB \u7ADC\u5B50\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_SEGA_SYSTEM16B | HARDWARE_SEGA_FD1089B_ENC | HARDWARE_SEGA_5358,
 	NULL, SjryukoRomInfo, SjryukoRomName, SjryukoInputInfo, SjryukoDIPInfo,
 	SjryukoInit, SjryukoExit, System16BFrame, NULL, SjryukoScan,
@@ -7292,7 +7292,7 @@ struct BurnDriver BurnDrvTimescan = {
 struct BurnDriver BurnDrvToryumon = {
 	"toryumon", NULL, NULL, "1994",
 	"Toryumon\0", "Incomplete Sound", "Sega / Westone", "System 16B",
-	L"Toryumon\0\u767B\u9F8D\u9580\0", NULL, NULL, NULL,
+	"Toryumon\0\u767B\u9F8D\u9580\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_SEGA_SYSTEM16B,
 	NULL, ToryumonRomInfo, ToryumonRomName, System16bfire1InputInfo, ToryumonDIPInfo,
 	ToryumonInit, System16Exit, System16BFrame, NULL, System16Scan,

@@ -655,7 +655,7 @@ STD_ROM_FN(guwange);
 struct BurnDriver BurnDrvGuwange = {
 	"guwange", NULL, NULL, "1999",
 	"Guwange (Japan, 1999 6/24 master ver.)\0", NULL, "Atlus / Cave", "Cave",
-	L"\u3050\u308F\u3093\u3052 (1999 6/24 master ver.)\0Guwange\0", NULL, NULL, NULL,
+	"\u3050\u308F\u3093\u3052 (1999 6/24 master ver.)\0Guwange\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_ORIENTATION_VERTICAL | BDF_16BIT_ONLY, 2, HARDWARE_CAVE_68K_ONLY,
 	NULL, guwangeRomInfo, guwangeRomName, guwangeInputInfo, NULL,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &CaveRecalcPalette,

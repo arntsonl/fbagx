@@ -46,7 +46,7 @@ STD_ROM_PICK(choko) STD_ROM_FN(choko)
 struct BurnDriver BurnDrvCpsChoko = {
 	"choko", NULL, NULL, "2001",
 	"Choko (010820 Japan)\0", NULL, "Mitchell", "CPS2",
-	L"\u9577\u6C5F (Choko 010820 Japan)\0", NULL, NULL, NULL,
+	"\u9577\u6C5F (Choko 010820 Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_CAPCOM_CPS2 | HARDWARE_CAPCOM_CPS2_SIMM,
 	NULL, chokoRomInfo, chokoRomName, DrvInputInfo, NULL,
 	Cps2Init,CpsExit,Cps2Frame,CpsRedraw,CpsAreaScan,

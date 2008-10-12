@@ -1835,8 +1835,8 @@ void System16APPI0WritePortC(UINT8 data)
 	System16ColScroll = ~data & 0x04;
 	System16RowScroll = ~data & 0x02;
 	
-	if (System16ColScroll) bprintf(PRINT_NORMAL, _T("Col Scroll - %i\n"), System16ColScroll);
-	if (System16RowScroll) bprintf(PRINT_NORMAL, _T("Row Scroll - %i\n"), System16RowScroll);
+	if (System16ColScroll) bprintf(PRINT_NORMAL, ("Col Scroll - %i\n"), System16ColScroll);
+	if (System16RowScroll) bprintf(PRINT_NORMAL, ("Row Scroll - %i\n"), System16RowScroll);
 }
 
 unsigned short __fastcall System16AReadWord(unsigned int a)
@@ -2879,7 +2879,7 @@ struct BurnDriver BurnDrvBodyslam = {
 struct BurnDriver BurnDrvDumpmtmt = {
 	"dumpmtmt", "bodyslam", NULL, "1986",
 	"Dump Matsumoto (Japan, 8751 317-unknown)\0", NULL, "Sega", "System 16A",
-	 L"Dump Matsumoto (Japan, 8751 317-unknown)\0\u30C0\u30F3\u30D7\u677E\u672C\0", NULL, NULL, NULL,
+	"Dump Matsumoto (Japan, 8751 317-unknown)\0\u30C0\u30F3\u30D7\u677E\u672C\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_SEGA_SYSTEM16A,
 	NULL, DumpmtmtRomInfo, DumpmtmtRomName, System16aInputInfo, BodyslamDIPInfo,
 	BodyslamInit, System16Exit, System16AFrame, NULL, System16Scan,
@@ -3009,7 +3009,7 @@ struct BurnDriver BurnDrvShinobls = {
 struct BurnDriver BurnDrvSjryuko1 = {
 	"sjryuko1", "sjryuko", NULL, "1987",
 	"Sukeban Jansi Ryuko (set 1, System 16A, FD1089B 317-5021)\0", "Incomplete Sound", "White Board", "System 16A",
-	L"Sukeban Jansi Ryuko (set 1, System 16A, FD1089B 317-5021)\0\u30B9\u30B1\u30D0\u30F3\u96C0\u58EB \u7ADC\u5B50\0", NULL, NULL, NULL,
+	"Sukeban Jansi Ryuko (set 1, System 16A, FD1089B 317-5021)\0\u30B9\u30B1\u30D0\u30F3\u96C0\u58EB \u7ADC\u5B50\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_SEGA_SYSTEM16A | HARDWARE_SEGA_FD1089B_ENC,
 	NULL, Sjryuko1RomInfo, Sjryuko1RomName, Sjryuko1InputInfo, Sjryuko1DIPInfo,
 	Sjryuko1Init, Sjryuko1Exit, System16AFrame, NULL, Sjryuko1Scan,

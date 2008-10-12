@@ -326,7 +326,7 @@ STD_ROM_PICK(daimakai); STD_ROM_FN(daimakai);
 struct BurnDriver BurnDrvCpsDaimakai = {
 	"daimakai", "ghouls", NULL, "1988",
 	"Dai Makai-Mura (Japan)\0", NULL, "Capcom", "CPS1",
-	L"\u5927\u9B54\u754C\u6751 (Japan)\0Dai Makai-Mura (Japan)\0", NULL, NULL, NULL,
+	"\u5927\u9B54\u754C\u6751 (Japan)\0Dai Makai-Mura (Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE,2,HARDWARE_CAPCOM_CPS1,
 	NULL,daimakaiRomInfo,daimakaiRomName,DrvInputInfo, ghoulsDIPInfo,
 	DrvInit,DrvExit,Cps1Frame,CpsRedraw,CpsAreaScan,

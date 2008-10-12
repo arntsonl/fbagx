@@ -400,7 +400,7 @@ STD_ROM_PICK(Mercsj) STD_ROM_FN(Mercsj)
 struct BurnDriver BurnDrvCpsMercsj = {
 	"mercsj", "mercs", NULL, "1990",
 	"Senjo no Ookami II (Ookami 2 900302 Japan)\0", NULL, "Capcom", "CPS1",
-	L"\u6226\u5834\u306E\u72FC II (Ookami 2 900302 Japan)\0Senjo no Ookami II (Ookami 2 900302 Japan)\0", NULL, NULL, NULL,
+	"\u6226\u5834\u306E\u72FC II (Ookami 2 900302 Japan)\0Senjo no Ookami II (Ookami 2 900302 Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL, 3, HARDWARE_CAPCOM_CPS1,
 	NULL,MercsjRomInfo,MercsjRomName,DrvInputInfo, mercsDIPInfo,
 	DrvInit,DrvExit,Cps1Frame,CpsRedraw,CpsAreaScan,

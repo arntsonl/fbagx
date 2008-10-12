@@ -46,7 +46,7 @@ STD_ROM_PICK(Drv) STD_ROM_FN(Drv)
 struct BurnDriver BurnDrvCpsQndream = {
 	"qndream", NULL, NULL, "1996",
 	"Quiz Nanairo Dreams - nijiirochou no kiseki (nanairo dreams 960826 Japan)\0", NULL, "Capcom", "CPS2",
-	L"Quiz \u306A\u306A\u3044\u308D Dreams - \u8679\u8272\u753A\u306E\u5947\u8DE1 (Nanairo Dreams 960826 Japan)\0Quiz Nanairo Dreams - nijiirochou no kiseki\0", NULL, NULL, NULL,
+	"Quiz \u306A\u306A\u3044\u308D Dreams - \u8679\u8272\u753A\u306E\u5947\u8DE1 (Nanairo Dreams 960826 Japan)\0Quiz Nanairo Dreams - nijiirochou no kiseki\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING,2,HARDWARE_CAPCOM_CPS2,
 	NULL, DrvRomInfo, DrvRomName, DrvInputInfo, NULL,
 	Cps2Init, CpsExit,Cps2Frame,CpsRedraw,CpsAreaScan,

@@ -309,7 +309,7 @@ STD_ROM_PICK(Mswordj) STD_ROM_FN(Mswordj)
 struct BurnDriver BurnDrvCpsMswordj = {
 	"mswordj", "msword", NULL, "1990",
 	"Magic Sword (23.06.1990 Japan)\0", NULL, "Capcom", "CPS1",
-	L"Magic Sword (23.06.1990 Japan)\0Magic Sword\u30DE\u30B8\u30C3\u30AF\uFF65\u30BD\u30FC\u30C9\0", NULL, NULL, NULL,
+	"Magic Sword (23.06.1990 Japan)\0Magic Sword\u30DE\u30B8\u30C3\u30AF\uFF65\u30BD\u30FC\u30C9\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE,2,HARDWARE_CAPCOM_CPS1,
 	NULL,MswordjRomInfo,MswordjRomName,DrvInputInfo, mswordDIPInfo,
 	DrvInit,DrvExit,Cps1Frame,CpsRedraw,CpsAreaScan,
