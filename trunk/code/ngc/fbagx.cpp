@@ -21,7 +21,14 @@
 #include <sdcard/card_io.h>
 #include <fat.h>
 
+#include "input.h"
 #include "fbaconfig.h"
+#include "dvd.h"
+#include "preferences.h"
+#include "menudraw.h"
+#include "menu.h"
+#include "video.h"
+#include "fbagx.h"
 
 #ifdef WII_DVD
 extern "C" {
@@ -29,8 +36,9 @@ extern "C" {
 }
 #endif
 
-#include "video.h"
-#include "fbagx.h"
+int ConfigRequested = 0;
+extern bool CheckVideo; // for forcing video reset in video.cpp
+extern unsigned int prevRenderedFrameCount;
 
 // more stuff will go here
 void emulate(){
@@ -39,8 +47,18 @@ void emulate(){
     while(1)
     {
         // do the FBA main loop
-        // do some buttons
-        // check for config request (maybe throw this in a listener thread)
+		// FBAEmulate(); or something like that
+
+		NGCReportButtons();
+		// HUGE DEBUG TESTING THE MENU
+		if (1){//ConfigRequested) {
+			ResetVideo_Menu ();
+			MainMenu(2);
+			// Return from the main menu
+			ConfigRequested = 0; // Reset our request for a config
+			CheckVideo = 1;	// force video update
+			//prevRenderedFrameCount = IPPU.RenderedFramesCount;
+		}
     }
 }
 
@@ -80,14 +98,23 @@ int main(){
     // Audio init
     AUDIO_Init(NULL);
 
+	// Initialise freetype font system
+	if (FT_Init ())
+	{
+		printf ("Cannot initialise font subsystem!\n");
+		while (1);
+	}
+
+	unpackbackdrop ();
+
     // Set Default Settings
     DefaultSettings();
 
 	/*****  Settings and Setup for Final Burn Alpha *****/
-/*
-    FBAUnmapAllControls();
-    SetDefaultButtonMap();
 
+//    FBAUnmapAllControls();
+//    SetDefaultButtonMap();
+/*
     // Allocate FBAGX memory
     if ( !Memory.Init() )
        while (1);
@@ -103,7 +130,7 @@ int main(){
     setGFX();
     if ( !FBAGraphicsInit())
         while(1);
-
+*/
     // Initialize libFAT for SD and USB
     fatInit( 8, false);
 
@@ -115,7 +142,10 @@ int main(){
         WaitPrompt((char*) "Preferences reset - check settings!");
         selectedMenu = 1;
     }
-*/
+
+	// Debug to get us to the menu
+	CheckVideo = 1;
+
     // Load our user selected prompt
     emulate();
 

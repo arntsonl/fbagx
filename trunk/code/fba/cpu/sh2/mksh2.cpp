@@ -14,7 +14,7 @@ static FILE *OpCodeFile=NULL;
 
 void ot(char *format, ...)
 {
-	va_list valist=NULL;
+	va_list valist;
 	int i, len;
 
 	for(i=0, len=strlen(format); i < len && format[i] != '\n'; i++);
@@ -1667,7 +1667,7 @@ struct OpCodeDef {
 
 
 int opcount = sizeof(opcodes) / sizeof(struct OpCodeDef);
-
+/*
 main()
 {
 	printf("\nSH-2 Core Creator v0.1\n(C) 2008, OopsWare.\n\n");
@@ -1698,7 +1698,7 @@ main()
 	ot("// --- Op Funcs ---------------------------------\n");
 	
 	ot("\n// NOP\n");
-	ot("static void Op____(unsigned short /*opcode*/)\n");
+	ot("static void Op____(unsigned short /*opcode*)\n");
 	ot("{\n");
 	ot("}\n\n");
 	
@@ -1716,7 +1716,7 @@ main()
 		case 0x0ff0: // need Rn and Rm
 			ot("// %s\n", opcodes[i].ref);
 			for(int j=0; j<256; j++) {
-				ot("static void Op%04X(unsigned short /*opcode*/)\n", opcodes[i].min | (j<<4));
+				ot("static void Op%04X(unsigned short /*opcode*)\n", opcodes[i].min | (j<<4));
 				ot("{\n");
 				opcodes[i].OpGenerator( j<<4 );
 				ot("}\n\n");
@@ -1725,7 +1725,7 @@ main()
 		case 0x00ff: // need Rd and Rm / imm
 			ot("// %s\n", opcodes[i].ref);
 			for(int j=0; j<256; j++) {
-				ot("static void Op%04X(unsigned short /*opcode*/)\n", opcodes[i].min | (j<<0));
+				ot("static void Op%04X(unsigned short /*opcode*)\n", opcodes[i].min | (j<<0));
 				ot("{\n");
 				opcodes[i].OpGenerator( j );
 				ot("}\n\n");
@@ -1769,5 +1769,5 @@ main()
 	printf("Done!\n\n");
 	return 0;
 }
-
+*/
 
