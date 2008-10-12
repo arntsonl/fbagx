@@ -20,9 +20,15 @@ include $(DEVKITPPC)/wii_rules
 TARGET := fbagx-$(VERSION)-wii
 TARGETDIR := build/executables
 BUILD := build
-SOURCES := code/ngc
+SOURCES := code/ngc code/fba/burn/ code/fba/cpu/a68k code/fba/cpu/m68k code/fba/cpu/doze \
+code/fba/cpu/m6502 code/fba/cpu/nec code/fba/generated  code/fba/burn/capcom \
+code/fba/burn/cave code/fba/burn/neogeo code/fba/burn/pgm \
+ code/fba/burn/sega code/fba/burn/taito code/fba/burn/toaplan code/fba/burn/misc
 DATA := resources/processed
-INCLUDES := code/ngc
+INCLUDES := code/ngc code/fba/burn/ code/fba/cpu/a68k code/fba/cpu/m68k code/fba/cpu/doze \
+code/fba/cpu/m6502 code/fba/cpu/nec code/fba/generated  code/fba/burn/capcom \
+code/fba/burn/cave code/fba/burn/neogeo code/fba/burn/pgm \
+ code/fba/burn/sega code/fba/burn/taito code/fba/burn/toaplan code/fba/burn/misc
 
 #---------------------------------------------------------------------------------
 # options for code generation
