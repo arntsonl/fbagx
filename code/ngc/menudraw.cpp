@@ -787,7 +787,7 @@ void RomInfo()
 	ypos += 20;
 	DrawText (150, ypos, (char *)MENU_INFO_ROMID);
 	DrawText (300, ypos, Memory.ROMId);
-
+Show
 	ypos += 20;
 	DrawText (150, ypos, (char *)MENU_INFO_COMPANY);
 	DrawText (300, ypos, Memory.CompanyId);
