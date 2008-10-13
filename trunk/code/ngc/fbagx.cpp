@@ -143,9 +143,6 @@ int main(){
         selectedMenu = 1;
     }
 
-	// Debug to get us to the menu
-	CheckVideo = 1;
-
     // Load our user selected prompt
     emulate();
 

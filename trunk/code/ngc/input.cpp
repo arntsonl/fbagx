@@ -408,7 +408,7 @@ void NGCReportButtons ()
 #endif
        )
     {
-        //ConfigRequested = 1;	// go to the menu
+        ConfigRequested = 1;	// go to the menu
     }
     else
     {
