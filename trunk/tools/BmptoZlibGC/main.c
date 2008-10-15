@@ -60,8 +60,6 @@ typedef struct
 } BMPPixel;
 
 
-
-
 int DumpHeader (BMPHeader * pHeader)
 {
 //    printf ("\tHeader: type=0x%hx, size=%d, offset=0x%x\n", pHeader->type, pHeader->size, pHeader->offset);
@@ -175,8 +173,8 @@ FILE * fp;
 int err;
 Byte* compr;
 uLong comprLen = 500000*sizeof(int);
-int * pixelArray;
-unsigned int len = (pIHeader->width * pIHeader->height);
+short * pixelArray;
+unsigned int len = (pIHeader->width * pIHeader->height * 2);
 
     compr    = (Byte*)calloc((uInt)comprLen, 1);
 
@@ -214,7 +212,7 @@ unsigned int len = (pIHeader->width * pIHeader->height);
     fprintf (fp, "#define _%s_H_ \n", szUpperName);
     fprintf (fp, "#define %s_WIDTH      (%d)\n", szUpperName, pIHeader->width);
     fprintf (fp, "#define %s_HEIGHT     (%d)\n", szUpperName, pIHeader->height);
-    fprintf (fp, "#define %s_SIZE       (%d)\n", szUpperName, pIHeader->width * pIHeader->height);
+    fprintf (fp, "#define %s_SIZE       (%d)\n", szUpperName, len);
 
 
     pixelArray = (int*)malloc(len*sizeof(int));
@@ -265,7 +263,8 @@ unsigned int len = (pIHeader->width * pIHeader->height);
                 pData [nIndex + 1].g,
                 pData [nIndex + 1].b);
 
-            pixelArray[j * pIHeader->width + i] = gc;
+            pixelArray[((pIHeader->height-1)-j) * pIHeader->width + (i)] = (((gc&0xFF000000)>>24) | ((gc&0x00FF0000)>>8));
+            pixelArray[((pIHeader->height-1)-j) * pIHeader->width + (i+1)] = (((gc&0x0000FF00)>>8) | ((gc&0x000000FF)<<8));
             //fprintf (fp, "0x%08X, ", gc);
 
         }
@@ -326,7 +325,7 @@ int nColor, nStatus;
 int bMagicPink;         // 0 = Off, 1 = use From and To,  2 = Use From and copy color
 BMPPixel MPFrom, MPTo;  // 'From' is the magic color.  'To' is what it gets translated to.
 
-    printf ("==== BmpToZlibGC Converter, Version 1.1, (c) 2008 Cthulhu32 ====\n\n");
+    printf ("==== BmpToZlibGC Converter, Version 1.1, 2008 Cthulhu32 ====\n\n");
     printf ("\tbased off of BmpToGC Converter, Version 1.0, (c) 2007 PaceMaker\n\n");
 
 
