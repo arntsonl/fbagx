@@ -1,5 +1,11 @@
 # depslib dependency file v1.0
-1224018871 source:c:\documents and settings\luke\desktop\break folder\fbagx\tools\bmptozlibgc\main.c
+1224082118 source:c:\documents and settings\luke\desktop\break folder\fbagx\tools\bmptozlibgc\main.c
+	<stdio.h>
+	<malloc.h>
+	<string.h>
+	<zlib.h>
+
+1224089696 source:c:\fbagx\tools\bmptozlibgc\main.c
 	<stdio.h>
 	<malloc.h>
 	<string.h>
