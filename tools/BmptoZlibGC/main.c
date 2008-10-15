@@ -277,7 +277,7 @@ unsigned int len = (pIHeader->width * pIHeader->height);
     printf("Compressed to (bytes) - %i\n", (int)comprLen);
 
     fprintf (fp, "#define %s_COMPRESSED      (%i)\n\n", szUpperName, (int)comprLen);
-    fprintf (fp, "const unsigned char %s_Bitmap[]={\n", szLowerName, (int)comprLen);
+    fprintf (fp, "const unsigned char %s_Bitmap[]={\n", szLowerName);
 
     for(i = 0; i < comprLen; i++){
         if (i == 0 ){ fprintf(fp,"  ");}
