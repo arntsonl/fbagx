@@ -79,16 +79,13 @@ IsZipFile (char *buffer)
 }
 
  /*****************************************************************************
- * unzip
+ * UnZipBuffer
  *
  * It should be noted that there is a limit of 5MB total size for any ROM
  ******************************************************************************/
-FILE* fatfile; // FAT
-u64 discoffset; // DVD
-SMBFILE smbfile; // SMB
 
 int
-UnZipBuffer (unsigned char *outbuffer, short where)
+UnZipBuffer (unsigned char *outbuffer, int method)
 {
 	PKZIPHEADER pkzip;
 	int zipoffset = 0;
@@ -100,23 +97,25 @@ UnZipBuffer (unsigned char *outbuffer, short where)
 	int readoffset = 0;
 	int have = 0;
 	char readbuffer[ZIPCHUNK];
-	char msg[128];
+	u64 discoffset = 0;
 
-	/*** Read Zip Header ***/
-	switch (where)
+	// Read Zip Header
+	switch (method)
 	{
-		case 0:	// SD Card
-		fseek(fatfile, 0, SEEK_SET);
-		fread (readbuffer, 1, ZIPCHUNK, fatfile);
-		break;
+		case METHOD_SD:
+		case METHOD_USB:
+			fseek(fatfile, 0, SEEK_SET);
+			fread (readbuffer, 1, ZIPCHUNK, fatfile);
+			break;
 
-		case 1: // DVD
-		dvd_read (readbuffer, ZIPCHUNK, discoffset);
-		break;
+		case METHOD_DVD: // DVD
+			discoffset = dvddir;
+			dvd_read (readbuffer, ZIPCHUNK, discoffset);
+			break;
 
-		case 2: // From SMB
-		SMB_ReadFile(readbuffer, ZIPCHUNK, 0, smbfile);
-		break;
+		case METHOD_SMB: // From SMB
+			SMB_ReadFile(readbuffer, ZIPCHUNK, 0, smbfile);
+			break;
 	}
 
 	/*** Copy PKZip header to local, used as info ***/
@@ -124,9 +123,7 @@ UnZipBuffer (unsigned char *outbuffer, short where)
 
 	pkzip.uncompressedSize = FLIP32 (pkzip.uncompressedSize);
 
-	sprintf (msg, "Unzipping %d bytes ... Wait",
-	pkzip.uncompressedSize);
-	ShowAction (msg);
+	ShowProgress ((char *)"Loading...", 0, pkzip.uncompressedSize);
 
 	/*** Prepare the zip stream ***/
 	memset (&zs, 0, sizeof (z_stream));
@@ -176,26 +173,28 @@ UnZipBuffer (unsigned char *outbuffer, short where)
 		}
 		while (zs.avail_out == 0);
 
-		/*** Readup the next 2k block ***/
+		// Readup the next 2k block
 		zipoffset = 0;
 		zipchunk = ZIPCHUNK;
 
-		switch (where)
+		switch (method)
 		{
-			case 0:	// SD Card
-			fread (readbuffer, 1, ZIPCHUNK, fatfile);
-			break;
+			case METHOD_SD:
+			case METHOD_USB:
+				fread (readbuffer, 1, ZIPCHUNK, fatfile);
+				break;
 
-			case 1:	// DVD
-			readoffset += ZIPCHUNK;
-			dvd_read (readbuffer, ZIPCHUNK, discoffset+readoffset);
-			break;
+			case METHOD_DVD:
+				readoffset += ZIPCHUNK;
+				dvd_read (readbuffer, ZIPCHUNK, discoffset+readoffset);
+				break;
 
-			case 2: // From SMB
-			readoffset += ZIPCHUNK;
-			SMB_ReadFile(readbuffer, ZIPCHUNK, readoffset, smbfile);
-			break;
+			case METHOD_SMB: // From SMB
+				readoffset += ZIPCHUNK;
+				SMB_ReadFile(readbuffer, ZIPCHUNK, readoffset, smbfile);
+				break;
 		}
+		ShowProgress ((char *)"Loading...", bufferoffset, pkzip.uncompressedSize);
 	}
 	while (res != Z_STREAM_END);
 
@@ -211,27 +210,6 @@ UnZipBuffer (unsigned char *outbuffer, short where)
 
 	return 0;
 }
-// Reading from FAT
-int
-UnZipFile (unsigned char *outbuffer, FILE* infile)
-{
-	fatfile = infile;
-	return UnZipBuffer(outbuffer, 0);
-}
-// Reading from DVD
-int
-UnZipFile (unsigned char *outbuffer, u64 inoffset)
-{
-	discoffset = inoffset;
-	return UnZipBuffer(outbuffer, 1);
-}
-// Reading from SMB
-int
-UnZipFile (unsigned char *outbuffer, SMBFILE infile)
-{
-	smbfile = infile;
-	return UnZipBuffer(outbuffer, 2);
-}
 
 /****************************************************************************
  * GetFirstZipFilename
@@ -243,29 +221,30 @@ UnZipFile (unsigned char *outbuffer, SMBFILE infile)
 char *
 GetFirstZipFilename (int method)
 {
-	char testbuffer[ZIPCHUNK];
+	char * firstFilename = NULL;
+	char tempbuffer[ZIPCHUNK];
 
 	// read start of ZIP
 	switch (method)
 	{
 		case METHOD_SD:	// SD Card
 		case METHOD_USB: // USB
-		LoadFATFile (testbuffer, ZIPCHUNK);
-		break;
+			LoadFATFile (tempbuffer, ZIPCHUNK);
+			break;
 
 		case METHOD_DVD: // DVD
-		LoadDVDFile ((unsigned char *)testbuffer, ZIPCHUNK);
-		break;
+			LoadDVDFile ((unsigned char *)tempbuffer, ZIPCHUNK);
+			break;
 
 		case METHOD_SMB: // From SMB
-		LoadSMBFile (testbuffer, ZIPCHUNK);
-		break;
+			LoadSMBFile (tempbuffer, ZIPCHUNK);
+			break;
 	}
 
-	testbuffer[28] = 0; // truncate - filename length is 2 bytes long (bytes 26-27)
-	int namelength = testbuffer[26]; // filename length starts 26 bytes in
+	tempbuffer[28] = 0; // truncate - filename length is 2 bytes long (bytes 26-27)
+	int namelength = tempbuffer[26]; // filename length starts 26 bytes in
 
-	char * firstFilename = &testbuffer[30]; // first filename of a ZIP starts 31 bytes in
+	firstFilename = &tempbuffer[30]; // first filename of a ZIP starts 31 bytes in
 	firstFilename[namelength] = 0; // truncate at filename length
 
 	return firstFilename;

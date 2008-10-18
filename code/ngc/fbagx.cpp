@@ -83,7 +83,6 @@ int main(){
     DI_Init();
 #endif
 
-    unsigned int saveflags;
     int selectedMenu = -1;
 
     // Initialise the video
