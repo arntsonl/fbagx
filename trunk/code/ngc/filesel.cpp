@@ -195,6 +195,26 @@ int UpdateDirName(int method)
 	}
 }
 
+bool MakeROMPath(char filepath[], int method)
+{
+	char temppath[MAXPATHLEN];
+	if ((strlen(currentdir)+1+strlen(filelist[selection].filename)) < MAXPATHLEN)
+	{
+		sprintf(temppath, "%s/%s",currentdir,filelist[selection].filename);
+
+		if(method == METHOD_SMB)
+			strcpy(filepath, SMBPath(temppath));
+		else
+			strcpy(filepath, temppath);
+		return true;
+	}
+	else
+	{
+		filepath[0] = 0;
+		return false;
+	}
+}
+
 /****************************************************************************
  * FileSortCallback
  *
@@ -251,8 +271,9 @@ bool IsValidROM(int method)
 			{
 				// we need to check the file extension of the first file in the archive
 				char * zippedFilename = GetFirstZipFilename (method);
-
-				if(strlen(zippedFilename) > 4)
+				if(zippedFilename == NULL)
+					p = NULL;
+				else if(strlen(zippedFilename) > 4)
 					p = strrchr(zippedFilename, '.');
 				else
 					p = NULL;
@@ -367,7 +388,7 @@ int FileSelector (int method)
 					if (!maxfiles)
 					{
 						WaitPrompt ((char*) "Error reading directory!");
-						return 0; // quit menu
+						haverom = 1; // quit menu
 					}
 				}
 				else if (status == -1)	// directory name too long
@@ -394,8 +415,8 @@ int FileSelector (int method)
 					break;
 
 					case METHOD_DVD:
-					dvddir = filelist[selection].offset;
-					dvddirlength = filelist[selection].length;
+					//dvddir = filelist[selection].offset;
+					//dvddirlength = filelist[selection].length;
 					//ARAM_ROMSIZE = LoadDVDFile (Memory.ROM, 0);
 					break;
 

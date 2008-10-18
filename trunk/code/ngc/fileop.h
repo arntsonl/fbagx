@@ -32,5 +32,6 @@ int SaveBufferToFAT (char *filepath, int datasize, bool silent);
 int LoadBufferFromFAT (char *filepath, bool silent);
 
 extern char currFATdir[MAXPATHLEN];
+extern FILE * fatfile;
 
 #endif

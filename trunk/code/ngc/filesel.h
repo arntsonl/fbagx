@@ -40,6 +40,7 @@ extern int maxfiles;
 
 void AllocSaveBuffer();
 void FreeSaveBuffer();
+bool MakeROMPath(char filepath[], int method);
 int OpenROM (int method);
 int autoLoadMethod();
 int autoSaveMethod();
