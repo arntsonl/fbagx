@@ -335,7 +335,7 @@ unsigned char __fastcall RastanZ80Read(unsigned short a)
 	case (0xa001):
 		return tc0140_slave_comm_r();
 	default:
-		bprintf(PRINT_NORMAL, _T("z80 read %x\n"),a);
+		bprintf(PRINT_NORMAL, ("z80 read %x\n"),a);
 		return 0xff;
 	}
 }
@@ -376,7 +376,7 @@ void __fastcall RastanZ80Write(unsigned short a,unsigned char d)
 		tc0140_slave_comm_w(d);
 		return;
 	default:
-		bprintf(PRINT_NORMAL, _T("z80write %x\n"),a);
+		bprintf(PRINT_NORMAL, ("z80write %x\n"),a);
 	}
 
 
@@ -394,7 +394,7 @@ unsigned short __fastcall rastanReadWord(unsigned int a)
 	case 0x390004:
 		return RastanInput[2];
 	default:
-		bprintf(PRINT_NORMAL, _T("readword %x\n"), a);
+		bprintf(PRINT_NORMAL, ("readword %x\n"), a);
 		return 0;
 	}
 }
@@ -418,7 +418,7 @@ unsigned char __fastcall rastanReadByte(unsigned int a)
 	case 0x3e0003:
 		return tc0140_comm_r();
 	default:
-		bprintf(PRINT_NORMAL, _T("readbyte %x\n"),a);
+		bprintf(PRINT_NORMAL, ("readbyte %x\n"),a);
 		return 0;
 	}
 
@@ -455,7 +455,7 @@ unsigned char __fastcall rastanReadByte(unsigned int a)
 		p2scrollx=-d;
 		return;
 	default:
-		bprintf(PRINT_NORMAL, _T("Word%x,%x\n"),a,d);
+		bprintf(PRINT_NORMAL, ("Word%x,%x\n"),a,d);
 		return;
 
 	}
@@ -474,7 +474,7 @@ void __fastcall rastanWriteByte(unsigned int a,unsigned char d)
 		tc0140_comm_w(d);
 		return;
 	default:
-		bprintf(PRINT_NORMAL, _T("writebyte %x to %x\n"),a,d);
+		bprintf(PRINT_NORMAL, ("writebyte %x to %x\n"),a,d);
 	}
 
 }

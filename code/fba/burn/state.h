@@ -28,7 +28,8 @@ int BurnAreaScan(int nAction, int* pnMin);
 struct BurnArea { void *Data; unsigned int nLen; int nAddress; char *szName; };
 
 /* Application-defined callback for processing the area */
-extern int (__cdecl *BurnAcb) (struct BurnArea* pba);
+//extern int (__cdecl *BurnAcb) (struct BurnArea* pba);
+extern int (*BurnAcb) (struct BurnArea* pba);
 
 /* Scan a small variable or structure */
 inline static void ScanVar(void* pv, int nSize, char* szName)

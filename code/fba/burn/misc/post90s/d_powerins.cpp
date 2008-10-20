@@ -1261,7 +1261,7 @@ static int powerinsScan(int nAction,int *pnMin)
 struct BurnDriver BurnDrvPowerins = {
 	"powerins", NULL, NULL, "1993",
 	"Gouketsuji Ichizoku (Japan)\0", NULL, "Atlus", "Miscellaneous",
-	L"\u8C6A\u8840\u5BFA\u4E00\u65CF (Japan)\0Gouketsuji Ichizoku\0", NULL, NULL, NULL,
+	"\u8C6A\u8840\u5BFA\u4E00\u65CF (Japan)\0Gouketsuji Ichizoku\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_MISC_POST90S,
 	NULL, powerinsRomInfo, powerinsRomName, powerinsInputInfo, powerinjDIPInfo,
 	powerinsInit, powerinsExit, powerinsFrame, NULL, powerinsScan, &bRecalcPalette,

@@ -362,7 +362,7 @@ unsigned char __fastcall Drv1942Read1(unsigned short a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #1 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 #1 Read => %04X\n"), a);
 		}
 	}
 
@@ -413,7 +413,7 @@ void __fastcall Drv1942Write1(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #1 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 #1 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }
@@ -426,7 +426,7 @@ unsigned char __fastcall Drv1942Read2(unsigned short a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #2 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 #2 Read => %04X\n"), a);
 		}
 	}
 
@@ -457,7 +457,7 @@ void __fastcall Drv1942Write2(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #2 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 #2 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }

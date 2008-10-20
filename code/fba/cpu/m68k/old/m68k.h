@@ -1,34 +1,30 @@
 #ifndef M68K__HEADER
 #define M68K__HEADER
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 /* ======================================================================== */
 /* ========================= LICENSING & COPYRIGHT ======================== */
 /* ======================================================================== */
 /*
  *                                  MUSASHI
- *                                Version 3.32
+ *                                Version 3.3
  *
  * A portable Motorola M680x0 processor emulation engine.
- * Copyright Karl Stenerud.  All rights reserved.
+ * Copyright 1998-2001 Karl Stenerud.  All rights reserved.
  *
  * This code may be freely used for non-commercial purposes as long as this
  * copyright notice remains unaltered in the source code and any binary files
  * containing this code in compiled form.
  *
- * All other licensing terms must be negotiated with the author
+ * All other lisencing terms must be negotiated with the author
  * (Karl Stenerud).
  *
  * The latest version of this code can be obtained at:
  * http://kstenerud.cjb.net
  */
-
-/* ======================================================================== */
-/* ============================= CONFIGURATION ============================ */
-/* ======================================================================== */
-
-/* Import the configuration for this build */
-#include "m68kconf.h"
-
 
 /* ======================================================================== */
 /* ============================ GENERAL DEFINES =========================== */
@@ -113,8 +109,8 @@ typedef enum
 
 	/* Assumed registers */
 	/* These are cheat registers which emulate the 1-longword prefetch
-     * present in the 68000 and 68010.
-     */
+	 * present in the 68000 and 68010.
+	 */
 	M68K_REG_PREF_ADDR,	/* Last prefetch address */
 	M68K_REG_PREF_DATA,	/* Last prefetch data */
 
@@ -240,14 +236,6 @@ void m68k_set_cmpild_instr_callback(void  (*callback)(unsigned int val, int reg)
  */
 void m68k_set_rte_instr_callback(void  (*callback)(void));
 
-/* Set the callback for the TAS instruction.
- * You must enable M68K_TAS_HAS_CALLBACK in m68kconf.h.
- * The CPU calls this callback every time it encounters a TAS instruction.
- * Default behavior: return 1, allow writeback.
- */
-void m68k_set_tas_instr_callback(int  (*callback)(void));
-
-
 
 /* Set the callback for informing of a large PC change.
  * You must enable M68K_MONITOR_PC in m68kconf.h.
@@ -274,7 +262,7 @@ void m68k_set_fc_callback(void  (*callback)(unsigned int new_fc));
  * instruction cycle.
  * Default behavior: do nothing.
  */
-void m68k_set_instr_hook_callback(void  (*callback)(unsigned int pc));
+void m68k_set_instr_hook_callback(void  (*callback)(void));
 
 
 
@@ -337,7 +325,7 @@ unsigned int m68k_get_context(void* dst);
 void m68k_set_context(void* dst);
 
 /* Register the CPU state information */
-void m68k_state_register(const char *type, int index);
+void m68k_state_register(const char *type);
 
 
 /* Peek at the internals of a CPU context.  This can either be a context
@@ -357,25 +345,21 @@ unsigned int m68k_is_valid_instruction(unsigned int instruction, unsigned int cp
  */
 unsigned int m68k_disassemble(char* str_buff, unsigned int pc, unsigned int cpu_type);
 
-/* Same as above but accepts raw opcode data directly rather than fetching
- * via the read/write interfaces.
- */
-unsigned int m68k_disassemble_raw(char* str_buff, unsigned int pc, const unsigned char* opdata, const unsigned char* argdata, unsigned int cpu_type);
-
-/*** Not really required, but makes for clean compile under DevkitPPC ***/
-extern int vdp_int_ack_callback(int int_level);
 
 /* ======================================================================== */
-/* ============================== MAME STUFF ============================== */
+/* ============================= CONFIGURATION ============================ */
 /* ======================================================================== */
 
-#if M68K_COMPILE_FOR_MAME == OPT_ON
-#include "m68kmame.h"
-#endif /* M68K_COMPILE_FOR_MAME */
+/* Import the configuration for this build */
+#include "m68kconf.h"
 
 
 /* ======================================================================== */
 /* ============================== END OF FILE ============================= */
 /* ======================================================================== */
+
+#ifdef __cplusplus
+ }
+#endif
 
 #endif /* M68K__HEADER */

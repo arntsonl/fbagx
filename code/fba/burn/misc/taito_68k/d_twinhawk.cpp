@@ -376,20 +376,20 @@ unsigned short __fastcall twinhawkReadWord(unsigned int a)
 	}
 	if (a>=0x900000&&a<=0x90000f)
 	{
-		bprintf(PRINT_NORMAL, _T("input word read %x\n"),a);
+		bprintf(PRINT_NORMAL, ("input word read %x\n"),a);
 		return 0;
 	}
 	if (a==0x800002)
 	{
-		bprintf(PRINT_NORMAL, _T("sound word read %x\n"),a);
+		bprintf(PRINT_NORMAL, ("sound word read %x\n"),a);
 		return 0xff;
 	}
 	if (a==0x800003)
 	{
-		bprintf(PRINT_NORMAL, _T("sound word read %x\n"),a);
+		bprintf(PRINT_NORMAL, ("sound word read %x\n"),a);
 		return 0xff;
 	}
-	bprintf(PRINT_NORMAL, _T("unknown word read %x\n"),a);
+	bprintf(PRINT_NORMAL, ("unknown word read %x\n"),a);
 	return 0xFF;
 }
 
@@ -421,13 +421,13 @@ unsigned char __fastcall twinhawkReadByte(unsigned int a)
 
 	if (a>=0x900000&&a<=0x90000f)
 	{
-		bprintf(PRINT_NORMAL, _T("input byte read %x\n"),a);
+		bprintf(PRINT_NORMAL, ("input byte read %x\n"),a);
 		return 0xff;
 	}
 
 	if (a==0x800002)
 	{
-		bprintf(PRINT_NORMAL, _T("sound byte read %x\n"),a);
+		bprintf(PRINT_NORMAL, ("sound byte read %x\n"),a);
 		return 0xff;
 	}
 
@@ -435,7 +435,7 @@ unsigned char __fastcall twinhawkReadByte(unsigned int a)
 	{
 		return tc0140_comm_r();
 	}
-	bprintf(PRINT_NORMAL, _T("unknown byte read %x\n"),a);
+	bprintf(PRINT_NORMAL, ("unknown byte read %x\n"),a);
 
 	return 0xFF;
 }
@@ -448,25 +448,25 @@ void __fastcall twinhawkWriteWord(unsigned int a,unsigned short d)
 	}
 	if (a==0x800000)
 	{
-		bprintf(PRINT_NORMAL, _T("sound word write %x\n"),a);
+		bprintf(PRINT_NORMAL, ("sound word write %x\n"),a);
 	}
 
 	if (a==0x800001)
 	{
-		bprintf(PRINT_NORMAL, _T("sound word write %x\n"),a);
+		bprintf(PRINT_NORMAL, ("sound word write %x\n"),a);
 	}
 
 	if (a==0x800002)
 	{
-		bprintf(PRINT_NORMAL, _T("sound word write %x\n"),a);
+		bprintf(PRINT_NORMAL, ("sound word write %x\n"),a);
 	}
 
 	if (a==0x800003)
 	{
-		bprintf(PRINT_NORMAL, _T("sound word write %x\n"),a);
+		bprintf(PRINT_NORMAL, ("sound word write %x\n"),a);
 	}
 	if (a<=0xf03fff)
-		bprintf(PRINT_NORMAL, _T("unknown word write %x %x\n"),a,d);
+		bprintf(PRINT_NORMAL, ("unknown word write %x %x\n"),a,d);
 
 	return;
 }
@@ -480,7 +480,7 @@ void __fastcall twinhawkWriteByte(unsigned int a,unsigned char d)
 
 	if (a==0x800000)
 	{
-		bprintf(PRINT_NORMAL, _T("sound byte write %x\n"),a);
+		bprintf(PRINT_NORMAL, ("sound byte write %x\n"),a);
 	}
 
 	if (a==0x800001)
@@ -490,7 +490,7 @@ void __fastcall twinhawkWriteByte(unsigned int a,unsigned char d)
 
 	if (a==0x800002)
 	{
-		bprintf(PRINT_NORMAL, _T("sound byte write %x\n"),a);
+		bprintf(PRINT_NORMAL, ("sound byte write %x\n"),a);
 	}
 
 	if (a==0x800003)
@@ -792,7 +792,7 @@ STD_ROM_FN(daisenpu);
 struct BurnDriver BurnDrvDaisenpu = {
 	"daisenpu", "twinhawk", NULL, "1989",
 	"Daisenpu (Japan)\0", NULL, "Taito", "Taito X System",
-	L"Daisenpu (Japan)\0\u5927\u65CB\u98A8\0", NULL, NULL, NULL,
+	"Daisenpu (Japan)\0\u5927\u65CB\u98A8\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL,2,HARDWARE_MISC_PRE90S,
 	NULL,daisenpuRomInfo,daisenpuRomName,twinhawkInputInfo, daisenpuDIPInfo,
 	twinhawkInit,twinhawkExit,twinhawkFrame,NULL,twinhawkScan,

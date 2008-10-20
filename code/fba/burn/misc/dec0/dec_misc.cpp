@@ -80,7 +80,7 @@ void dec_ctrl_writeword(unsigned int a, unsigned short d)
 		break;
 	case 4: // 6502 
 		robocopSoundLatch = d & 0xFF;
-		bprintf(PRINT_NORMAL, _T("sound code: %x\n"),d);
+		bprintf(PRINT_NORMAL, ("sound code: %x\n"),d);
 		m6502SetIRQ(M6502_NMI);
 		break;
 	case 6:

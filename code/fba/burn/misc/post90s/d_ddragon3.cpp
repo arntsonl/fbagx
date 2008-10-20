@@ -548,7 +548,7 @@ unsigned char __fastcall Ddragon368KReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -569,7 +569,7 @@ void __fastcall Ddragon368KWriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -586,7 +586,7 @@ unsigned short __fastcall Ddragon368KReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read word => %06X\n"), a);
 		}
 	}
 	
@@ -654,7 +654,7 @@ void __fastcall Ddragon368KWriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -683,7 +683,7 @@ unsigned char __fastcall Ddragon3b68KReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -704,7 +704,7 @@ void __fastcall Ddragon3b68KWriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -725,7 +725,7 @@ unsigned short __fastcall Ddragon3b68KReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read word => %06X\n"), a);
 		}
 	}
 	
@@ -793,7 +793,7 @@ void __fastcall Ddragon3b68KWriteWord(unsigned int a, unsigned short d)
 		}
 			
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -814,7 +814,7 @@ unsigned char __fastcall Ddragon3Z80Read(unsigned short a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 Read => %04X\n"), a);
 		}
 	}
 
@@ -846,7 +846,7 @@ void __fastcall Ddragon3Z80Write(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }
@@ -876,7 +876,7 @@ unsigned char __fastcall Ctribeb68KReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -897,7 +897,7 @@ void __fastcall Ctribeb68KWriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -923,7 +923,7 @@ unsigned short __fastcall Ctribeb68KReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read word => %06X\n"), a);
 		}
 	}
 	
@@ -985,7 +985,7 @@ void __fastcall Ctribeb68KWriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -1006,7 +1006,7 @@ unsigned char __fastcall CtribeZ80Read(unsigned short a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 Read => %04X\n"), a);
 		}
 	}
 
@@ -1032,7 +1032,7 @@ void __fastcall CtribeZ80Write(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }

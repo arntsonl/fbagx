@@ -34,7 +34,7 @@ void dec0_aud_write_byte(unsigned short address, unsigned char data)
 		MSM6295Command(0, data);
 		return ;
 	}
-	bprintf(PRINT_NORMAL, _T("unmapped audio write: %x: %x,\n"),address,data);
+	bprintf(PRINT_NORMAL, ("unmapped audio write: %x: %x,\n"),address,data);
 }
 
 unsigned char dec0_aud_read_byte(unsigned short address)
@@ -42,7 +42,7 @@ unsigned char dec0_aud_read_byte(unsigned short address)
 	switch (address)
 	{
 	case 0x3000:  // soundlatch read
-		bprintf(PRINT_NORMAL, _T("soundlatch read: %x,\n"),robocopSoundLatch);
+		bprintf(PRINT_NORMAL, ("soundlatch read: %x,\n"),robocopSoundLatch);
 		return robocopSoundLatch;
 	
 		break; 
@@ -50,7 +50,7 @@ unsigned char dec0_aud_read_byte(unsigned short address)
 		return MSM6295ReadStatus(0);
 		break;
 	default:
-		bprintf(PRINT_NORMAL, _T("unmapped audio read: %x,\n"),address);
+		bprintf(PRINT_NORMAL, ("unmapped audio read: %x,\n"),address);
 		break;
 	}
 

@@ -28,7 +28,7 @@ static cps3snd_chip * chip;
 unsigned char __fastcall cps3SndReadByte(unsigned int addr)
 {
 	addr &= 0x000003ff;
-	bprintf(PRINT_NORMAL, _T("SND Attempt to read byte value of location %8x\n"), addr);
+	bprintf(PRINT_NORMAL, ("SND Attempt to read byte value of location %8x\n"), addr);
 	return 0;
 }
 
@@ -43,7 +43,7 @@ unsigned short __fastcall cps3SndReadWord(unsigned int addr)
 		return chip->key;
 	} else
 
-	bprintf(PRINT_NORMAL, _T("SND Attempt to read word value of location %8x\n"), addr);
+	bprintf(PRINT_NORMAL, ("SND Attempt to read word value of location %8x\n"), addr);
 	return 0;
 }
 
@@ -51,14 +51,14 @@ unsigned int __fastcall cps3SndReadLong(unsigned int addr)
 {
 	addr &= 0x000003ff;
 	
-	bprintf(PRINT_NORMAL, _T("SND Attempt to read long value of location %8x\n"), addr);
+	bprintf(PRINT_NORMAL, ("SND Attempt to read long value of location %8x\n"), addr);
 	return 0;
 }
 
 void __fastcall cps3SndWriteByte(unsigned int addr, unsigned char data)
 {
 	addr &= 0x000003ff;
-	bprintf(PRINT_NORMAL, _T("SND Attempt to write byte value %2x to location %8x\n"), data, addr);
+	bprintf(PRINT_NORMAL, ("SND Attempt to write byte value %2x to location %8x\n"), data, addr);
 }
 
 void __fastcall cps3SndWriteWord(unsigned int addr, unsigned short data)
@@ -67,7 +67,7 @@ void __fastcall cps3SndWriteWord(unsigned int addr, unsigned short data)
 	
 	if (addr < 0x200) {
 		chip->voice[addr >> 5].regs[(addr>>1) & 0xf] = data;
-		//bprintf(PRINT_NORMAL, _T("SND Attempt to write word value %4x to Chip[%02d][%02d] %s\n"), data, addr >> 5, (addr>>2) & 7, (addr & 0x02) ? "lo" : "hi" );
+		//bprintf(PRINT_NORMAL, ("SND Attempt to write word value %4x to Chip[%02d][%02d] %s\n"), data, addr >> 5, (addr>>2) & 7, (addr & 0x02) ? "lo" : "hi" );
 	} else
 	if (addr == 0x200) {
 		unsigned short key = data;
@@ -80,14 +80,14 @@ void __fastcall cps3SndWriteWord(unsigned int addr, unsigned short data)
 		}
 		chip->key = key;
 	} else
-		bprintf(PRINT_NORMAL, _T("SND Attempt to write word value %4x to location %8x\n"), data, addr);
+		bprintf(PRINT_NORMAL, ("SND Attempt to write word value %4x to location %8x\n"), data, addr);
 	
 }
 
 void __fastcall cps3SndWriteLong(unsigned int addr, unsigned int data)
 {
 	//addr &= 0x000003ff;
-	bprintf(PRINT_NORMAL, _T("SND Attempt to write long value %8x to location %8x\n"), data, addr);
+	bprintf(PRINT_NORMAL, ("SND Attempt to write long value %8x to location %8x\n"), data, addr);
 }
 
 int cps3SndInit(unsigned char * sndrom)
@@ -105,7 +105,7 @@ int cps3SndInit(unsigned char * sndrom)
 		if (nBurnSoundRate) {
 			//chip->delta = 37286.9 / nBurnSoundRate;
 			chip->delta = (CPS3_SND_BUFFER_SIZE << CPS3_SND_LINEAR_SHIFT) / nBurnSoundLen;
-			//bprintf(0, _T("BurnSnd %08x, %d, %d\n"), chip->delta, chip->burnlen, nBurnSoundLen);
+			//bprintf(0, ("BurnSnd %08x, %d, %d\n"), chip->delta, chip->burnlen, nBurnSoundLen);
 		}
 		
 		return 0;

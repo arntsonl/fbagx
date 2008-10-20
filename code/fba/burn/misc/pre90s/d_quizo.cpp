@@ -377,7 +377,7 @@ STD_ROM_FN(quizo);
 struct BurnDriver BurnDrvQuizo = {
 	"quizo", NULL, NULL, "1985",
 	"Quiz Olympic\0", NULL, "Seoul Coin Corp.", "Miscellaneous",
-	L"\uD034\uC988\uC62C\uB9BC\uD53D\0Quiz Olympic\0", NULL, NULL, NULL,
+	"\uD034\uC988\uC62C\uB9BC\uD53D\0Quiz Olympic\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 1, HARDWARE_MISC_PRE90S,
 	NULL, quizoRomInfo, quizoRomName, DrvInputInfo, DrvDIPInfo,
 	DrvInit, DrvExit, DrvFrame, NULL, NULL, NULL,

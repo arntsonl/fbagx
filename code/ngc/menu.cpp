@@ -884,13 +884,13 @@ ConfigureButtons (u16 ctrlr_type)
 	menu = oldmenu;
 }	// end configurebuttons()
 
-int ctlrmenucount = 9;
+int ctlrmenucount = 5;
 char ctlrmenu[][50] = {
 	// toggle:
-	"MultiTap",
+/*	"MultiTap",
 	"SuperScope",
 	"Snes Mice",
-	"Justifiers",
+	"Justifiers",*/
 	// config:
 	"Nunchuk",
 	"Classic Controller",
@@ -952,28 +952,28 @@ ConfigureControllers ()
 					GCSettings.Justifier = 0;
 				break;
 */
-			case 4:
+			case 0:
 				/*** Configure Nunchuk ***/
 				ConfigureButtons (CTRLR_NUNCHUK);
 				break;
 
-			case 5:
+			case 1:
 				/*** Configure Classic ***/
 				ConfigureButtons (CTRLR_CLASSIC);
 				break;
 
-			case 6:
+			case 2:
 				/*** Configure Wiimote ***/
 				ConfigureButtons (CTRLR_WIIMOTE);
 				break;
 
-			case 7:
+			case 3:
 				/*** Configure GC Pad ***/
 				ConfigureButtons (CTRLR_GCPAD);
 				break;
 
 			case -1: /*** Button B ***/
-			case 8:
+			case 4:
 				/*** Return ***/
 				quit = 1;
 				break;

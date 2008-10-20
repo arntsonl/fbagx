@@ -678,7 +678,7 @@ static int OhmygodScan(int nAction,int *pnMin)
 struct BurnDriver BurnDrvOhmygod = {
 	"ohmygod", NULL, NULL, "1993",
 	"Oh My God!\0", NULL, "Atlus", "Miscellaneous",
-	L"Oh my God! (Japan)\0Oh my god! \u30AA\u30FC\u30DE\u30A4\u30AC\u30A1\u30FC\uFF01\0", NULL, NULL, NULL,
+	"Oh my God! (Japan)\0Oh my god! \u30AA\u30FC\u30DE\u30A4\u30AC\u30A1\u30FC\uFF01\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_MISC_POST90S,
 	NULL, OhmygodRomInfo, OhmygodRomName, OhmygodInputInfo, OhmygodDIPInfo,
 	OhmygodInit, OhmygodExit, OhmygodFrame, NULL, OhmygodScan,

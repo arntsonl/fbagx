@@ -21,3 +21,66 @@ int cmc_4p_Precalc()
 
 	return 0;
 }
+
+// Originally defined in our burn_sound_a.asm, need to convert this
+int ChannelMix_QS_A(int* Dest, int nLen,
+								char* Sample, int LoopEnd,
+								int* Pos,
+								int VolL, int VolR,
+								int LoopLen,
+								int IncPos,
+								char* EndBuff)
+{
+	// not defined currently
+	return -1;
+}
+
+void BurnSoundCopyClamp_A(int* Src, short* Dest, int Len)
+{
+	// not defined currently
+	return;
+}
+	
+void BurnSoundCopyClamp_Add_A(int* Src, short* Dest, int Len)
+{
+	// not defined currently
+	return;
+}
+	
+void BurnSoundCopyClamp_Mono_A(int* Src, short* Dest, int Len)
+{
+	// not defined currently
+	return;
+}
+	
+void BurnSoundCopyClamp_Mono_Add_A(int* Src, short* Dest, int Len)
+{
+	// not defined currently
+	return;
+}
+	
+void BurnSoundCopy_FM_A(short* SrcL, short* SrcR, short* Dest, int Len, int VolL, int VolR)
+{
+	// not defined currently
+	return;
+}
+	
+void BurnSoundCopy_FM_Add_A(short* SrcL, short* SrcR, short* Dest, int Len, int VolL, int VolR)
+{
+	// not defined currently
+	return;
+}
+
+/* SrcOPN should have left channel data at SrcOPN, right channel at SrcOPN + 4096, SrcPSG should have all summed channels */
+void BurnSoundCopy_FM_OPN_A(short* SrcOPN, int* SrcPSG, short* Dest, int Len, int VolPSGL, int VolPSGR)
+{
+	// not defined currently
+	return;
+}
+	
+void BurnSoundCopy_FM_OPN_Add_A(short* SrcOPN, int* SrcPSG, short* Dest, int Len, int VolPSGL, int VolPSGR)
+{
+	// not defined currently
+	return;
+}
+

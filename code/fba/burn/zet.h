@@ -1,8 +1,11 @@
 // Z80 (Zed Eight-Ty) Interface
-#define EMU_DOZE					// Use Dave's 'Doze' Assembler Z80 emulator
+//#define EMU_DOZE					// Use Dave's 'Doze' Assembler Z80 emulator
+#define Z80
 
 #ifdef EMU_DOZE
  #include "doze.h"
+#else
+ #include "z80.h"
 #endif
 
 int ZetInit(int nCount);
@@ -20,9 +23,15 @@ int ZetBc(int n);
 int ZetHL(int n);
 int ZetScan(int nAction);
 
+// redefine these when we figure out how genplus works
+#define ZET_IRQSTATUS_NONE 0
+#define ZET_IRQSTATUS_AUTO 0
+#define ZET_IRQSTATUS_ACK 0
+/*
 #define ZET_IRQSTATUS_NONE DOZE_IRQSTATUS_NONE
 #define ZET_IRQSTATUS_AUTO DOZE_IRQSTATUS_AUTO
 #define ZET_IRQSTATUS_ACK  DOZE_IRQSTATUS_ACK
+*/
 
 inline static void ZetSetIRQLine(const int line, const int status)
 {
@@ -40,11 +49,12 @@ inline static int ZetNmi()
 	int nCycles = DozeNmi();
 #else
 	// Taking an NMI requires 12 cycles
-	int nCycles = 12
+	int nCycles = 12;
 #endif
 
+#ifdef EMU_DOZE
 	Doze.nCyclesTotal += nCycles;
-
+#endif
 	return nCycles;
 }
 
@@ -77,8 +87,14 @@ inline static int ZetTotalCycles()
 	return 0;
 #endif
 }
-
+/*
 void ZetSetReadHandler(unsigned char (__fastcall *pHandler)(unsigned short));
 void ZetSetWriteHandler(void (__fastcall *pHandler)(unsigned short, unsigned char));
 void ZetSetInHandler(unsigned char (__fastcall *pHandler)(unsigned short));
 void ZetSetOutHandler(void (__fastcall *pHandler)(unsigned short, unsigned char));
+*/
+void ZetSetReadHandler(unsigned char (*pHandler)(unsigned short));
+void ZetSetWriteHandler(void (*pHandler)(unsigned short, unsigned char));
+void ZetSetInHandler(unsigned char (*pHandler) (unsigned short));
+void ZetSetOutHandler(void (*pHandler) (unsigned short, unsigned char));
+

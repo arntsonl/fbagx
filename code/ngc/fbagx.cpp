@@ -21,6 +21,7 @@
 #include <sdcard/card_io.h>
 #include <fat.h>
 
+// GC/Wii Includes
 #include "input.h"
 #include "fbaconfig.h"
 #include "dvd.h"
@@ -29,6 +30,9 @@
 #include "menu.h"
 #include "video.h"
 #include "fbagx.h"
+
+// Final Burn Includes
+#include "burn.h"
 
 #ifdef WII_DVD
 extern "C" {
@@ -51,7 +55,7 @@ void emulate(){
 
 		NGCReportButtons();
 		// HUGE DEBUG TESTING THE MENU
-		if (1){//ConfigRequested) {
+		if (ConfigRequested) {
 			ResetVideo_Menu ();
 			MainMenu(2);
 			// Return from the main menu
@@ -111,6 +115,9 @@ int main(){
 
 	/*****  Settings and Setup for Final Burn Alpha *****/
 
+	// Init the Burn library
+	BurnLibInit();
+
 //    FBAUnmapAllControls();
 //    SetDefaultButtonMap();
 /*
@@ -142,6 +149,10 @@ int main(){
         selectedMenu = 1;
     }
 
+	// Do not exit this until we have a valid rom
+	while(1){ // 1 is a debug obviously :D
+		MainMenu(selectedMenu);
+	}
     // Load our user selected prompt
     emulate();
 

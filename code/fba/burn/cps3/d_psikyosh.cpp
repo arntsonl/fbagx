@@ -84,7 +84,7 @@ unsigned char __fastcall ps3v1ReadByte(unsigned int addr)
 
 	default:
 
-		bprintf(PRINT_NORMAL, _T("Attempt to read byte value of location %8x\n"), addr);
+		bprintf(PRINT_NORMAL, ("Attempt to read byte value of location %8x\n"), addr);
 	}
 	return 0;
 }
@@ -97,7 +97,7 @@ unsigned short __fastcall ps3v1ReadWord(unsigned int addr)
 
 	default:
 
-		bprintf(PRINT_NORMAL, _T("Attempt to read word value of location %8x\n"), addr);
+		bprintf(PRINT_NORMAL, ("Attempt to read word value of location %8x\n"), addr);
 	}
 	return 0;
 }
@@ -110,7 +110,7 @@ unsigned int __fastcall ps3v1ReadLong(unsigned int addr)
 		
 	default:
 
-		bprintf(PRINT_NORMAL, _T("Attempt to read long value of location %8x\n"), addr);
+		bprintf(PRINT_NORMAL, ("Attempt to read long value of location %8x\n"), addr);
 	}
 	return 0;
 }
@@ -127,7 +127,7 @@ void __fastcall ps3v1WriteByte(unsigned int addr, unsigned char data)
 
 	default:
 		
-		bprintf(PRINT_NORMAL, _T("Attempt to write byte value   %02x to location %8x\n"), data, addr);
+		bprintf(PRINT_NORMAL, ("Attempt to write byte value   %02x to location %8x\n"), data, addr);
 	}
 }
 
@@ -139,7 +139,7 @@ void __fastcall ps3v1WriteWord(unsigned int addr, unsigned short data)
 		
 	default:
 			
-		bprintf(PRINT_NORMAL, _T("Attempt to write word value %04x to location %8x\n"), data, addr);
+		bprintf(PRINT_NORMAL, ("Attempt to write word value %04x to location %8x\n"), data, addr);
 	}
 }
 
@@ -150,7 +150,7 @@ void __fastcall ps3v1WriteLong(unsigned int addr, unsigned int data)
 	switch (addr) {
 
 	default:
-		bprintf(PRINT_NORMAL, _T("Attempt to write long value %8x to location %8x\n"), data, addr);
+		bprintf(PRINT_NORMAL, ("Attempt to write long value %8x to location %8x\n"), data, addr);
 	}
 }
 
@@ -257,7 +257,7 @@ static int s1945iiFrame()
 	
 //	Sh2SetIRQLine(12, SH2_IRQSTATUS_AUTO);
 		
-//	bprintf(0, _T("PC: %08x\n"), Sh2GetPC(0));
+//	bprintf(0, ("PC: %08x\n"), Sh2GetPC(0));
 	
 	//Sh2Run(1000);
 	
@@ -278,9 +278,9 @@ static int s1945iiScan(int nAction,int *pnMin)
 		
 struct BurnDriver BurnDrvS1945ii = {
 	"s1945ii", NULL, NULL, "1997",
-	"Strikers 1945 II\0", NULL, "Psikyo", "Misc",
+	"Strikers 1945 II (NOT WORKING)\0", NULL, "Psikyo", "Misc",//"Strikers 1945 II\0", NULL, "Psikyo", "Misc",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_MISC_MISC,
+	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_CAPCOM_CPS3,//HARDWARE_MISC_MISC,
 	NULL, s1945iiRomInfo, s1945iiRomName, s1945iiInputInfo, NULL,
 	s1945iiInit, s1945iiExit, s1945iiFrame, NULL, s1945iiScan, &bRecalcPalette, 
 	384, 224, 4, 3

@@ -563,7 +563,7 @@ STD_ROM_FN(meijinsn);
 struct BurnDriver BurnDrvMeijinsn = {
 	"meijinsn", NULL, NULL, "1986",
 	"Meijinsen\0", NULL, "SNK Electronics corp.", "Miscellaneous",
-	L"\u540D\u4EBA\u6226\0Meijinsen\0", NULL, NULL, NULL,
+	"\u540D\u4EBA\u6226\0Meijinsen\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_MISC_PRE90S,
 	NULL, meijinsnRomInfo, meijinsnRomName, DrvInputInfo, DrvDIPInfo,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, NULL,

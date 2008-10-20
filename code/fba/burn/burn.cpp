@@ -65,7 +65,7 @@ extern "C" int BurnLibInit()
 	nBurnDrvCount = sizeof(pDriver) / sizeof(pDriver[0]);	// count available drivers
 
 	cmc_4p_Precalc();
-	bBurnUseMMX = BurnCheckMMXSupport();
+	//bBurnUseMMX = BurnCheckMMXSupport();
 
 	return 0;
 }

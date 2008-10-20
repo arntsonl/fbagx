@@ -581,7 +581,7 @@ unsigned char __fastcall Madgear68KReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -628,7 +628,7 @@ void __fastcall Madgear68KWriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -649,7 +649,7 @@ unsigned char __fastcall MadgearZ80Read(unsigned short a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 Read => %04X\n"), a);
 		}
 	}
 
@@ -692,7 +692,7 @@ void __fastcall MadgearZ80Write(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }
@@ -711,7 +711,7 @@ void __fastcall Lastduel68KWriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -736,7 +736,7 @@ unsigned short __fastcall Lastduel68KReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read Word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read Word => %06X\n"), a);
 		}
 	}
 	
@@ -779,7 +779,7 @@ void __fastcall Lastduel68KWriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -800,7 +800,7 @@ unsigned char __fastcall LastduelZ80Read(unsigned short a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 Read => %04X\n"), a);
 		}
 	}
 
@@ -831,7 +831,7 @@ void __fastcall LastduelZ80Write(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }

@@ -349,7 +349,7 @@ unsigned char __fastcall Drv1943Read1(unsigned short a)
 		}
 	
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #1 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 #1 Read => %04X\n"), a);
 		}
 	}
 
@@ -361,7 +361,7 @@ void __fastcall Drv1943Write1(unsigned short a, unsigned char d)
 	switch (a) {
 		case 0xc800: {
 			DrvSoundLatch = d;
-//			bprintf(PRINT_IMPORTANT, _T("Sound Latch Sent => %02X\n"), DrvSoundLatch);
+//			bprintf(PRINT_IMPORTANT, ("Sound Latch Sent => %02X\n"), DrvSoundLatch);
 			return;
 		}
 		
@@ -396,7 +396,7 @@ void __fastcall Drv1943Write1(unsigned short a, unsigned char d)
 		
 		case 0xd802: {
 			DrvBgScrollY = d;
-			if (d) bprintf(PRINT_IMPORTANT, _T("BG Scroll Y => %02X\n"), d);
+			if (d) bprintf(PRINT_IMPORTANT, ("BG Scroll Y => %02X\n"), d);
 			return;
 		}
 		
@@ -418,7 +418,7 @@ void __fastcall Drv1943Write1(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #1 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 #1 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }
@@ -429,7 +429,7 @@ unsigned char __fastcall Drv1943PortRead1(unsigned short a)
 	
 	switch (a) {
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #1 Port Read => %02X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 #1 Port Read => %02X\n"), a);
 		}
 	}
 
@@ -442,7 +442,7 @@ void __fastcall Drv1943PortWrite1(unsigned short a, unsigned char d)
 	
 	switch (a) {
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #1 Port Write => %02X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 #1 Port Write => %02X, %02X\n"), a, d);
 		}
 	}
 }
@@ -451,12 +451,12 @@ unsigned char __fastcall Drv1943Read2(unsigned short a)
 {
 	switch (a) {
 		case 0xc800: {
-//			bprintf(PRINT_IMPORTANT, _T("Sound Latch Read => %02X\n"), DrvSoundLatch);
+//			bprintf(PRINT_IMPORTANT, ("Sound Latch Read => %02X\n"), DrvSoundLatch);
 			return DrvSoundLatch;
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #2 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 #2 Read => %04X\n"), a);
 		}
 	}
 
@@ -487,7 +487,7 @@ void __fastcall Drv1943Write2(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #2 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 #2 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }
@@ -498,7 +498,7 @@ unsigned char __fastcall Drv1943PortRead2(unsigned short a)
 	
 	switch (a) {
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #2 Port Read => %02X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 #2 Port Read => %02X\n"), a);
 		}
 	}
 
@@ -511,7 +511,7 @@ void __fastcall Drv1943PortWrite2(unsigned short a, unsigned char d)
 	
 	switch (a) {
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 #2 Port Write => %02X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 #2 Port Write => %02X, %02X\n"), a, d);
 		}
 	}
 }

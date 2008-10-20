@@ -8,37 +8,43 @@
 static int nOpenedCPU = -1;
 static int nCPUCount = 0;
 
+/*
 unsigned char __fastcall ZetDummyReadHandler(unsigned short) { return 0; }
 void __fastcall ZetDummyWriteHandler(unsigned short, unsigned char) { }
 unsigned char __fastcall ZetDummyInHandler(unsigned short) { return 0; }
 void __fastcall ZetDummyOutHandler(unsigned short, unsigned char) { }
+*/
+unsigned char ZetDummyReadHandler(unsigned short) { return 0; }
+void ZetDummyWriteHandler(unsigned short, unsigned char){ }
+unsigned char ZetDummyInHandler(unsigned short) { return 0; }
+void ZetDummyOutHandler(unsigned short, unsigned char) { }
 
-void ZetSetReadHandler(unsigned char (__fastcall *pHandler)(unsigned short))
+void ZetSetReadHandler(unsigned char (*pHandler)(unsigned short))
 {
-	Doze.ReadHandler = pHandler;
+	//Doze.ReadHandler = pHandler;
 }
 
-void ZetSetWriteHandler(void (__fastcall *pHandler)(unsigned short, unsigned char))
+void ZetSetWriteHandler(void (*pHandler)(unsigned short, unsigned char))
 {
-	Doze.WriteHandler = pHandler;
+	//Doze.WriteHandler = pHandler;
 }
 
-void ZetSetInHandler(unsigned char (__fastcall *pHandler)(unsigned short))
+void ZetSetInHandler(unsigned char (*pHandler) (unsigned short))
 {
-	Doze.InHandler = pHandler;
+	//Doze.InHandler = pHandler;
 }
 
-void ZetSetOutHandler(void (__fastcall *pHandler)(unsigned short, unsigned char))
+void ZetSetOutHandler(void (*pHandler) (unsigned short, unsigned char))
 {
-	Doze.OutHandler = pHandler;
+	//Doze.OutHandler = pHandler;
 }
 
 void ZetNewFrame()
 {
 	for (int i = 0; i < nCPUCount; i++) {
-		ZetCPUContext[i].nCyclesTotal = 0;
+		//ZetCPUContext[i].nCyclesTotal = 0;
 	}
-	Doze.nCyclesTotal = 0;
+	//Doze.nCyclesTotal = 0;
 }
 
 int ZetInit(int nCount)
