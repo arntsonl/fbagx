@@ -316,7 +316,7 @@ void __fastcall TmntWriteWord(unsigned int sekAddress, unsigned short wordValue)
 {
 	switch (sekAddress) {
 		default: {
-			bprintf(PRINT_NORMAL, _T("TmntWriteWord: value %x to location %x\n"), wordValue, sekAddress);
+			bprintf(PRINT_NORMAL, ("TmntWriteWord: value %x to location %x\n"), wordValue, sekAddress);
 		}
 	}
 }
@@ -385,7 +385,7 @@ void __fastcall TmntWriteByte(unsigned int a,unsigned char d)
 
 
 	default:
-		bprintf(PRINT_NORMAL, _T("TmntWriteByte: value %x to location %x\n"), d, a);
+		bprintf(PRINT_NORMAL, ("TmntWriteByte: value %x to location %x\n"), d, a);
 		break;
 
 	}

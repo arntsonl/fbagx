@@ -30,6 +30,9 @@
 #include <string.h>
 #include "m68k.h"
 
+unsigned int (*SekDbgFetchWordDisassembler)(unsigned int);
+unsigned int (*SekDbgFetchLongDisassembler)(unsigned int);
+
 #ifndef DECL_SPEC
 #define DECL_SPEC
 #endif

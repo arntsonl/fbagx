@@ -1160,7 +1160,7 @@ static void Snowbro3PlayMusic(int data)
 {
 	Snowbro3Music = data;
 	
-	bprintf(PRINT_NORMAL, _T("%x\n"), data);
+	bprintf(PRINT_NORMAL, ("%x\n"), data);
 	
 	switch (data) {
 		case 0x23: {
@@ -1260,7 +1260,7 @@ unsigned char __fastcall HyperpacReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Read byte -> %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("Read byte -> %06X\n"), a);
 		}
 	}
 	
@@ -1299,7 +1299,7 @@ unsigned char __fastcall HyperpacReadByteLow(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Read byte -> %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("Read byte -> %06X\n"), a);
 		}
 	}
 	
@@ -1317,7 +1317,7 @@ void __fastcall HyperpacWriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Write byte -> %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Write byte -> %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -1337,7 +1337,7 @@ void __fastcall TwinadvWriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Write byte -> %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Write byte -> %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -1350,7 +1350,7 @@ unsigned short __fastcall HyperpacReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Read Word -> %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("Read Word -> %06X\n"), a);
 		}
 	}
 	
@@ -1367,7 +1367,7 @@ unsigned short __fastcall HyperpacReadWordLow(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Read Word -> %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("Read Word -> %06X\n"), a);
 		}
 		
 	}
@@ -1404,7 +1404,7 @@ void __fastcall HyperpacWriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Write word -> %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Write word -> %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -1437,7 +1437,7 @@ unsigned char __fastcall HoneydolReadByte(unsigned int a)
 		}
 	}
 
-	bprintf(PRINT_NORMAL, _T("Read byte -> %06X\n"), a);
+	bprintf(PRINT_NORMAL, ("Read byte -> %06X\n"), a);
 	
 	return 0;
 }
@@ -1453,7 +1453,7 @@ unsigned short __fastcall HoneydolReadWord(unsigned int a)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Read Word -> %06X\n"), a);
+	bprintf(PRINT_NORMAL, ("Read Word -> %06X\n"), a);
 	
 	return 0;
 }
@@ -1473,7 +1473,7 @@ void __fastcall HoneydolWriteByte(unsigned int a, unsigned char d)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Write byte -> %06X, %02X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Write byte -> %06X, %02X\n"), a, d);
 }
 
 void __fastcall HoneydolWriteWord(unsigned int a, unsigned short d)
@@ -1501,7 +1501,7 @@ void __fastcall HoneydolWriteWord(unsigned int a, unsigned short d)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Write word -> %06X, %04X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Write word -> %06X, %04X\n"), a, d);
 }
 
 unsigned char __fastcall HyperpacZ80Read(unsigned short a)
@@ -1520,7 +1520,7 @@ unsigned char __fastcall HyperpacZ80Read(unsigned short a)
 		}
 		
 		default: {
-//			bprintf(PRINT_NORMAL, _T("Z80 Read -> %04X\n"), a);
+//			bprintf(PRINT_NORMAL, ("Z80 Read -> %04X\n"), a);
 		}
 	}
 	
@@ -1567,7 +1567,7 @@ unsigned char __fastcall TwinadvZ80PortRead(unsigned short a)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 Port Read -> %02X\n"), a);
+	bprintf(PRINT_NORMAL, ("Z80 Port Read -> %02X\n"), a);
 
 	return 0;
 }
@@ -1594,7 +1594,7 @@ void __fastcall TwinadvZ80PortWrite(unsigned short a, unsigned char d)
 		}
 	}
 
-	bprintf(PRINT_NORMAL, _T("Z80 Port Write -> %02X, %02x\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Z80 Port Write -> %02X, %02x\n"), a, d);
 }
 
 unsigned char __fastcall HoneydolZ80Read(unsigned short a)
@@ -1605,7 +1605,7 @@ unsigned char __fastcall HoneydolZ80Read(unsigned short a)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 Read -> %04X\n"), a);
+	bprintf(PRINT_NORMAL, ("Z80 Read -> %04X\n"), a);
 	
 	return 0;
 }
@@ -1621,7 +1621,7 @@ void __fastcall HoneydolZ80Write(unsigned short a, unsigned char d)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 Write -> %04X, %02x\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Z80 Write -> %04X, %02x\n"), a, d);
 }
 
 unsigned short __fastcall SnowbrosReadWord(unsigned int a)
@@ -1706,7 +1706,7 @@ unsigned short __fastcall Snowbro3ReadWord(unsigned int a)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("68000 Read Word %06X\n"), a);
+	bprintf(PRINT_NORMAL, ("68000 Read Word %06X\n"), a);
 
 	return 0;
 }
@@ -1744,7 +1744,7 @@ unsigned char __fastcall Snowbro3ReadByte(unsigned int a)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("68000 Read Byte %06X\n"), a);
+	bprintf(PRINT_NORMAL, ("68000 Read Byte %06X\n"), a);
 
 	return 0;
 }
@@ -1775,7 +1775,7 @@ void __fastcall Snowbro3WriteWord(unsigned int a, unsigned short d)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("68000 Write Word %06X -> %04X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("68000 Write Word %06X -> %04X\n"), a, d);
 }
 
 void __fastcall Snowbro3WriteByte(unsigned int a, unsigned char d)
@@ -1797,7 +1797,7 @@ void __fastcall Snowbro3WriteByte(unsigned int a, unsigned char d)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("68000 Write Byte %06X -> %02X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("68000 Write Byte %06X -> %02X\n"), a, d);
 }
 
 unsigned char __fastcall SnowbrosZ80PortRead(unsigned short a)
@@ -3809,7 +3809,7 @@ struct BurnDriver BurnDrvCookbib3 = {
 struct BurnDriver BurnDrvMoremore = {
 	"moremore", NULL, NULL, "1999",
 	"More More\0", NULL, "SemiCom / Exit", "Kaneko Pandora based",
-	L"More More\0\uBAA8\uC544\uBAA8\uC544 More More\0", NULL, NULL, NULL,
+	"More More\0\uBAA8\uC544\uBAA8\uC544 More More\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_MISC_POST90S,
 	NULL, MoremoreRomInfo, MoremoreRomName, HyperpacInputInfo, MoremoreDIPInfo,
 	MoremoreInit, HyperpacExit, HyperpacFrame, NULL, HyperpacScan,
@@ -3869,7 +3869,7 @@ struct BurnDriver BurnDrvFourin1boot = {
 struct BurnDriver BurnDrvFinalttr = {
 	"finalttr", NULL, NULL, "1993",
 	"Final Tetris\0", NULL, "Jeil Computer System", "Kaneko Pandora based",
-	L"Final Tetris\0\uD30C\uC774\uB110 \uD14C\uD2B8\uB9AC\uC2A4\0", NULL, NULL, NULL,
+	"Final Tetris\0\uD30C\uC774\uB110 \uD14C\uD2B8\uB9AC\uC2A4\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_MISC_POST90S,
 	NULL, FinalttrRomInfo, FinalttrRomName, HyperpacInputInfo, FinalttrDIPInfo,
 	FinalttrInit, HyperpacExit, FinalttrFrame, NULL, HyperpacScan,

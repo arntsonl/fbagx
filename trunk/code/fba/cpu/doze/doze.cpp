@@ -59,7 +59,8 @@ static inline void TryInt()
 	Doze.nCyclesLeft -= nDid;
 }
 
-void __cdecl DozeRun()
+//void __cdecl DozeRun()
+void DozeRun()
 {
 	TryInt();										// Try the interrupt before we begin
 
@@ -99,7 +100,8 @@ void __cdecl DozeRun()
 	}
 }
 
-int __cdecl DozeReset()
+//int __cdecl DozeReset()
+int DozeReset()
 {
 	// Reset z80
 	memset(&Doze, 0, 32);
@@ -111,10 +113,27 @@ int __cdecl DozeReset()
 	return 0;
 }
 
-int __cdecl DozeNmi()
+//int __cdecl DozeNmi()
+int DozeNmi()
 {
 	Doze.iff &= 0xFF00;						// reset iff1
 	DozeAsmCall((unsigned short)0x66);		// Do nmi
 
 	return 12;
+}
+
+// No .asm compiling, so lets do this the hard way
+void DozeAsmRun()
+{
+	return;
+}
+
+void DozeAsmCall(unsigned short nAddr)
+{
+	return;
+}
+
+unsigned char DozeAsmRead(unsigned short nAddr)
+{
+	return 0;
 }

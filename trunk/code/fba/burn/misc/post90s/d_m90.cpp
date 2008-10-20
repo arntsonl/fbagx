@@ -245,7 +245,7 @@ unsigned char __fastcall m90ReadByte(unsigned int vezAddress)
 	{
 		unsigned char vec = RomV30[(vezAddress -0xFFFF0) +  0x3fff0];
 
-		bprintf(1, _T("Read vec %x, %x, %x\n"), vezAddress, vec, RomV30[(vezAddress -0xFFFF0) +  0x3fff0]);
+		bprintf(1, ("Read vec %x, %x, %x\n"), vezAddress, vec, RomV30[(vezAddress -0xFFFF0) +  0x3fff0]);
 		return vec;
 	}
 
@@ -299,7 +299,7 @@ unsigned char __fastcall m90ReadPort(unsigned int vezPort)
 			//	bprintf(1, "read input port 6\n"); /* Player 4 */
 			break;
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read byte value of port %x\n"), vezPort);
+			bprintf(PRINT_NORMAL, ("Attempt to read byte value of port %x\n"), vezPort);
 	}
 	return ~0;
 }
@@ -308,7 +308,7 @@ void __fastcall m90WritePort(unsigned int vezPort, unsigned char byteValue)
 {
 	if (vezPort <= 0x01)
 	{
-		bprintf(1, _T("write port m72_sound_command_w %x\n"), byteValue); /* Player 4 */
+		bprintf(1, ("write port m72_sound_command_w %x\n"), byteValue); /* Player 4 */
 	}
 	else if (vezPort >= 0x02 && vezPort <= 0x03)
 	{

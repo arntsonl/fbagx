@@ -90,7 +90,7 @@ unsigned char __fastcall galpani4ReadByte(unsigned int addr)
 		return 0xff;
 		
 	default:
-		bprintf(PRINT_NORMAL, _T("Attempt to read byte value of location %8x\n"), addr);
+		bprintf(PRINT_NORMAL, ("Attempt to read byte value of location %8x\n"), addr);
 	}
 	return 0;
 }
@@ -100,7 +100,7 @@ unsigned short __fastcall galpani4ReadWord(unsigned int addr)
 	switch (addr) {
 		
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read word value of location %8x\n"), addr);
+			bprintf(PRINT_NORMAL, ("Attempt to read word value of location %8x\n"), addr);
 	}
 	return 0;
 }
@@ -110,7 +110,7 @@ unsigned int __fastcall galpani4ReadLong(unsigned int addr)
 	switch (addr) {
 		
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read long value of location %8x\n"), addr);
+			bprintf(PRINT_NORMAL, ("Attempt to read long value of location %8x\n"), addr);
 	}
 	return 0;
 }
@@ -120,7 +120,7 @@ void __fastcall galpani4WriteByte(unsigned int addr, unsigned char data)
 	switch (addr) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write byte value %2x to location %8x\n"), data, addr);
+			bprintf(PRINT_NORMAL, ("Attempt to write byte value %2x to location %8x\n"), data, addr);
 	}
 }
 
@@ -129,7 +129,7 @@ void __fastcall galpani4WriteWord(unsigned int addr, unsigned short data)
 	switch (addr) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write word value %4x to location %8x\n"), data, addr);
+			bprintf(PRINT_NORMAL, ("Attempt to write word value %4x to location %8x\n"), data, addr);
 	}
 }
 
@@ -138,7 +138,7 @@ void __fastcall galpani4WriteLong(unsigned int addr, unsigned int data)
 	switch (addr) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write long value %8x to location %8x\n"), data, addr);
+			bprintf(PRINT_NORMAL, ("Attempt to write long value %8x to location %8x\n"), data, addr);
 	}
 }
 
@@ -264,9 +264,9 @@ static int galpani4Scan(int nAction,int *pnMin)
 		
 struct BurnDriver BurnDrvGalpani4 = {
 	"galpani4", NULL, NULL, "1996",
-	"Gals Panic 4 (Japan)\0", NULL, "Kaneko", "Misc",
+	"Gals Panic 4 (Japan) (NON WORKING)\0", NULL, "Kaneko", "Misc", //"Gals Panic 4 (Japan)\0", NULL, "Kaneko", "Misc",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_MISC_MISC,
+	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_CAPCOM_CPS3,//HARDWARE_MISC_MISC,
 	NULL, galpani4RomInfo, galpani4RomName, galpani4InputInfo, NULL,
 	galpani4Init, galpani4Exit, galpani4Frame, NULL, galpani4Scan, &bRecalcPalette, 
 	320, 240, 4, 3

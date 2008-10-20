@@ -853,7 +853,7 @@ struct BurnDriver BurnDrvPrehislu = {
 struct BurnDriver BurnDrvGensitou = {
 	"gensitou", "prehisle", NULL, "1989",
 	"Genshi-Tou 1930's (Japan)\0", "Incomplete Sound", "SNK", "Prehistoric Isle (SNK)",
-	L"Genshi-Tou 1930's (Japan)\0\u539F\u59CB\u5CF6 1930's (Japan)\0", NULL, NULL, NULL,
+	"Genshi-Tou 1930's (Japan)\0\u539F\u59CB\u5CF6 1930's (Japan)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_MISC_PRE90S,
 	NULL, GensitouRomInfo, GensitouRomName, PrehisleInputInfo, PrehisleDIPInfo,
 	PrehisleInit, PrehisleExit, PrehisleFrame, NULL, PrehisleScan,

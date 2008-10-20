@@ -253,9 +253,17 @@ int FileSortCallback(const void *f1, const void *f2)
 
 bool IsValidROM(int method)
 {
+// FBA roms can be a variable file size, so lets see if its at least > 0mb
+/*
 	// file size should be between 128K and 8MB
 	if(filelist[selection].length < (1024*128) ||
 		filelist[selection].length > (1024*1024*8))
+	{
+		WaitPrompt((char *)"Invalid file size!");
+		return false;
+	}
+*/
+	if(filelist[selection].length <= 0 )
 	{
 		WaitPrompt((char *)"Invalid file size!");
 		return false;
@@ -269,6 +277,10 @@ bool IsValidROM(int method)
 		{
 			if(stricmp(p, ".zip") == 0)
 			{
+				// We really need to now throw the rom at the CRC checker!
+				// We can also diff this if we want to ignore CRC checkings, and only check file/driver name				
+				return true;
+/*
 				// we need to check the file extension of the first file in the archive
 				char * zippedFilename = GetFirstZipFilename (method);
 				if(zippedFilename == NULL)
@@ -277,8 +289,9 @@ bool IsValidROM(int method)
 					p = strrchr(zippedFilename, '.');
 				else
 					p = NULL;
+*/
 			}
-
+/*
 			if(p != NULL)
 			{
 				if (stricmp(p, ".smc") == 0 || stricmp(p, ".fig") == 0)
@@ -286,6 +299,7 @@ bool IsValidROM(int method)
 					return true;
 				}
 			}
+*/
 		}
 	}
 	WaitPrompt((char *)"Unknown file type!");

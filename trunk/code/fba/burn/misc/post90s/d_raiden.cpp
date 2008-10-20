@@ -476,10 +476,10 @@ unsigned char __fastcall raidenSubReadByte(unsigned int vezAddress)
 			unsigned char nRet = RamV30S[0x8];
 			//int pc = VezPC();
 			//if (pc==0xfcde6 && ret!=0x40) cpu_spin();
-			bprintf(PRINT_NORMAL, _T("sub_cpu_spin_r %02x%02x\n"), RamV30S[0x8], RamV30S[0x9]);
+			bprintf(PRINT_NORMAL, ("sub_cpu_spin_r %02x%02x\n"), RamV30S[0x8], RamV30S[0x9]);
 			return nRet; }
 		case 0x04009:
-			bprintf(PRINT_NORMAL, _T("sub_cpu_spin_r %02x%02x\n"), RamV30S[0x8], RamV30S[0x9]);
+			bprintf(PRINT_NORMAL, ("sub_cpu_spin_r %02x%02x\n"), RamV30S[0x8], RamV30S[0x9]);
 			return RamV30S[0x9];
 			
 		//default:

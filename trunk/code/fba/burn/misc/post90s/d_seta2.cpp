@@ -153,7 +153,7 @@ static void tmp68301_update_timer( int i )
 			//bprintf(PRINT_NORMAL, _T("Tmp68301: update timer #%d duration to %d (%8.3f)\n"), i, tmp68301_timer[i], duration);
 		} else
 			//logerror("CPU #0 PC %06X: TMP68301 error, timer %d duration is 0\n",activecpu_get_pc(),i);
-			bprintf(PRINT_ERROR, _T("Tmp68301: error timer %d duration is 0\n"), i, TCR, MAX1, MAX2);
+			bprintf(PRINT_ERROR, ("Tmp68301: error timer %d duration is 0\n"), i, TCR, MAX1, MAX2);
 	}
 }
 
@@ -823,7 +823,7 @@ unsigned char __fastcall grdiansReadByte(unsigned int sekAddress)
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read byte value of location %x\n"), sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to read byte value of location %x\n"), sekAddress);
 	}
 	return 0;
 }
@@ -851,7 +851,7 @@ void __fastcall grdiansWriteByte(unsigned int sekAddress, unsigned char byteValu
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
 	}
 }
 
@@ -882,13 +882,13 @@ void __fastcall grdiansWriteWord(unsigned int sekAddress, unsigned short wordVal
 
 unsigned char __fastcall setaSoundRegReadByte(unsigned int sekAddress)
 {
-	bprintf(PRINT_NORMAL, _T("x1-010 to read byte value of location %x\n"), sekAddress);
+	bprintf(PRINT_NORMAL, ("x1-010 to read byte value of location %x\n"), sekAddress);
 	return 0;
 }
 
 unsigned short __fastcall setaSoundRegReadWord(unsigned int sekAddress)
 {
-	bprintf(PRINT_NORMAL, _T("x1-010 to read word value of location %x\n"), sekAddress);
+	bprintf(PRINT_NORMAL, ("x1-010 to read word value of location %x\n"), sekAddress);
 	return 0;
 }
 
@@ -941,7 +941,7 @@ void __fastcall setaSoundRegWriteWord(unsigned int sekAddress, unsigned short wo
 
 void __fastcall grdiansPaletteWriteByte(unsigned int sekAddress, unsigned char byteValue)
 {
-	bprintf(PRINT_NORMAL, _T("Pal to write byte value %x to location %x\n"), byteValue, sekAddress);
+	bprintf(PRINT_NORMAL, ("Pal to write byte value %x to location %x\n"), byteValue, sekAddress);
 }
 
 void __fastcall grdiansPaletteWriteWord(unsigned int sekAddress, unsigned short wordValue)
@@ -1090,7 +1090,7 @@ unsigned char __fastcall mj4simaiReadByte(unsigned int sekAddress)
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read byte value of location %x\n"), sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to read byte value of location %x\n"), sekAddress);
 	}
 	return 0;
 }
@@ -1131,7 +1131,7 @@ void __fastcall mj4simaiWriteByte(unsigned int sekAddress, unsigned char byteVal
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
 	}
 }
 
@@ -1253,7 +1253,7 @@ unsigned char __fastcall myangelReadByte(unsigned int sekAddress)
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read byte value of location %x\n"), sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to read byte value of location %x\n"), sekAddress);
 	}
 	return 0;
 }
@@ -1283,7 +1283,7 @@ void __fastcall myangelWriteByte(unsigned int sekAddress, unsigned char byteValu
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
 	}
 }
 
@@ -1401,7 +1401,7 @@ unsigned char __fastcall myangel2ReadByte(unsigned int sekAddress)
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read byte value of location %x\n"), sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to read byte value of location %x\n"), sekAddress);
 	}
 	return 0;
 }
@@ -1431,7 +1431,7 @@ void __fastcall myangel2WriteByte(unsigned int sekAddress, unsigned char byteVal
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
 	}
 }
 
@@ -1550,7 +1550,7 @@ unsigned char __fastcall pzlbowlReadByte(unsigned int sekAddress)
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read byte value of location %x\n"), sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to read byte value of location %x\n"), sekAddress);
 	}
 	return 0;
 }
@@ -1576,7 +1576,7 @@ unsigned short __fastcall pzlbowlReadWord(unsigned int sekAddress)
 			/*  The game checks for a specific value read from the ROM region.
     			The offset to use is stored in RAM at address 0x20BA16 */
 			unsigned int address = (*(unsigned short *)(Ram68K + 0x00ba16) << 16) | *(unsigned short *)(Ram68K + 0x00ba18);
-			bprintf(PRINT_NORMAL, _T("pzlbowl Protection read address %08x [%02x %02x %02x %02x]\n"), address,
+			bprintf(PRINT_NORMAL, ("pzlbowl Protection read address %08x [%02x %02x %02x %02x]\n"), address,
 			        Rom68K[ address - 2 ], Rom68K[ address - 1 ], Rom68K[ address - 0 ], Rom68K[ address + 1 ]);
 			return Rom68K[ address - 2 ]; }
 //		default:
@@ -1590,7 +1590,7 @@ void __fastcall pzlbowlWriteByte(unsigned int sekAddress, unsigned char byteValu
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
 	}
 }
 
@@ -1706,7 +1706,7 @@ unsigned char __fastcall penbrosReadByte(unsigned int sekAddress)
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read byte value of location %x\n"), sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to read byte value of location %x\n"), sekAddress);
 	}
 	return 0;
 }
@@ -1734,7 +1734,7 @@ void __fastcall penbrosWriteByte(unsigned int sekAddress, unsigned char byteValu
 	switch (sekAddress) {
 
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
 	}
 }
 
@@ -2291,7 +2291,7 @@ static int grdiansScan(int nAction,int *pnMin)
 struct BurnDriver BurnDrvGrdians = {
 	"grdians", NULL, NULL, "1995",
 	"Guardians\0Denjin Makai II\0", NULL, "Banpresto", "Newer Seta",
-	L"Guardians\0\u96FB\u795E\u9B54\u584A \uFF29\uFF29\0", NULL, NULL, NULL,
+	"Guardians\0\u96FB\u795E\u9B54\u584A \uFF29\uFF29\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_MISC_POST90S,
 	NULL, grdiansRomInfo, grdiansRomName, grdiansInputInfo, grdiansDIPInfo,
 	grdiansInit, grdiansExit, grdiansFrame, NULL, grdiansScan, &bRecalcPalette,
@@ -2301,7 +2301,7 @@ struct BurnDriver BurnDrvGrdians = {
 struct BurnDriver BurnDrvMj4simai = {
 	"mj4simai", NULL, NULL, "1996",
 	"Wakakusamonogatari Mahjong Yonshimai (Japan)\0", NULL, "Maboroshi Ware", "Newer Seta",
-	L"\u82E5\u8349\u7269\u8A9E \u9EBB\u96C0\u56DB\u59C9\u59B9 (Japan)\0Wakakusamonogatari Mahjong Yonshimai\0", NULL, NULL, NULL,
+	"\u82E5\u8349\u7269\u8A9E \u9EBB\u96C0\u56DB\u59C9\u59B9 (Japan)\0Wakakusamonogatari Mahjong Yonshimai\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 1, HARDWARE_MISC_POST90S,
 	NULL, mj4simaiRomInfo, mj4simaiRomName, mj4simaiInputInfo, mj4simaiDIPInfo,
 	mj4simaiInit, grdiansExit, grdiansFrame, NULL, grdiansScan, &bRecalcPalette,
@@ -2311,7 +2311,7 @@ struct BurnDriver BurnDrvMj4simai = {
 struct BurnDriver BurnDrvMyangel = {
 	"myangel", NULL, NULL, "1996",
 	"Kosodate Quiz My Angel (Japan)\0", NULL, "Namco", "Newer Seta",
-	L"\u5B50\u80B2\u3066\u30AF\u30A4\u30BA \u30DE\u30A4 \u30A8\u30F3\u30B8\u30A7\u30EB (Japan)\0Kosodate Quiz My Angel\0", NULL, NULL, NULL,
+	"\u5B50\u80B2\u3066\u30AF\u30A4\u30BA \u30DE\u30A4 \u30A8\u30F3\u30B8\u30A7\u30EB (Japan)\0Kosodate Quiz My Angel\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_MISC_POST90S,
 	NULL, myangelRomInfo, myangelRomName, myangelInputInfo, myangelDIPInfo,
 	myangelInit, grdiansExit, grdiansFrame, NULL, grdiansScan, &bRecalcPalette,
@@ -2321,7 +2321,7 @@ struct BurnDriver BurnDrvMyangel = {
 struct BurnDriver BurnDrvMyangel2 = {
 	"myangel2", NULL, NULL, "1996",
 	"Kosodate Quiz My Angel 2 (Japan)\0", NULL, "Namco", "Newer Seta",
-	L"\u5B50\u80B2\u3066\u30AF\u30A4\u30BA \u30DE\u30A4 \u30A8\u30F3\u30B8\u30A7\u30EB \uFF12 (Japan)\0Kosodate Quiz My Angel 2\0", NULL, NULL, NULL,
+	"\u5B50\u80B2\u3066\u30AF\u30A4\u30BA \u30DE\u30A4 \u30A8\u30F3\u30B8\u30A7\u30EB \uFF12 (Japan)\0Kosodate Quiz My Angel 2\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_MISC_POST90S,
 	NULL, myangel2RomInfo, myangel2RomName, myangelInputInfo, myangel2DIPInfo,
 	myangel2Init, grdiansExit, grdiansFrame, NULL, grdiansScan, &bRecalcPalette,
@@ -2331,7 +2331,7 @@ struct BurnDriver BurnDrvMyangel2 = {
 struct BurnDriver BurnDrvPzlbowl = {
 	"pzlbowl", NULL, NULL, "1999",
 	"Puzzle De Bowling (Japan)\0", NULL, "Nihon System / Moss", "Newer Seta",
-	L"Puzzle De Bowling\0\u30D1\u30BA\u30EB \uFF24\uFF25 \u30DC\u30FC\u30EA\u30F3\u30B0\0", NULL, NULL, NULL,
+	"Puzzle De Bowling\0\u30D1\u30BA\u30EB \uFF24\uFF25 \u30DC\u30FC\u30EA\u30F3\u30B0\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_MISC_POST90S,
 	NULL, pzlbowlRomInfo, pzlbowlRomName, grdiansInputInfo, pzlbowlDIPInfo,
 	pzlbowlInit, grdiansExit, grdiansFrame, NULL, grdiansScan, &bRecalcPalette,
@@ -2341,7 +2341,7 @@ struct BurnDriver BurnDrvPzlbowl = {
 struct BurnDriver BurnDrvPenbros = {
 	"penbros", NULL, NULL, "2000",
 	"Penguin Brothers (Japan)\0", NULL, "Subsino", "Newer Seta",
-	L"\u30DA\u30F3\u30AE\u30F3 \u30D6\u30E9\u30B6\u30FC\u30BA (Japan)\0Penguin Brothers\0", NULL, NULL, NULL,
+	"\u30DA\u30F3\u30AE\u30F3 \u30D6\u30E9\u30B6\u30FC\u30BA (Japan)\0Penguin Brothers\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_MISC_POST90S,
 	NULL, penbrosRomInfo, penbrosRomName, penbrosInputInfo, penbrosDIPInfo,
 	penbrosInit, grdiansExit, grdiansFrame, NULL, grdiansScan, &bRecalcPalette,

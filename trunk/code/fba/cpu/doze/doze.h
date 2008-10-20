@@ -56,6 +56,11 @@ struct DozeContext {
 	unsigned char** ppMemRead;
 	unsigned char** ppMemWrite;
 
+	unsigned char (*ReadHandler)(unsigned short a);
+	void (*WriteHandler)(unsigned short a, unsigned char d);
+	unsigned char (*InHandler)(unsigned short a);
+	void (*OutHandler)(unsigned short a, unsigned char d);
+/*
 	// Handlers
  #ifdef FASTCALL
 	unsigned char (__fastcall *ReadHandler)(unsigned short a);
@@ -68,20 +73,30 @@ struct DozeContext {
 	unsigned char (__cdecl *InHandler)(unsigned short a);
 	void (__cdecl *OutHandler)(unsigned short a, unsigned char d);
  #endif
+*/
 };
 
 // Interface to the assembly code
 extern struct DozeContext Doze;
-
+/*
 void __cdecl DozeAsmRun();
 void __cdecl DozeAsmCall(unsigned short nAddr);
 unsigned char __cdecl DozeAsmRead(unsigned short nAddr);
+*/
+void DozeAsmRun();
+void DozeAsmCall(unsigned short nAddr);
+unsigned char DozeAsmRead(unsigned short nAddr);
 
 // doze.cpp
 extern int nDozeVer;					// Version number of the library
+/*
 void __cdecl DozeRun();
 int __cdecl DozeNmi();
 int __cdecl DozeReset();
+*/
+void DozeRun();
+int DozeNmi();
+int DozeReset();
 
 #ifdef __cplusplus
  } // End of extern "C"

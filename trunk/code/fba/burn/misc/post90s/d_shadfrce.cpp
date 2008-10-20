@@ -273,7 +273,7 @@ unsigned char __fastcall shadfrceReadByte(unsigned int sekAddress)
 		case 0x1D000D:
 			return nBrightness;
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read byte value of location %x\n"), sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to read byte value of location %x\n"), sekAddress);
 	}
 	return 0;
 }
@@ -290,7 +290,7 @@ unsigned short __fastcall shadfrceReadWord(unsigned int sekAddress)
 		case 0x1D0026:
 			return ~(DrvInput[6] | ( (DrvInput[7] | (bVBlink << 2))<< 8)) /*& 0x0FFF*/;
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to read word value of location %x\n"), sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to read word value of location %x\n"), sekAddress);
 	}
 	return 0;
 }
@@ -302,12 +302,12 @@ void __fastcall shadfrceWriteByte(unsigned int sekAddress, unsigned char byteVal
 			// shadfrce_flip_screen
 			break;
 		case 0x1D000C:
-//			bprintf(PRINT_NORMAL, _T("sound write %02x\n"), byteValue);
+//			bprintf(PRINT_NORMAL, ("sound write %02x\n"), byteValue);
 			nSoundlatch = byteValue;
 			ZetNmi();
 			break;
 		case 0x1D000D:
-			//bprintf(PRINT_NORMAL, _T("Brightness set to %02x\n"), byteValue);
+			//bprintf(PRINT_NORMAL, ("Brightness set to %02x\n"), byteValue);
 			nBrightness = byteValue;
 			for(int i=0;i<0x4000;i++) CalcCol(i);
 			break;
@@ -322,7 +322,7 @@ void __fastcall shadfrceWriteByte(unsigned int sekAddress, unsigned char byteVal
 		case 0x1D0017:	// NOP 
 			break;
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to write byte value %x to location %x\n"), byteValue, sekAddress);
 		
 	}
 }
@@ -336,12 +336,12 @@ void __fastcall shadfrceWriteWord(unsigned int sekAddress, unsigned short wordVa
 		case 0x1C0006: bg1scrolly = wordValue & 0x1FF; break;
 		
 		case 0x1D000D:
-			bprintf(PRINT_NORMAL, _T("Brightness set to %04x\n"), wordValue);
+			bprintf(PRINT_NORMAL, ("Brightness set to %04x\n"), wordValue);
 			//nBrightness = byteValue;
 			break;
 		case 0x1D0016:
 			// wait v-blink dip change call back ???
-			//bprintf(PRINT_NORMAL, _T("v-blink clear at PC 0x%06x\n"), SekGetPC(0) );
+			//bprintf(PRINT_NORMAL, ("v-blink clear at PC 0x%06x\n"), SekGetPC(0) );
 			break;
 			
 		case 0x1D0000:	// NOP
@@ -350,7 +350,7 @@ void __fastcall shadfrceWriteWord(unsigned int sekAddress, unsigned short wordVa
 		case 0x1D0008:
 			break;
 		default:
-			bprintf(PRINT_NORMAL, _T("Attempt to write word value %x to location %x\n"), wordValue, sekAddress);
+			bprintf(PRINT_NORMAL, ("Attempt to write word value %x to location %x\n"), wordValue, sekAddress);
 
 	}
 }
@@ -359,7 +359,7 @@ void __fastcall shadfrceWriteWord(unsigned int sekAddress, unsigned short wordVa
 void __fastcall shadfrceWriteBytePalette(unsigned int sekAddress, unsigned char byteValue)
 {
 	//CavePalWriteByte(sekAddress & 0xFFFF, byteValue);
-	bprintf(PRINT_NORMAL, _T("Attempt to write byte value %x to palette %x\n"), byteValue, sekAddress);
+	bprintf(PRINT_NORMAL, ("Attempt to write byte value %x to palette %x\n"), byteValue, sekAddress);
 }
 */
 
@@ -375,16 +375,16 @@ unsigned char __fastcall shadfrceZRead(unsigned short a)
 {
 	switch (a) {
 	case 0xC801:	// YM2151_status_port_0_r
-		//bprintf(PRINT_NORMAL, _T("YM2151_status_port_0_r\n"));
+		//bprintf(PRINT_NORMAL, ("YM2151_status_port_0_r\n"));
 		return BurnYM2151ReadStatus();
 	case 0xD800:	// OKIM6295_status_0_r
-		//bprintf(PRINT_NORMAL, _T("OKIM6295_status_0_r\n"));
+		//bprintf(PRINT_NORMAL, ("OKIM6295_status_0_r\n"));
 		return MSM6295ReadStatus(0);
 	case 0xE000:	// soundlatch_r
-		//bprintf(PRINT_NORMAL, _T("Soundlatch_r\n"));
+		//bprintf(PRINT_NORMAL, ("Soundlatch_r\n"));
 		return nSoundlatch;
 //	default:
-//		bprintf(PRINT_NORMAL, _T("Z80 address %04X read.\n"), a);
+//		bprintf(PRINT_NORMAL, ("Z80 address %04X read.\n"), a);
 	}
 	return 0;
 }
@@ -393,22 +393,22 @@ void __fastcall shadfrceZWrite(unsigned short a, unsigned char d)
 {
 	switch (a) {
 	case 0xC800:	// YM2151_register_port_0_w
-		//bprintf(PRINT_NORMAL, _T("BurnYM2151SelectRegister(%02x)\n"), d);
+		//bprintf(PRINT_NORMAL, ("BurnYM2151SelectRegister(%02x)\n"), d);
 		BurnYM2151SelectRegister(d);
 		break;
 	case 0xC801:	// YM2151_data_port_0_w
-		//bprintf(PRINT_NORMAL, _T("BurnYM2151WriteRegister(%02x)\n"), d);
+		//bprintf(PRINT_NORMAL, ("BurnYM2151WriteRegister(%02x)\n"), d);
 		BurnYM2151WriteRegister(d);
 		break;
 	case 0xD800:	// OKIM6295_data_0_w
-		//bprintf(PRINT_NORMAL, _T("MSM6295Command(%02x)\n"), d);
+		//bprintf(PRINT_NORMAL, ("MSM6295Command(%02x)\n"), d);
 		MSM6295Command(0, d);
 		break;
 	case 0xE800:	// oki_bankswitch_w
-		bprintf(PRINT_NORMAL, _T("oki_bankswitch_w(%02X)\n"), d);
+		bprintf(PRINT_NORMAL, ("oki_bankswitch_w(%02X)\n"), d);
 		break;
 //	default:
-//		bprintf(PRINT_NORMAL, _T("Z80 address %04X -> %02X.\n"), a, d);
+//		bprintf(PRINT_NORMAL, ("Z80 address %04X -> %02X.\n"), a, d);
 	}
 }
 
@@ -532,7 +532,7 @@ static int loadDecodeGfx02()
 		}
 		
 //		if ((i & 0xFFF) == 0)
-//			BurnUpdateProgress( 1.0 / 16, i ? NULL : _T("Decodeing graphics..."), 1);
+//			BurnUpdateProgress( 1.0 / 16, i ? NULL : ("Decodeing graphics..."), 1);
 		
 		tmp1 += 16;
 		tmp2 += 16;

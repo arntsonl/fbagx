@@ -2539,7 +2539,7 @@ unsigned char __fastcall System1Z80Read1(unsigned short a)
 	switch (a) {
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 #1 Read %04X\n"), a);
+	bprintf(PRINT_NORMAL, ("Z80 #1 Read %04X\n"), a);
 
 	return 0;
 }
@@ -2578,7 +2578,7 @@ void __fastcall System1Z80Write1(unsigned short a, unsigned char d)
 		return;
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 #1 Write %04X -> %02X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Z80 #1 Write %04X -> %02X\n"), a, d);
 }
 
 void __fastcall NoboranbZ80Write1(unsigned short a, unsigned char d)
@@ -2615,7 +2615,7 @@ void __fastcall NoboranbZ80Write1(unsigned short a, unsigned char d)
 		return;
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 #1 Write %04X -> %02X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Z80 #1 Write %04X -> %02X\n"), a, d);
 }
 
 unsigned char __fastcall System1Z80PortRead1(unsigned short a)
@@ -2660,7 +2660,7 @@ unsigned char __fastcall System1Z80PortRead1(unsigned short a)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 #1 Port Read %02X\n"), a);
+	bprintf(PRINT_NORMAL, ("Z80 #1 Port Read %02X\n"), a);
 
 	return 0;
 }
@@ -2711,7 +2711,7 @@ unsigned char __fastcall NoboranbZ80PortRead1(unsigned short a)
 		}
 	}
 
-	bprintf(PRINT_NORMAL, _T("Z80 #1 Port Read %02X\n"), a);
+	bprintf(PRINT_NORMAL, ("Z80 #1 Port Read %02X\n"), a);
 
 	return 0;
 }
@@ -2741,7 +2741,7 @@ void __fastcall System1Z80PortWrite1(unsigned short a, unsigned char d)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 #1 Port Write %02X -> %02X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Z80 #1 Port Write %02X -> %02X\n"), a, d);
 }
 
 void __fastcall BrainZ80PortWrite1(unsigned short a, unsigned char d)
@@ -2772,7 +2772,7 @@ void __fastcall BrainZ80PortWrite1(unsigned short a, unsigned char d)
 
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 #1 Port Write %02X -> %02X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Z80 #1 Port Write %02X -> %02X\n"), a, d);
 }
 
 void __fastcall NoboranbZ80PortWrite1(unsigned short a, unsigned char d)
@@ -2817,7 +2817,7 @@ void __fastcall NoboranbZ80PortWrite1(unsigned short a, unsigned char d)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 #1 Port Write %02X -> %02X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Z80 #1 Port Write %02X -> %02X\n"), a, d);
 }
 
 unsigned char __fastcall System1Z80Read2(unsigned short a)
@@ -2828,7 +2828,7 @@ unsigned char __fastcall System1Z80Read2(unsigned short a)
 		}
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 #2 Read %04X\n"), a);
+	bprintf(PRINT_NORMAL, ("Z80 #2 Read %04X\n"), a);
 
 	return 0;
 }
@@ -2853,7 +2853,7 @@ void __fastcall System1Z80Write2(unsigned short a, unsigned char d)
 		}
 	}
 		
-	bprintf(PRINT_NORMAL, _T("Z80 #2 Write %04X -> %02X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Z80 #2 Write %04X -> %02X\n"), a, d);
 }
 
 unsigned char __fastcall System1Z80PortRead2(unsigned short a)
@@ -2863,7 +2863,7 @@ unsigned char __fastcall System1Z80PortRead2(unsigned short a)
 	switch (a) {
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 #2 Port Read %02X\n"), a);
+	bprintf(PRINT_NORMAL, ("Z80 #2 Port Read %02X\n"), a);
 
 	return 0;
 }
@@ -2875,7 +2875,7 @@ void __fastcall System1Z80PortWrite2(unsigned short a, unsigned char d)
 	switch (a) {
 	}
 	
-	bprintf(PRINT_NORMAL, _T("Z80 #2 Port Write %02X -> %02X\n"), a, d);
+	bprintf(PRINT_NORMAL, ("Z80 #2 Port Write %02X -> %02X\n"), a, d);
 }
 
 /*==============================================================================================

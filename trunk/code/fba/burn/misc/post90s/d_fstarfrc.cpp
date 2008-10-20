@@ -1216,7 +1216,7 @@ struct BurnDriver BurnDrvFstarfrc = {
 struct BurnDriver BurnDrvGinkun = {
 	"ginkun", NULL, NULL, "1995",
 	"Ganbare Ginkun\0", "Imperfect GFX", "Tecmo", "Miscellaneous",
-	L"\u304C\u3093\u3070\u308C \u30AE\u30F3\u304F\u3093\0Ganbare Ginkun\0", NULL, NULL, NULL,
+	"\u304C\u3093\u3070\u308C \u30AE\u30F3\u304F\u3093\0Ganbare Ginkun\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_MISC_POST90S,
 	NULL, GinkunRomInfo, GinkunRomName, FstarfrcInputInfo, GinkunDIPInfo,
 	FstarfrcInit, FstarfrcExit, FstarfrcFrame, NULL, FstarfrcScan,
@@ -1226,7 +1226,7 @@ struct BurnDriver BurnDrvGinkun = {
 struct BurnDriver BurnDrvRiot = {
 	"riot", NULL, NULL, "1992",
 	"Riot\0", NULL, "NMK", "Miscellaneous",
-	L"\u96F7\u8ECB\u6597 Riot\0", NULL, NULL, NULL,
+	"\u96F7\u8ECB\u6597 Riot\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING, 2, HARDWARE_MISC_POST90S,
 	NULL, RiotRomInfo, RiotRomName, RiotInputInfo, RiotDIPInfo,
 	FstarfrcInit, FstarfrcExit, FstarfrcFrame, NULL, FstarfrcScan,

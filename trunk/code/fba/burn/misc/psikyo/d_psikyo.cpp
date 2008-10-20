@@ -919,7 +919,7 @@ unsigned short __fastcall gunbirdReadWord(unsigned int sekAddress)
 				}
 			}
 #else
-			bprintf(PRINT_NORMAL, _T("  - Sound reply read.\n"));
+			bprintf(PRINT_NORMAL, ("  - Sound reply read.\n"));
 			PsikyoSynchroniseZ80(0);
 			if (!nSoundlatchAck) {
 				return ~DrvInput[1];
@@ -2170,7 +2170,7 @@ struct BurnDriver BurnDrvSamuraiA = {
 struct BurnDriver BurnDrvSngkAce = {
 	"sngkace", "samuraia", NULL, "1993",
 	"Sengoku Ace (Japan)\0", NULL, "Psikyo / Banpresto", "Psikyo 68EC020",
-	L"\u6226\u56FD\u30A8\u30FC\u30B9 (Japan)\0Sengoku Ace\0", NULL, NULL, NULL,
+	"\u6226\u56FD\u30A8\u30FC\u30B9 (Japan)\0Sengoku Ace\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_16BIT_ONLY, 2, HARDWARE_MISC_POST90S,
 	NULL, sngkaceRomInfo, sngkaceRomName, gunbirdInputInfo, sngkaceDIPInfo,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &PsikyoRecalcPalette,
@@ -2258,7 +2258,7 @@ struct BurnDriver BurnDrvGunbird = {
 struct BurnDriver BurnDrvGunbirdj = {
 	"gunbirdj", "gunbird", NULL, "1994",
 	"Gunbird (Japan)\0", NULL, "Psikyo", "Psikyo 68EC020",
-	L"Gunbird (Japan)\0\u30AC\u30F3\u30D0\u30FC\u30C9\0", NULL, NULL, NULL,
+	"Gunbird (Japan)\0\u30AC\u30F3\u30D0\u30FC\u30C9\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL | BDF_16BIT_ONLY, 2, HARDWARE_MISC_POST90S,
 	NULL, gunbirdjRomInfo, gunbirdjRomName, gunbirdInputInfo, gunbirdDIPInfo,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &PsikyoRecalcPalette,
@@ -2305,7 +2305,7 @@ STD_ROM_FN(btlkroad);
 struct BurnDriver BurnDrvBtlKRoad = {
 	"btlkroad", NULL, NULL, "1994",
 	"Battle K-Road\0", NULL, "Psikyo", "Psikyo 68EC020",
-	L"Battle K-Road\0Battle K-Road \u30D0\u30C8\u30EB\u30AF\u30ED\u30FC\u30C9\0", NULL, NULL, NULL,
+	"Battle K-Road\0Battle K-Road \u30D0\u30C8\u30EB\u30AF\u30ED\u30FC\u30C9\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_MISC_POST90S,
 	NULL, btlkroadRomInfo, btlkroadRomName, btlkroadInputInfo, btlkroadDIPInfo,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &PsikyoRecalcPalette,
@@ -2508,7 +2508,7 @@ STD_ROM_FN(tengai);
 struct BurnDriver BurnDrvTengai = {
 	"tengai", NULL, NULL, "1996",
 	"Tengai\0Sengoku Blade - sengoku ace episode II\0", NULL, "Psikyo", "Psikyo 68EC020",
-	L"Tengai\0\u6226\u56FD\u30D6\u30EC\u30FC\u30C9 - sengoku ace episode II\0", NULL, NULL, NULL,
+	"Tengai\0\u6226\u56FD\u30D6\u30EC\u30FC\u30C9 - sengoku ace episode II\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_16BIT_ONLY, 2, HARDWARE_MISC_POST90S,
 	NULL, tengaiRomInfo, tengaiRomName, gunbirdInputInfo, tengaiDIPInfo,
 	DrvInit, DrvExit, DrvFrame, DrvDraw, DrvScan, &PsikyoRecalcPalette,

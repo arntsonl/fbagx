@@ -1636,7 +1636,7 @@ unsigned char __fastcall Tumbleb68KReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -1672,7 +1672,7 @@ void __fastcall Tumbleb68KWriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -1723,7 +1723,7 @@ unsigned short __fastcall Tumbleb68KReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read word => %06X\n"), a);
 		}
 	}
 	
@@ -1782,7 +1782,7 @@ void __fastcall Tumbleb68KWriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -1803,7 +1803,7 @@ unsigned short __fastcall Suprtrio68KReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read word => %06X\n"), a);
 		}
 	}
 	
@@ -1831,7 +1831,7 @@ void __fastcall Suprtrio68KWriteWord(unsigned int a, unsigned short d)
 		}
 	
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -1861,7 +1861,7 @@ unsigned char __fastcall Fncywld68KReadByte(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read byte => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read byte => %06X\n"), a);
 		}
 	}
 	
@@ -1887,7 +1887,7 @@ void __fastcall Fncywld68KWriteByte(unsigned int a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write byte => %06X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write byte => %06X, %02X\n"), a, d);
 		}
 	}
 }
@@ -1929,7 +1929,7 @@ unsigned short __fastcall Fncywld68KReadWord(unsigned int a)
 		}
 
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read word => %06X\n"), a);
 		}
 	}
 	
@@ -1952,7 +1952,7 @@ void __fastcall Fncywld68KWriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -1973,7 +1973,7 @@ unsigned short __fastcall Jumppop68KReadWord(unsigned int a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Read word => %06X\n"), a);
+			bprintf(PRINT_NORMAL, ("68K Read word => %06X\n"), a);
 		}
 	}
 	
@@ -1995,7 +1995,7 @@ void __fastcall Jumppop68KWriteWord(unsigned int a, unsigned short d)
 		
 		case 0x18000c: {
 			DrvSoundLatch = d & 0xff;
-			bprintf(PRINT_NORMAL, _T("Latch Sent -> %02X\n"), DrvSoundLatch);
+			bprintf(PRINT_NORMAL, ("Latch Sent -> %02X\n"), DrvSoundLatch);
 			ZetOpen(0);
 			ZetRaiseIrq(0);
 			nCyclesDone[1] += ZetRun(100);
@@ -2009,7 +2009,7 @@ void __fastcall Jumppop68KWriteWord(unsigned int a, unsigned short d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("68K Write word => %06X, %04X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("68K Write word => %06X, %04X\n"), a, d);
 		}
 	}
 }
@@ -2026,7 +2026,7 @@ unsigned char __fastcall JumpkidsZ80Read(unsigned short a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 Read => %04X\n"), a);
 		}
 	}
 
@@ -2048,7 +2048,7 @@ void __fastcall JumpkidsZ80Write(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }
@@ -2069,7 +2069,7 @@ unsigned char __fastcall SemicomZ80Read(unsigned short a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Read => %04X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 Read => %04X\n"), a);
 		}
 	}
 
@@ -2105,7 +2105,7 @@ void __fastcall SemicomZ80Write(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Write => %04X, %02X\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 Write => %04X, %02X\n"), a, d);
 		}
 	}
 }
@@ -2120,7 +2120,7 @@ unsigned char __fastcall JumppopZ80PortRead(unsigned short a)
 		}
 		
 		case 0x03: {
-			bprintf(PRINT_IMPORTANT, _T("Latch Read %02X\n"), DrvSoundLatch);
+			bprintf(PRINT_IMPORTANT, ("Latch Read %02X\n"), DrvSoundLatch);
 			ZetLowerIrq();
 			return DrvSoundLatch;
 		}
@@ -2131,7 +2131,7 @@ unsigned char __fastcall JumppopZ80PortRead(unsigned short a)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Port Read -> %02X\n"), a);
+			bprintf(PRINT_NORMAL, ("Z80 Port Read -> %02X\n"), a);
 		}
 	}
 
@@ -2172,7 +2172,7 @@ void __fastcall JumppopZ80PortWrite(unsigned short a, unsigned char d)
 		}
 		
 		default: {
-			bprintf(PRINT_NORMAL, _T("Z80 Port Write -> %02X, %02x\n"), a, d);
+			bprintf(PRINT_NORMAL, ("Z80 Port Write -> %02X, %02x\n"), a, d);
 		}
 	}
 }

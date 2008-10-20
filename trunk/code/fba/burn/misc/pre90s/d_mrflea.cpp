@@ -73,7 +73,7 @@ static struct BurnDIPInfo DrvDIPList[]=
 
 STDDIPINFO(Drv);
 
-void __fastcall mrflea_write(unsigned short a, unsigned char d)
+void /*_fastcall*/ mrflea_write(unsigned short a, unsigned char d)
 {
 	if (a >= 0xe000 && a <= 0xe7ff) // video ram
 	{
@@ -107,7 +107,8 @@ void __fastcall mrflea_write(unsigned short a, unsigned char d)
 }
 
 
-void _fastcall mrflea_out_port(unsigned short a, unsigned char data)
+//void /*_fastcall*/ mrflea_out_port(unsigned short a, unsigned char data)
+void mrflea_out_port(unsigned short a, unsigned char data)
 {
 	switch (a & 0xff)
 	{
@@ -134,7 +135,8 @@ void _fastcall mrflea_out_port(unsigned short a, unsigned char data)
 	}
 }
 
-unsigned char _fastcall mrflea_in_port(unsigned short a)
+//unsigned char /*_fastcall*/ mrflea_in_port(unsigned short a)
+unsigned char mrflea_in_port(unsigned short a)
 {
 	switch (a & 0xff)
 	{
@@ -152,7 +154,7 @@ unsigned char _fastcall mrflea_in_port(unsigned short a)
 	return 0;
 }
 
-void _fastcall mrflea_cpu1_out_port(unsigned short a, unsigned char data)
+void /*_fastcall*/ mrflea_cpu1_out_port(unsigned short a, unsigned char data)
 {
 	switch (a & 0xff)
 	{
@@ -194,7 +196,7 @@ void _fastcall mrflea_cpu1_out_port(unsigned short a, unsigned char data)
 	}
 }
 
-unsigned char __fastcall mrflea_cpu1_in_port(unsigned short a)
+unsigned char /*_fastcall*/ mrflea_cpu1_in_port(unsigned short a)
 {
 	unsigned char ret = 0;
 
