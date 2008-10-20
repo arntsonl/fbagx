@@ -92,7 +92,8 @@
  *		to a detailed description by Sean Young which can be found at:
  *      http://www.msxnet.org/tech/z80-documented.pdf
  *****************************************************************************/
-#include "shared.h"
+// SHared is included in Genplus-gx, we're going to fake it for now
+//#include "shared.h"
 #include "z80.h"
 
 #define VERBOSE 0
