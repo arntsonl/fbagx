@@ -36,6 +36,8 @@
 #include "driver.h"
 
 #ifdef FBA															/* !!! FBA */
+// WII FBA!! zomg
+#include "cpuintrf.h"
 #include "ymf278b.h"
 typedef struct { int sample_rate; } MACHINE;
 MACHINE machine;

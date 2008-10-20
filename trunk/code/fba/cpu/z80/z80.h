@@ -21,6 +21,24 @@ enum {
 	Z80_TABLE_ex	/* cycles counts for taken jr/jp/call and interrupt latency (rst opcodes) */
 };
 
+/******************************************************************************
+ * Union of UINT8, UINT16 and UINT32 in native endianess of the target
+ * This is used to access bytes and words in a machine independent manner.
+ * The upper bytes h2 and h3 normally contain zero (16 bit CPU cores)
+ * thus PAIR.d can be used to pass arguments to the memory system
+ * which expects 'int' really.
+ ******************************************************************************/
+typedef union {
+#ifdef LSB_FIRST
+	struct { UINT8 l,h,h2,h3; } b;
+	struct { UINT16 l,h; } w;
+#else
+	struct { UINT8 h3,h2,h,l; } b;
+	struct { UINT16 h,l; } w;
+#endif
+	UINT32 d;
+}	PAIR;
+
 /****************************************************************************/
 /* The Z80 registers. HALT is set to 1 when the CPU is halted, the refresh  */
 /* register is calculated as follows: refresh=(Z80.r&127)|(Z80.r2&128)      */
