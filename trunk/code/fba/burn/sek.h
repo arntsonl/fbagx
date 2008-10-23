@@ -10,8 +10,12 @@
 
 #define SEK_MAX	(4)								// Maximum number of CPUs supported
 
-#if defined EMU_M68K
- #include "m68k.h"
+#ifdef EMU_M68K
+ extern "C" {
+#include "m68k.h"
+#define m68k_ICount m68k_cycles_remaining()
+#define m68k_ICountRaw GET_CYCLES()
+};
 #endif
 
 // Number of bits used for each page in the fast memory map
