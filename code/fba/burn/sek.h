@@ -5,7 +5,7 @@
  #define __fastcall
 #endif
 
-#define EMU_A68K								// Use A68K Assembler 68000 emulator
+//#define EMU_A68K								// Use A68K Assembler 68000 emulator
 #define EMU_M68K								// Use Musashi 68000 emulator
 
 #define SEK_MAX	(4)								// Maximum number of CPUs supported
