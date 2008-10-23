@@ -1,3 +1,6 @@
+#ifndef __CHEAT_H__
+#define __CHEAT_H__
+
 #define CHEAT_MAX_ADDRESS ( 64)
 #define CHEAT_MAX_OPTIONS (192)
 #define CHEAT_MAX_NAME	  (128)
@@ -35,3 +38,4 @@ int CheatApply();
 int CheatInit();
 void CheatExit();
 
+#endif // __CHEAT_H__

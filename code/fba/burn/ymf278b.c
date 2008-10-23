@@ -37,7 +37,7 @@
 
 #ifdef FBA															/* !!! FBA */
 // WII FBA!! zomg
-#include "cpuintrf.h"
+//#include "cpuintrf.h"
 #include "ymf278b.h"
 typedef struct { int sample_rate; } MACHINE;
 MACHINE machine;
@@ -48,6 +48,16 @@ MACHINE* Machine = &machine;
 #endif																/* !!! FBA */
 
 #undef VERBOSE
+
+// FBA TMP DEBUG ZOMG
+enum
+{
+	/* line states */
+	CLEAR_LINE = 0,				/* clear (a fired, held or pulsed) line */
+	ASSERT_LINE,				/* assert an interrupt immediately */
+	HOLD_LINE,					/* hold interrupt line until acknowledged */
+	PULSE_LINE,					/* pulse interrupt line for one instruction */
+};
 
 typedef struct
 {
