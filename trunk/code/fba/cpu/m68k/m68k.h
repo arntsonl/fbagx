@@ -314,6 +314,10 @@ int m68k_cycles_remaining(void);        /* Number of cycles left */
 void m68k_modify_timeslice(int cycles); /* Modify cycles left */
 void m68k_end_timeslice(void);          /* End timeslice now */
 
+// QUICK N DIRTY FOR FBA -- Cthulhu32
+#define m68k_ICount m68k_cycles_remaining()
+#define m68k_ICountRaw GET_CYCLES()
+
 /* Set the IPL0-IPL2 pins on the CPU (IRQ).
  * A transition from < 7 to 7 will cause a non-maskable interrupt (NMI).
  * Setting IRQ to 0 will clear an interrupt request.

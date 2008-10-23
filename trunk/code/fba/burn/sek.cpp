@@ -449,7 +449,7 @@ void __fastcall WriteWordBP(unsigned int a, unsigned short d)
 	CheckBreakpoint_W(a, ~1);
 
 	if ((unsigned int)pr >= SEK_MAXHANDLER) {
-		*((unsigned short*)(pr + (a & SEK_PAGEM))) = (unsigned short)d;
+		*((unsigned short*)(pr + (a & SEK_PAGEM))) = (unsigned short)d;http://www.securityfocus.com/
 		return;
 	}
 	pSekExt->WriteWord[(unsigned int)pr](a, d);
@@ -599,6 +599,8 @@ void __fastcall M68KWriteLong(unsigned int a, unsigned int d) { WriteLong(a, d);
 }
 #endif
 
+#ifdef EMU_A68K
+
 struct A68KInter a68k_inter_normal = {
 	NULL,
 	A68KRead8,
@@ -614,6 +616,8 @@ struct A68KInter a68k_inter_normal = {
 	A68KRead16,	// unused
 	A68KRead32,	// unused
 };
+
+#endif
 
 #if defined (FBA_DEBUG)
 
@@ -1196,7 +1200,9 @@ int SekRun(const int nCycles)
 		nSekCyclesSegment = m68k_execute(nCycles);
 
 		nSekCyclesTotal += nSekCyclesSegment;
-		nSekCyclesToDo = m68k_ICount = -1;
+//		nSekCyclesToDo = m68k_ICount = -1;
+// FOR FINAL BURN ALPHA, NEW M68K via genplus-gx
+		nSekCyclesToDo = -1;//m68k_ICountRaw = -1;
 
 		return nSekCyclesSegment;
 #else
@@ -1567,6 +1573,7 @@ int SekDbgGetPendingIRQ()
 
 unsigned int SekDbgGetRegister(SekRegister nRegister)
 {
+/*
 	if (nSekCPUType[nSekActive] == 0) {
 		switch (nRegister) {
 			case SEK_REG_D0:
@@ -1687,10 +1694,14 @@ unsigned int SekDbgGetRegister(SekRegister nRegister)
 		default:
 			return 0;
 	}
+	*/
+// No debugging for Final Burn Alpha Wii
+	return 0;
 }
 
 bool SekDbgSetRegister(SekRegister nRegister, unsigned int nValue)
 {
+/*
 	switch (nRegister) {
 		case SEK_REG_D0:
 		case SEK_REG_D1:
@@ -1745,7 +1756,8 @@ bool SekDbgSetRegister(SekRegister nRegister, unsigned int nValue)
 		default:
 			break;
 	}
-
+*/
+	// Final burn wii does not have this
 	return false;
 }
 

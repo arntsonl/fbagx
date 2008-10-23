@@ -20,15 +20,21 @@ include $(DEVKITPPC)/wii_rules
 TARGET := fbagx-$(VERSION)-wii
 TARGETDIR := build/executables
 BUILD := build
-SOURCES := code/ngc code/fba/burn/ code/fba/cpu/a68k code/fba/cpu/m68k code/fba/cpu/doze \
+SOURCES := code/ngc code/fba/burn/ code/fba/cpu/m68k \
 code/fba/cpu/m6502 code/fba/cpu/nec code/fba/generated  code/fba/burn/capcom \
 code/fba/burn/cave code/fba/burn/neogeo code/fba/burn/pgm \
- code/fba/burn/sega code/fba/burn/taito code/fba/burn/toaplan code/fba/burn/misc
+code/fba/burn/sega code/fba/burn/taito code/fba/burn/toaplan code/fba/burn/misc \
+code/fba/burn/misc/dec0 code/fba/burn/misc/konami code/fba/burn/misc/post90s \
+code/fba/burn/misc/pre90s code/fba/burn/misc/psikyo code/fba/burn/misc/taito_68k \
+code/fba/burn/cps3 code/fba/cpu/sh2
 DATA := resources/processed
-INCLUDES := code/ngc code/fba/burn/ code/fba/cpu/a68k code/fba/cpu/m68k code/fba/cpu/doze \
+INCLUDES := code/ngc code/fba/burn/ code/fba/cpu/m68k \
 code/fba/cpu/m6502 code/fba/cpu/nec code/fba/generated  code/fba/burn/capcom \
 code/fba/burn/cave code/fba/burn/neogeo code/fba/burn/pgm \
- code/fba/burn/sega code/fba/burn/taito code/fba/burn/toaplan code/fba/burn/misc
+code/fba/burn/sega code/fba/burn/taito code/fba/burn/toaplan code/fba/burn/misc \
+code/fba/burn/misc/dec0 code/fba/burn/misc/konami code/fba/burn/misc/post90s \
+code/fba/burn/misc/pre90s code/fba/burn/misc/psikyo code/fba/burn/misc/taito_68k \
+code/fba/burn/cps3 code/fba/cpu/sh2
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -40,8 +46,10 @@ CFLAGS = -g -O3 -Wall $(MACHDEP) $(INCLUDE) \
 -DCPU_SHUTDOWN -DSPC700_SHUTDOWN \
 -DSPC700_C -DSDD1_DECOMP \
 -DCORRECT_VRAM_READS -DNEW_COLOUR_BLENDING \
--fomit-frame-pointer -fno-exceptions -Wno-unused-parameter \
+-fomit-frame-pointer -fno-strict-aliasing -Wno-unused-parameter \
+
 #-D_DEBUG_VIDEO -pipe
+#-fno-exceptions 
 CXXFLAGS = -save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 
 LDFLAGS = -g $(MACHDEP) -Wl,-Map,$(notdir $@).map
