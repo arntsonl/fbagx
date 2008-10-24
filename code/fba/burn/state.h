@@ -4,6 +4,8 @@
  extern "C" {
 #endif
 
+#include <string.h>
+
 /* Scan driver data */
 int BurnAreaScan(int nAction, int* pnMin);
 

@@ -46,7 +46,10 @@ int selection;
 char currentdir[MAXPATHLEN];
 int maxfiles;
 extern int screenheight;
-extern unsigned long ARAM_ROMSIZE;
+unsigned long ARAM_ROMSIZE;
+
+// moved out of Snes9x's memory map
+char * ROM;
 
 int havedir = -1;
 extern u64 dvddir;
@@ -426,6 +429,7 @@ int FileSelector (int method)
 					case METHOD_SD:
 					case METHOD_USB:
 					//ARAM_ROMSIZE = LoadFATFile ((char *)Memory.ROM, 0);
+					ARAM_ROMSIZE = LoadFATFile ((char *)ROM, 0);
 					break;
 
 					case METHOD_DVD:
