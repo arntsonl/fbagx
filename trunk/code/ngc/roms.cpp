@@ -27,3 +27,14 @@ int AnalyzeRoms()
 	return 0;
 }
 
+int debugFillMenu(char ** menuArray){
+	// We just fill up the menuArray, assuming the menu array has the space
+	// So make sure we have Array[a lot][256];
+
+	for(unsigned int z = 0; z < nBurnDrvCount; z++){
+		BurnDrvGetZipName(&menuArray[z],z);	
+	}
+	return 0;
+
+}
+

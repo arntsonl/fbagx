@@ -198,13 +198,13 @@ extern "C" char* BurnDrvGetText(unsigned int i)
 				}
 				break;
 			case DRV_COMMENT:
-				//pszStringW = pDriver[nBurnDrvSelect]->szCommentW;
+				pszStringW = pDriver[nBurnDrvSelect]->szCommentW;
 				break;
 			case DRV_MANUFACTURER:
-				//pszStringW = pDriver[nBurnDrvSelect]->szManufacturerW;
+				pszStringW = pDriver[nBurnDrvSelect]->szManufacturerW;
 				break;
 			case DRV_SYSTEM:
-				//pszStringW = pDriver[nBurnDrvSelect]->szSystemW;
+				pszStringW = pDriver[nBurnDrvSelect]->szSystemW;
 				break;
 		}
 
