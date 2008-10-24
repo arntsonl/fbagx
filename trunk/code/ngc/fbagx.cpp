@@ -30,6 +30,7 @@
 #include "menu.h"
 #include "video.h"
 #include "fbagx.h"
+#include "roms.h"
 
 // Final Burn Includes
 #include "burn.h"
@@ -117,6 +118,9 @@ int main(){
 
 	// Init the Burn library
 	BurnLibInit();
+
+	// Scan the Roms directory
+	AnalyzeRoms();
 
 //    FBAUnmapAllControls();
 //    SetDefaultButtonMap();
