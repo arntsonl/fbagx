@@ -55,5 +55,4 @@ typedef struct {
 
 #define Z80_VECTOR(device,state) (((device)<<8)|(state))
 
-
 #endif	/* CPUINTRF_H */

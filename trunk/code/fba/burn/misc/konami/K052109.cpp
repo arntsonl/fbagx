@@ -1,15 +1,5 @@
 #include "tmnt.h"
 
-// BIG DEBUG
-enum
-{
-	/* line states */
-	CLEAR_LINE = 0,				/* clear (a fired, held or pulsed) line */
-	ASSERT_LINE,				/* assert an interrupt immediately */
-	HOLD_LINE,					/* hold interrupt line until acknowledged */
-	PULSE_LINE,					/* pulse interrupt line for one instruction */
-};
-
 static int K052109_memory_region;
 static int K052109_gfxnum;
 static void (*K052109_callback)(int tmap,int bank,int *code,int *color);

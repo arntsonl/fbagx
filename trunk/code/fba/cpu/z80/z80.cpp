@@ -92,7 +92,6 @@
  *		to a detailed description by Sean Young which can be found at:
  *      http://www.msxnet.org/tech/z80-documented.pdf
  *****************************************************************************/
-// SHared is included in Genplus-gx, we're going to fake it for now
 //#include "shared.h"
 #include "z80.h"
 
@@ -103,6 +102,14 @@
 #else
 #define LOG(x)
 #endif
+
+#define TRUE 1
+#define FALSE 0
+#define NULL 0
+#define INLINE
+
+#include <stdlib.h>
+#include <string.h>
 
 #define cpu_readop(a)           cpu_readmem16(a)
 #define cpu_readop_arg(a)       cpu_readmem16(a)
@@ -3454,7 +3461,7 @@ void z80_init(int index, int clock, const void *config, int (*irqcallback)(int))
 	}
 
 	/* Reset registers to their initial values */
-	Z80.daisy = config;
+	Z80.daisy = (z80_irq_daisy_chain*)config;
 	Z80.irq_callback = irqcallback;
 }
 
@@ -3469,7 +3476,7 @@ void z80_reset(void)
 
 	/* Reset registers to their initial values */
 	memset(&Z80, 0, sizeof(Z80));
-	Z80.daisy = config;
+	Z80.daisy = (z80_irq_daisy_chain*)config;
 	Z80.irq_callback = irqcallback;
 	IX = IY = 0xffff; /* IX and IY are FFFF after a reset! */
 	F = ZF;			/* Zero flag is set */
