@@ -20,7 +20,7 @@ include $(DEVKITPPC)/wii_rules
 TARGET := fbagx-$(VERSION)-wii
 TARGETDIR := build/executables
 BUILD := build
-SOURCES := code/ngc code/fba/burn/ code/fba/cpu/m68k \
+SOURCES := code/ngc code/fba/burn/ code/fba/cpu/m68k code/fba/cpu/z80 \
 code/fba/cpu/m6502 code/fba/cpu/nec code/fba/generated  code/fba/burn/capcom \
 code/fba/burn/cave code/fba/burn/neogeo code/fba/burn/pgm \
 code/fba/burn/sega code/fba/burn/taito code/fba/burn/toaplan code/fba/burn/misc \
@@ -28,7 +28,7 @@ code/fba/burn/misc/dec0 code/fba/burn/misc/konami code/fba/burn/misc/post90s \
 code/fba/burn/misc/pre90s code/fba/burn/misc/psikyo code/fba/burn/misc/taito_68k \
 code/fba/burn/cps3 code/fba/cpu/sh2
 DATA := resources/processed
-INCLUDES := code/ngc code/fba/burn/ code/fba/cpu/m68k \
+INCLUDES := code/ngc code/fba/burn/ code/fba/cpu/m68k code/fba/cpu/z80 \
 code/fba/cpu/m6502 code/fba/cpu/nec code/fba/generated  code/fba/burn/capcom \
 code/fba/burn/cave code/fba/burn/neogeo code/fba/burn/pgm \
 code/fba/burn/sega code/fba/burn/taito code/fba/burn/toaplan code/fba/burn/misc \
@@ -40,7 +40,7 @@ code/fba/burn/cps3 code/fba/cpu/sh2
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS = -g -O3 -Wall $(MACHDEP) $(INCLUDE) \
+CFLAGS = -O3 -Wall $(MACHDEP) $(INCLUDE) \
 -DNGC -DWII_DVD \
 -DNO_ASM -DRIGHTSHIFT_IS_SAR \
 -DCPU_SHUTDOWN -DSPC700_SHUTDOWN \
