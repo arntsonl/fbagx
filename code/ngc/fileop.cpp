@@ -29,6 +29,8 @@
 //#include "preferences.h"
 #include "fbagx.h"
 
+#include "roms.h"
+
 // FAT file pointer - the only one we should ever use!
 FILE * fatfile;
 
@@ -183,7 +185,18 @@ LoadFATFile (char * rbuffer, int length)
 		WaitPrompt((char*) "Maximum filepath length reached!");
 		return -1;
 	}
+	// Lets replace this and get the zip name!
+	char * pch = filepath;
+	// fbagx/roms/
+	pch += 17;
 
+	strncpy(zipbuffer,pch,strlen(pch));
+
+	if(checkRom(zipbuffer)==1){
+		// do some stuff!	
+	}		
+	return 0;
+/*
 	fatfile = fopen (filepath, "rb");
 	if (fatfile > 0)
 	{
@@ -226,6 +239,7 @@ LoadFATFile (char * rbuffer, int length)
 		WaitPrompt((char*) "Error opening file");
 		return 0;
 	}
+*/
 }
 
 /****************************************************************************

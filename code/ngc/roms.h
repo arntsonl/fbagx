@@ -6,4 +6,6 @@ int AnalyzeRoms();
 
 int debugFillMenu(char**);
 
+int checkRom(char*);
+
 #endif
