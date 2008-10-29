@@ -81,7 +81,7 @@ int checkRom(char * filename)
 				if(BurnDrvGetRomInfo(&ri, i)) break;								// Get info about the rom
 				char* romName = "Unknown";
 				BurnDrvGetRomName(&romName,i, 0);
-				if ( strlen(romName) == 0) continue;				
+				if ( strlen(romName) == 0) break; // might need to continue instead, but for now we're just checking a few				
 				char msg[256];
 				sprintf(msg, "Rom name: %s %i/%i", romName, i, nRomCount);
 				WaitPrompt(msg);			
@@ -94,3 +94,4 @@ int checkRom(char * filename)
 	WaitPrompt(msg);
 	return 0;
 }
+
