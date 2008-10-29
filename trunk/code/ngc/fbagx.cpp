@@ -31,6 +31,7 @@
 #include "video.h"
 #include "fbagx.h"
 #include "roms.h"
+#include "memory.h"
 
 // Final Burn Includes
 #include "burn.h"
@@ -113,6 +114,9 @@ int main(){
 
     // Set Default Settings
     DefaultSettings();
+
+	// Setup the MEM2 for the rom data
+	initMEM2();
 
 	/*****  Settings and Setup for Final Burn Alpha *****/
 
