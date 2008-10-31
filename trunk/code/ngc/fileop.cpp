@@ -201,8 +201,9 @@ LoadFATFile (char * rbuffer, int length)
 		size = ftell(fatfile);				// get filesize
 		fseek(fatfile, 0, SEEK_SET);
 		// Alloc out the file size
-		rbuffer = (char*)mallocMEM2(size);
-		
+		rbuffer = (char*)mallocMEM2(size);//(char*)mallocMEM2(size);
+		if ( rbuffer == 0x0 ) { fclose(fatfile); return 1;} 		
+
 		char msg[256];
 		sprintf(msg, "Pointer 0x%08X", rbuffer);
 		WaitPrompt(msg);		
@@ -225,8 +226,8 @@ LoadFATFile (char * rbuffer, int length)
 
 		fclose(fatfile);
 
-		// Just free it for now
-		freeMEM2(rbuffer);
+		// No frees yet
+		//freeMEM2(rbuffer);
 	}		
 	return 0;
 /*

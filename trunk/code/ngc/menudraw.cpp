@@ -341,7 +341,7 @@ unpackbackdrop ()
 	// On Wii - store backdrop in MEM2
 //	unsigned int MEM2Storage = 0x91000000;
 //	backdrop = (u32 *)MEM2Storage;
-	backdrop = (u32 *)mallocMEM2(bgSize);
+	backdrop = (u32 *)mallocMEM2(outbytes);
 	memcpy(backdrop, bgtemp, bgSize);
 	#else
 	// On GameCube - store the backdrop in ARAM
