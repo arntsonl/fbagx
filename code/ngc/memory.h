@@ -16,4 +16,6 @@ typedef struct {
 	size_t size;
 } MEM2Heap;
 
+extern MEM2Heap MEM2HeapArray[HEAP_CNT];
+
 #endif
