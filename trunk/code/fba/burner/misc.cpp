@@ -20,7 +20,7 @@ void ComputeGammaLUT()
 }
 
 // Standard callbacks for 16/24/32 bit color:
-static unsigned int __cdecl HighCol15(int r, int g, int b, int  /* i */)
+static unsigned int HighCol15(int r, int g, int b, int  /* i */)
 {
 	unsigned int t;
 	t =(r<<7)&0x7c00; // 0rrr rr00 0000 0000
@@ -29,7 +29,7 @@ static unsigned int __cdecl HighCol15(int r, int g, int b, int  /* i */)
 	return t;
 }
 
-static unsigned int __cdecl HighCol16(int r, int g, int b, int /* i */)
+static unsigned int HighCol16(int r, int g, int b, int /* i */)
 {
 	unsigned int t;
 	t =(r<<8)&0xf800; // rrrr r000 0000 0000
@@ -39,7 +39,7 @@ static unsigned int __cdecl HighCol16(int r, int g, int b, int /* i */)
 }
 
 // 24-bit/32-bit
-static unsigned int __cdecl HighCol24(int r, int g, int b, int  /* i */)
+static unsigned int HighCol24(int r, int g, int b, int  /* i */)
 {
 	unsigned int t;
 	t =(r<<16)&0xff0000;
@@ -49,7 +49,7 @@ static unsigned int __cdecl HighCol24(int r, int g, int b, int  /* i */)
 	return t;
 }
 
-static unsigned int __cdecl HighCol15Gamma(int r, int g, int b, int  /* i */)
+static unsigned int HighCol15Gamma(int r, int g, int b, int  /* i */)
 {
 	unsigned int t;
 	t = (GammaLUT[r] << 7) & 0x7C00; // 0rrr rr00 0000 0000
@@ -58,7 +58,7 @@ static unsigned int __cdecl HighCol15Gamma(int r, int g, int b, int  /* i */)
 	return t;
 }
 
-static unsigned int __cdecl HighCol16Gamma(int r, int g ,int b, int  /* i */)
+static unsigned int HighCol16Gamma(int r, int g ,int b, int  /* i */)
 {
 	unsigned int t;
 	t = (GammaLUT[r] << 8) & 0xF800; // rrrr r000 0000 0000
@@ -68,7 +68,7 @@ static unsigned int __cdecl HighCol16Gamma(int r, int g ,int b, int  /* i */)
 }
 
 // 24-bit/32-bit
-static unsigned int __cdecl HighCol24Gamma(int r, int g, int b, int  /* i */)
+static unsigned int HighCol24Gamma(int r, int g, int b, int  /* i */)
 {
 	unsigned int t;
 	t = (GammaLUT[r] << 16);
@@ -80,6 +80,7 @@ static unsigned int __cdecl HighCol24Gamma(int r, int g, int b, int  /* i */)
 
 int SetBurnHighCol(int nDepth)
 {
+/*
 	VidRecalcPal();
 
 	if (bDoGamma && ((nVidFullscreen && !bVidUseHardwareGamma) || (!nVidFullscreen && !bHardwareGammaOnly))) {
@@ -106,7 +107,7 @@ int SetBurnHighCol(int nDepth)
 	if (bDrvOkay && !(BurnDrvGetFlags() & BDF_16BIT_ONLY) || nDepth <= 16) {
 		BurnHighCol = VidHighCol;
 	}
-
+*/
 	return 0;
 }
 
@@ -158,7 +159,7 @@ char* DecorateGameName(unsigned int nBurnDrv)
 // ---------------------------------------------------------------------------
 // config file parsing
 
-TCHAR* LabelCheck(TCHAR* s, TCHAR* pszLabel)
+char* LabelCheck(char* s, char* pszLabel)
 {
 	int nLen;
 	if (s == NULL) {
@@ -167,42 +168,44 @@ TCHAR* LabelCheck(TCHAR* s, TCHAR* pszLabel)
 	if (pszLabel == NULL) {
 		return NULL;
 	}
-	nLen = _tcslen(pszLabel);
+	nLen = strlen(pszLabel);
 
-	SKIP_WS(s);													// Skip whitespace
+	//SKIP_WS(s);													// Skip whitespace
 
-	if (_tcsncmp(s, pszLabel, nLen)){							// Doesn't match
+	if (strncmp(s, pszLabel, nLen)){							// Doesn't match
 		return NULL;
 	}
 	return s + nLen;
 }
 
-int QuoteRead(TCHAR** ppszQuote, TCHAR** ppszEnd, TCHAR* pszSrc)	// Read a (quoted) string from szSrc and point to the end
+int QuoteRead(char** ppszQuote, char** ppszEnd, char* pszSrc)	// Read a (quoted) string from szSrc and point to the end
 {
-	static TCHAR szQuote[QUOTE_MAX];
-	TCHAR* s = pszSrc;
-	TCHAR* e;
+	static char szQuote[QUOTE_MAX];
+	char* s = pszSrc;
+	char* e;
 
 	// Skip whitespace
-	SKIP_WS(s);
+	//SKIP_WS(s);
 
 	e = s;
 
-	if (*s == _T('\"')) {										// Quoted string
+	if (*s == ('\"')) {										// Quoted string
 		s++;
 		e++;
 		// Find end quote
-		FIND_QT(e);
-		_tcsncpy(szQuote, s, e - s);
+		//FIND_QT(e);
+		//csncpy(szQuote, s, e - s);
+		strncpy(szQuote, s, e-s);		
 		// Zero-terminate
-		szQuote[e - s] = _T('\0');
+		szQuote[e - s] = ('\0');
 		e++;
 	} else {													// Non-quoted string
 		// Find whitespace
-		FIND_WS(e);
-		_tcsncpy(szQuote, s, e - s);
+		//FIND_WS(e);
+		//csncpy(szQuote, s, e - s);
+		strncpy(szQuote, s, e-s);		
 		// Zero-terminate
-		szQuote[e - s] = _T('\0');
+		szQuote[e - s] = ('\0');
 	}
 
 	if (ppszQuote) {

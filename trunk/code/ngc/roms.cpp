@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "burner.h"
+
 #define BZIP_MAX 32
 
 static char* szBzipName[BZIP_MAX] = { NULL, };					// Zip files to search through
@@ -63,7 +65,26 @@ int checkRom(char * filename)
 			char msg[256];
 			sprintf(msg, "Found driver for %s, number %i/%i", szName, z, nBurnDrvCount);			
 			WaitPrompt(msg);
-			
+
+			switch (BzipOpen(FALSE))	{
+				case 0:
+					//gameAv[z] = 3;
+					sprintf(msg, "Good rom!");
+					WaitPrompt(msg);
+					break;
+				case 2:
+					//gameAv[z] = 1;
+					sprintf(msg, "Boot rom? not sure yet");
+					WaitPrompt(msg);
+					break;
+				case 1:
+					//gameAv[z] = 0;
+					sprintf(msg, "Error: Something was null");
+					WaitPrompt(msg);
+					break;
+			}
+			BzipClose();
+			/*
 			// Count the number of roms needed
 			for (nRomCount = 0; ; nRomCount++) {
 				if (BurnDrvGetRomInfo(NULL, nRomCount)) {
@@ -86,6 +107,7 @@ int checkRom(char * filename)
 				sprintf(msg, "Rom name: %s %i/%i", romName, i, nRomCount);
 				WaitPrompt(msg);			
 			}
+			*/
 			return 1;		
 		}	
 	}

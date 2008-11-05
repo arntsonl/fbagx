@@ -1,3 +1,5 @@
+#ifndef __gameinp_h__
+#define __gameinp_h__
 
 struct giConstant {
 	unsigned char nConst;				// The constant value
@@ -96,4 +98,6 @@ struct GameInp {
 		struct giMacro Macro;
 	};
 };
+
+#endif // __gameinp_h__
 

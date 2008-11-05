@@ -332,7 +332,7 @@ LoadBufferFromSMB (char * sbuffer, char *filepath, int length, bool silent)
 	else // load whole file
 	{
 		ret = SMB_ReadFile (sbuffer, 1024, boffset, smbfile);
-
+/*
 		if (IsZipFile (sbuffer))
 		{
 			boffset = UnZipBuffer ((unsigned char *)sbuffer, METHOD_SMB); // unzip from SMB
@@ -346,6 +346,7 @@ LoadBufferFromSMB (char * sbuffer, char *filepath, int length, bool silent)
 				ShowProgress ((char *)"Loading ...", boffset, length);			
 			}
 		}
+*/
 	}
 	SMB_CloseFile (smbfile);
 

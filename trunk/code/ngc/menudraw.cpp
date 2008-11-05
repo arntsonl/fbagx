@@ -41,7 +41,10 @@
 #include "images/gfx_bg.h"
 #include "input.h"
 
-#include "memory.h"
+//#include "memory.h"
+extern "C" {
+ #include "lwip/mem.h"
+}
 
 /*** Globals ***/
 FT_Library ftlibrary;
@@ -341,7 +344,7 @@ unpackbackdrop ()
 	// On Wii - store backdrop in MEM2
 //	unsigned int MEM2Storage = 0x91000000;
 //	backdrop = (u32 *)MEM2Storage;
-	backdrop = (u32 *)mallocMEM2(outbytes);
+	backdrop = (u32 *)malloc(outbytes);
 	memcpy(backdrop, bgtemp, bgSize);
 	#else
 	// On GameCube - store the backdrop in ARAM
@@ -349,6 +352,7 @@ unpackbackdrop ()
 	#endif
 
 	free (bgtemp);
+	//mem_free(bgtemp);	
 	bgtemp = NULL;
 
 	clearscreen ();
