@@ -556,7 +556,7 @@ LoadDVDFile (unsigned char *buffer, int length)
 	else // load whole file
 	{
 		dvd_read (readbuffer, 2048, discoffset);
-
+/*
 		if (!IsZipFile (readbuffer))
 		{
 			for (i = 0; i < blocks; i++)
@@ -567,7 +567,7 @@ LoadDVDFile (unsigned char *buffer, int length)
 				discoffset += 2048;
 			}
 
-			/*** And final cleanup ***/
+			/*** And final cleanup ***
 			if (dvddirlength % 2048)
 			{
 				i = dvddirlength % 2048;
@@ -579,6 +579,7 @@ LoadDVDFile (unsigned char *buffer, int length)
 		{
 			return UnZipBuffer (buffer, METHOD_DVD);	// unzip from dvd
 		}
+*/
 	}
 	return dvddirlength;
 }

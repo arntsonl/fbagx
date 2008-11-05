@@ -79,9 +79,9 @@ int write_datfile(int nDatType, FILE* fDat)
 		{
 			// Report problems
 			if (nParentSelect==-1U)
-				fprintf(fDat, "# Missing parent %s. It needs to be added to " APP_TITLE "!\n\n", spName);
+				fprintf(fDat, "# Missing parent %s. It needs to be added to ???!\n\n", spName);
 			if (nBoardROMSelect==-1U)
-				fprintf(fDat, "# Missing boardROM %s. It needs to be added to " APP_TITLE "!\n\n", sbName);
+				fprintf(fDat, "# Missing boardROM %s. It needs to be added to ???!\n\n", sbName);
 
 			// Write the header
 			fprintf(fDat, "game (\n");
@@ -164,7 +164,9 @@ int write_datfile(int nDatType, FILE* fDat)
 						}
 					}
 
-					if (!nMerged && nParentSelect!=nGameSelect && nParentSelect!=-1U) {
+					int nG = 0;
+					//if (!nMerged && nParentSelect!=nG, "0.1 ??"nameSelect && nParentSelect!=-1U) {
+					if ( !nMerged && nParentSelect != -1U){					
 						nBurnDrvSelect=nParentSelect;
 						nRetTmp=0;
 
@@ -337,36 +339,36 @@ int write_datfile(int nDatType, FILE* fDat)
 	return 0;
 }
 
-int create_datfile(TCHAR* szFilename, int nDatType)
+int create_datfile(char* szFilename, int nDatType)
 {
 	FILE *fDat=0;
 	int nRet=0;
 
-	if ((fDat = _tfopen(szFilename, _T("w")))==0)
+	if ((fDat = fopen(szFilename, ("w")))==0)
 		return -1;
 
 	if (nDatType==0)
 	{
 		fprintf(fDat, "clrmamepro (\n");
-		fprintf(fDat, "\tname \"" APP_TITLE "\"\n");
-		fprintf(fDat, "\tdescription \"" APP_TITLE " v%.20s\"\n", szAppBurnVer);
+		fprintf(fDat, "\tname \"\"\n");
+		fprintf(fDat, "\tdescription \" v%.20s\"\n", "0.1 ??");
 		fprintf(fDat, "\tcategory \"" APP_DESCRIPTION "\"\n");
-		fprintf(fDat, "\tversion %s\n", szAppBurnVer);
-		fprintf(fDat, "\tauthor \"" APP_TITLE " v%.20s\"\n", szAppBurnVer);
+		fprintf(fDat, "\tversion %s\n", "0.1 ??");
+		fprintf(fDat, "\tauthor \" v%.20s\"\n", "0.1 ??");
 		fprintf(fDat, "\tforcezipping zip\n");
 		fprintf(fDat, ")\n\n");
 	}
 	else
 	{
 		fprintf(fDat, "[CREDITS]\n");
-		fprintf(fDat, "Author=" APP_TITLE "\n");
-		fprintf(fDat, "Version=%.20s\n", szAppBurnVer);
+		fprintf(fDat, "Author=\n");
+		fprintf(fDat, "Version=%.20s\n", "0.1 ??");
 		fprintf(fDat, "Comment=" APP_DESCRIPTION "\n");
 		fprintf(fDat, "[DAT]\n");
 		fprintf(fDat, "version=2.00\n");
 		fprintf(fDat, "[EMULATOR]\n");
-		fprintf(fDat, "refname=" APP_TITLE "\n");
-		fprintf(fDat, "version=" APP_TITLE " v%.20s\n", szAppBurnVer);
+		fprintf(fDat, "refname=\n");
+		fprintf(fDat, "version= v%.20s\n", "0.1 ??");
 		fprintf(fDat, "[GAMES]\n");
 	}
 

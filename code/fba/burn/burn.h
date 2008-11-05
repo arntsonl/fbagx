@@ -2,6 +2,8 @@
 //            Refer to the "license.txt" file for more info
 
 // Burner emulation library
+#ifndef __BURN_H__
+#define __BURN_H__
 
 #ifdef __cplusplus
  extern "C" {
@@ -62,14 +64,14 @@ extern int nBurnVer;						// Version number of the library
 // Callbacks
 
 // Application-defined rom loading function
-extern int (__cdecl *BurnExtLoadRom)(unsigned char* Dest, int* pnWrote, int i);
+extern int (*BurnExtLoadRom)(unsigned char* Dest, int* pnWrote, int i);
 
 // Application-defined progress indicator functions
-extern int (__cdecl *BurnExtProgressRangeCallback)(double dProgressRange);
-extern int (__cdecl *BurnExtProgressUpdateCallback)(double dProgress, const char* pszText, bool bAbs);
+extern int (*BurnExtProgressRangeCallback)(double dProgressRange);
+extern int (*BurnExtProgressUpdateCallback)(double dProgress, const char* pszText, bool bAbs);
 
 // Application-defined colour conversion function
-extern unsigned int (__cdecl *BurnHighCol) (int r, int g, int b, int i);
+extern unsigned int (*BurnHighCol) (int r, int g, int b, int i);
 
 // ---------------------------------------------------------------------------
 
@@ -82,7 +84,6 @@ inline static int GetCurrentFrame() {
 inline static void SetCurrentFrame(const unsigned int n) {
 	nCurrentFrame = n;
 }
-
 // ---------------------------------------------------------------------------
 // Driver info structures
 
@@ -137,6 +138,7 @@ struct BurnDIPInfo {
 	char* szText;
 };
 
+
 // ---------------------------------------------------------------------------
 
 extern bool bBurnUseMMX;
@@ -175,7 +177,7 @@ extern int nFMInterpolation;				// Desired interpolation level for FM sound
 #define PRINT_IMPORTANT (2)
 #define PRINT_ERROR		(3)
 
-extern int (__cdecl *bprintf) (int nStatus, char* szFormat, ...);
+extern int (*bprintf) (int nStatus, char* szFormat, ...);
 
 int BurnLibInit();
 int BurnLibExit();
@@ -329,3 +331,4 @@ int BurnDrvGetMaxPlayers();
  } // End of extern "C"
 #endif
 
+#endif // __burn_h__

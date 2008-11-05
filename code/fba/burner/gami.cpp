@@ -1,9 +1,9 @@
 // Burner Game Input
 #include "burner.h"
-
+/*
 // Player Default Controls
 int nPlayerDefaultControls[4] = {0, 1, 2, 3};
-TCHAR szPlayerDefaultIni[4][MAX_PATH] = { _T(""), _T(""), _T(""), _T("") };
+char szPlayerDefaultIni[4][MAX_PATH] = { (""), (""), (""), ("") };
 
 // Mapping of PC inputs to game inputs
 struct GameInp* GameInp = NULL;
@@ -381,29 +381,29 @@ int GameInpExit()
 // ---------------------------------------------------------------------------
 // Convert a string from a config file to an input
 
-static TCHAR* SliderInfo(struct GameInp* pgi, TCHAR* s)
+static char* SliderInfo(struct GameInp* pgi, char* s)
 {
-	TCHAR* szRet = NULL;
+	char* szRet = NULL;
 	pgi->Input.Slider.nSliderSpeed = 0x700;				// defaults
 	pgi->Input.Slider.nSliderCenter = 0;
 	pgi->Input.Slider.nSliderValue = 0x8000;
 
-	szRet = LabelCheck(s, _T("speed"));
+	szRet = LabelCheck(s, ("speed"));
 	s = szRet;
 	if (s == NULL) {
 		return s;
 	}
-	pgi->Input.Slider.nSliderSpeed = (short)_tcstol(s, &szRet, 0);
+	pgi->Input.Slider.nSliderSpeed = (short)cstol(s, &szRet, 0);
 	s = szRet;
 	if (s==NULL) {
 		return s;
 	}
-	szRet = LabelCheck(s, _T("center"));
+	szRet = LabelCheck(s, ("center"));
 	s = szRet;
 	if (s == NULL) {
 		return s;
 	}
-	pgi->Input.Slider.nSliderCenter = (short)_tcstol(s, &szRet, 0);
+	pgi->Input.Slider.nSliderCenter = (short)cstol(s, &szRet, 0);
 	s = szRet;
 	if (s == NULL) {
 		return s;
@@ -412,16 +412,16 @@ static TCHAR* SliderInfo(struct GameInp* pgi, TCHAR* s)
 	return szRet;
 }
 
-static int StringToJoyAxis(struct GameInp* pgi, TCHAR* s)
+static int StringToJoyAxis(struct GameInp* pgi, char* s)
 {
-	TCHAR* szRet = s;
+	char* szRet = s;
 
-	pgi->Input.JoyAxis.nJoy = (unsigned char)_tcstol(s, &szRet, 0);
+	pgi->Input.JoyAxis.nJoy = (unsigned char)cstol(s, &szRet, 0);
 	if (szRet == NULL) {
 		return 1;
 	}
 	s = szRet;
-	pgi->Input.JoyAxis.nAxis = (unsigned char)_tcstol(s, &szRet, 0);
+	pgi->Input.JoyAxis.nAxis = (unsigned char)cstol(s, &szRet, 0);
 	if (szRet == NULL) {
 		return 1;
 	}
@@ -429,11 +429,11 @@ static int StringToJoyAxis(struct GameInp* pgi, TCHAR* s)
 	return 0;
 }
 
-static int StringToMouseAxis(struct GameInp* pgi, TCHAR* s)
+static int StringToMouseAxis(struct GameInp* pgi, char* s)
 {
-	TCHAR* szRet = s;
+	char* szRet = s;
 
-	pgi->Input.MouseAxis.nAxis = (unsigned char)_tcstol(s, &szRet, 0);
+	pgi->Input.MouseAxis.nAxis = (unsigned char)cstol(s, &szRet, 0);
 	if (szRet == NULL) {
 		return 1;
 	}
@@ -441,86 +441,86 @@ static int StringToMouseAxis(struct GameInp* pgi, TCHAR* s)
 	return 0;
 }
 
-static int StringToMacro(struct GameInp* pgi, TCHAR* s)
+static int StringToMacro(struct GameInp* pgi, char* s)
 {
-	TCHAR* szRet = NULL;
+	char* szRet = NULL;
 
-	szRet = LabelCheck(s, _T("switch"));
+	szRet = LabelCheck(s, ("switch"));
 	if (szRet) {
 		s = szRet;
 		pgi->Macro.nMode = 0x01;
-		pgi->Macro.Switch.nCode = (unsigned short)_tcstol(s, &szRet, 0);
+		pgi->Macro.Switch.nCode = (unsigned short)cstol(s, &szRet, 0);
 		return 0;
 	}
 
 	return 1;
 }
 
-static int StringToInp(struct GameInp* pgi, TCHAR* s)
+static int StringToInp(struct GameInp* pgi, char* s)
 {
-	TCHAR* szRet = NULL;
+	char* szRet = NULL;
 
 	SKIP_WS(s);											// skip whitespace
-	szRet = LabelCheck(s, _T("undefined"));
+	szRet = LabelCheck(s, ("undefined"));
 	if (szRet) {
 		pgi->nInput = 0;
 		return 0;
 	}
 
-	szRet = LabelCheck(s, _T("constant"));
+	szRet = LabelCheck(s, ("constant"));
 	if (szRet) {
 		pgi->nInput = GIT_CONSTANT;
 		s = szRet;
-		pgi->Input.Constant.nConst=(unsigned char)_tcstol(s, &szRet, 0);
+		pgi->Input.Constant.nConst=(unsigned char)cstol(s, &szRet, 0);
 		*(pgi->Input.pVal) = pgi->Input.Constant.nConst;
 		return 0;
 	}
 
-	szRet = LabelCheck(s, _T("switch"));
+	szRet = LabelCheck(s, ("switch"));
 	if (szRet) {
 		pgi->nInput = GIT_SWITCH;
 		s = szRet;
-		pgi->Input.Switch.nCode = (unsigned short)_tcstol(s, &szRet, 0);
+		pgi->Input.Switch.nCode = (unsigned short)cstol(s, &szRet, 0);
 		return 0;
 	}
 
 	// Analog using mouse axis:
-	szRet = LabelCheck(s, _T("mouseaxis"));
+	szRet = LabelCheck(s, ("mouseaxis"));
 	if (szRet) {
 		pgi->nInput = GIT_MOUSEAXIS;
 		return StringToMouseAxis(pgi, szRet);
 	}
 	// Analog using joystick axis:
-	szRet = LabelCheck(s, _T("joyaxis-neg"));
+	szRet = LabelCheck(s, ("joyaxis-neg"));
 	if (szRet) {
 		pgi->nInput = GIT_JOYAXIS_NEG;
 		return StringToJoyAxis(pgi, szRet);
 	}
-	szRet = LabelCheck(s, _T("joyaxis-pos"));
+	szRet = LabelCheck(s, ("joyaxis-pos"));
 	if (szRet) {
 		pgi->nInput = GIT_JOYAXIS_POS;
 		return StringToJoyAxis(pgi, szRet);
 	}
-	szRet = LabelCheck(s, _T("joyaxis"));
+	szRet = LabelCheck(s, ("joyaxis"));
 	if (szRet) {
 		pgi->nInput = GIT_JOYAXIS_FULL;
 		return StringToJoyAxis(pgi, szRet);
 	}
 
 	// Analog using keyboard slider
-	szRet = LabelCheck(s, _T("slider"));
+	szRet = LabelCheck(s, ("slider"));
 	if (szRet) {
 		s = szRet;
 		pgi->nInput = GIT_KEYSLIDER;
 		pgi->Input.Slider.SliderAxis.nSlider[0] = 0;	// defaults
 		pgi->Input.Slider.SliderAxis.nSlider[1] = 0;	//
 
-		pgi->Input.Slider.SliderAxis.nSlider[0] = (unsigned short)_tcstol(s, &szRet, 0);
+		pgi->Input.Slider.SliderAxis.nSlider[0] = (unsigned short)cstol(s, &szRet, 0);
 		s = szRet;
 		if (s == NULL) {
 			return 1;
 		}
-		pgi->Input.Slider.SliderAxis.nSlider[1] = (unsigned short)_tcstol(s, &szRet, 0);
+		pgi->Input.Slider.SliderAxis.nSlider[1] = (unsigned short)cstol(s, &szRet, 0);
 		s = szRet;
 		if (s == NULL) {
 			return 1;
@@ -534,19 +534,19 @@ static int StringToInp(struct GameInp* pgi, TCHAR* s)
 	}
 
 	// Analog using joystick slider
-	szRet = LabelCheck(s, _T("joyslider"));
+	szRet = LabelCheck(s, ("joyslider"));
 	if (szRet) {
 		s = szRet;
 		pgi->nInput = GIT_JOYSLIDER;
 		pgi->Input.Slider.JoyAxis.nJoy = 0;				// defaults
 		pgi->Input.Slider.JoyAxis.nAxis = 0;			//
 
-		pgi->Input.Slider.JoyAxis.nJoy = (unsigned char)_tcstol(s, &szRet, 0);
+		pgi->Input.Slider.JoyAxis.nJoy = (unsigned char)cstol(s, &szRet, 0);
 		s = szRet;
 		if (s == NULL) {
 			return 1;
 		}
-		pgi->Input.Slider.JoyAxis.nAxis = (unsigned char)_tcstol(s, &szRet, 0);
+		pgi->Input.Slider.JoyAxis.nAxis = (unsigned char)cstol(s, &szRet, 0);
 		s = szRet;
 		if (s == NULL) {
 			return 1;
@@ -565,56 +565,56 @@ static int StringToInp(struct GameInp* pgi, TCHAR* s)
 // ---------------------------------------------------------------------------
 // Convert an input to a string for config files
 
-static TCHAR* InpToString(struct GameInp* pgi)
+static char* InpToString(struct GameInp* pgi)
 {
-	static TCHAR szString[80];
+	static char szString[80];
 
 	if (pgi->nInput == 0) {
-		return _T("undefined");
+		return ("undefined");
 	}
 	if (pgi->nInput == GIT_CONSTANT) {
-		_stprintf(szString, _T("constant 0x%.2X"), pgi->Input.Constant.nConst);
+		_stprintf(szString, ("constant 0x%.2X"), pgi->Input.Constant.nConst);
 		return szString;
 	}
 	if (pgi->nInput == GIT_SWITCH) {
-		_stprintf(szString, _T("switch 0x%.2X"), pgi->Input.Switch.nCode);
+		_stprintf(szString, ("switch 0x%.2X"), pgi->Input.Switch.nCode);
 		return szString;
 	}
 	if (pgi->nInput == GIT_KEYSLIDER) {
-		_stprintf(szString, _T("slider 0x%.2x 0x%.2x speed 0x%x center %d"), pgi->Input.Slider.SliderAxis.nSlider[0], pgi->Input.Slider.SliderAxis.nSlider[1], pgi->Input.Slider.nSliderSpeed, pgi->Input.Slider.nSliderCenter);
+		_stprintf(szString, ("slider 0x%.2x 0x%.2x speed 0x%x center %d"), pgi->Input.Slider.SliderAxis.nSlider[0], pgi->Input.Slider.SliderAxis.nSlider[1], pgi->Input.Slider.nSliderSpeed, pgi->Input.Slider.nSliderCenter);
 		return szString;
 	}
 	if (pgi->nInput == GIT_JOYSLIDER) {
-		_stprintf(szString, _T("joyslider %d %d speed 0x%x center %d"), pgi->Input.Slider.JoyAxis.nJoy, pgi->Input.Slider.JoyAxis.nAxis, pgi->Input.Slider.nSliderSpeed, pgi->Input.Slider.nSliderCenter);
+		_stprintf(szString, ("joyslider %d %d speed 0x%x center %d"), pgi->Input.Slider.JoyAxis.nJoy, pgi->Input.Slider.JoyAxis.nAxis, pgi->Input.Slider.nSliderSpeed, pgi->Input.Slider.nSliderCenter);
 		return szString;
 	}
 	if (pgi->nInput == GIT_MOUSEAXIS) {
-		_stprintf(szString, _T("mouseaxis %d"), pgi->Input.MouseAxis.nAxis);
+		_stprintf(szString, ("mouseaxis %d"), pgi->Input.MouseAxis.nAxis);
 		return szString;
 	}
 	if (pgi->nInput == GIT_JOYAXIS_FULL) {
-		_stprintf(szString, _T("joyaxis %d %d"), pgi->Input.JoyAxis.nJoy, pgi->Input.JoyAxis.nAxis);
+		_stprintf(szString, ("joyaxis %d %d"), pgi->Input.JoyAxis.nJoy, pgi->Input.JoyAxis.nAxis);
 		return szString;
 	}
 	if (pgi->nInput == GIT_JOYAXIS_NEG) {
-		_stprintf(szString, _T("joyaxis-neg %d %d"), pgi->Input.JoyAxis.nJoy, pgi->Input.JoyAxis.nAxis);
+		_stprintf(szString, ("joyaxis-neg %d %d"), pgi->Input.JoyAxis.nJoy, pgi->Input.JoyAxis.nAxis);
 		return szString;
 	}
 	if (pgi->nInput == GIT_JOYAXIS_POS) {
-		_stprintf(szString, _T("joyaxis-pos %d %d"), pgi->Input.JoyAxis.nJoy, pgi->Input.JoyAxis.nAxis);
+		_stprintf(szString, ("joyaxis-pos %d %d"), pgi->Input.JoyAxis.nJoy, pgi->Input.JoyAxis.nAxis);
 		return szString;
 	}
 
-	return _T("unknown");
+	return ("unknown");
 }
 
-static TCHAR* InpMacroToString(struct GameInp* pgi)
+static char* InpMacroToString(struct GameInp* pgi)
 {
-	static TCHAR szString[256];
+	static char szString[256];
 
 	if (pgi->nInput == GIT_MACRO_AUTO) {
 		if (pgi->Macro.nMode) {
-			_stprintf(szString, _T("switch 0x%.2X"), pgi->Macro.Switch.nCode);
+			_stprintf(szString, ("switch 0x%.2X"), pgi->Macro.Switch.nCode);
 			return szString;
 		}
 	}
@@ -623,201 +623,44 @@ static TCHAR* InpMacroToString(struct GameInp* pgi)
 		struct BurnInputInfo bii;
 
 		if (pgi->Macro.nMode) {
-			_stprintf(szString, _T("switch 0x%.2X"), pgi->Macro.Switch.nCode);
+			_stprintf(szString, ("switch 0x%.2X"), pgi->Macro.Switch.nCode);
 		} else {
-			_stprintf(szString, _T("undefined"));
+			_stprintf(szString, ("undefined"));
 		}
 
 		for (int i = 0; i < 4; i++) {
 			if (pgi->Macro.pVal[i]) {
 				BurnDrvGetInputInfo(&bii, pgi->Macro.nInput[i]);
-				_stprintf(szString + _tcslen(szString), _T(" \"%hs\" 0x%02X"), bii.szName, pgi->Macro.nVal[i]);
+				_stprintf(szString + cslen(szString), (" \"%hs\" 0x%02X"), bii.szName, pgi->Macro.nVal[i]);
 			}
 		}
 
 		return szString;
 	}
 
-	return _T("undefined");
+	return ("undefined");
 }
 
-// ---------------------------------------------------------------------------
-// Generate a user-friendly name for a control (PC-side)
-
-static struct { int nCode; TCHAR* szName; } KeyNames[] = {
-
-#define FBK_DEFNAME(k) k, _T(#k)
-
-	{ FBK_ESCAPE,				_T("ESCAPE") },
-	{ FBK_1,					_T("1") },
-	{ FBK_2,					_T("2") },
-	{ FBK_3,					_T("3") },
-	{ FBK_4,					_T("4") },
-	{ FBK_5,					_T("5") },
-	{ FBK_6,					_T("6") },
-	{ FBK_7,					_T("7") },
-	{ FBK_8,					_T("8") },
-	{ FBK_9,					_T("9") },
-	{ FBK_0,					_T("0") },
-	{ FBK_MINUS,				_T("MINUS") },
-	{ FBK_EQUALS,				_T("EQUALS") },
-	{ FBK_BACK,					_T("BACKSPACE") },
-	{ FBK_TAB,					_T("TAB") },
-	{ FBK_Q,					_T("Q") },
-	{ FBK_W,					_T("W") },
-	{ FBK_E,					_T("E") },
-	{ FBK_R,					_T("R") },
-	{ FBK_T,					_T("T") },
-	{ FBK_Y,					_T("Y") },
-	{ FBK_U,					_T("U") },
-	{ FBK_I,					_T("I") },
-	{ FBK_O,					_T("O") },
-	{ FBK_P,					_T("P") },
-	{ FBK_LBRACKET,				_T("OPENING BRACKET") },
-	{ FBK_RBRACKET,				_T("CLOSING BRACKET") },
-	{ FBK_RETURN,				_T("ENTER") },
-	{ FBK_LCONTROL,				_T("LEFT CONTROL") },
-	{ FBK_A,					_T("A") },
-	{ FBK_S,					_T("S") },
-	{ FBK_D,					_T("D") },
-	{ FBK_F,					_T("F") },
-	{ FBK_G,					_T("G") },
-	{ FBK_H,					_T("H") },
-	{ FBK_J,					_T("J") },
-	{ FBK_K,					_T("K") },
-	{ FBK_L,					_T("L") },
-	{ FBK_SEMICOLON,			_T("SEMICOLON") },
-	{ FBK_APOSTROPHE,			_T("APOSTROPHE") },
-	{ FBK_GRAVE,				_T("ACCENT GRAVE") },
-	{ FBK_LSHIFT,				_T("LEFT SHIFT") },
-	{ FBK_BACKSLASH,			_T("BACKSLASH") },
-	{ FBK_Z,					_T("Z") },
-	{ FBK_X,					_T("X") },
-	{ FBK_C,					_T("C") },
-	{ FBK_V,					_T("V") },
-	{ FBK_B,					_T("B") },
-	{ FBK_N,					_T("N") },
-	{ FBK_M,					_T("M") },
-	{ FBK_COMMA,				_T("COMMA") },
-	{ FBK_PERIOD,				_T("PERIOD") },
-	{ FBK_SLASH,				_T("SLASH") },
-	{ FBK_RSHIFT,				_T("RIGHT SHIFT") },
-	{ FBK_MULTIPLY,				_T("NUMPAD MULTIPLY") },
-	{ FBK_LALT,					_T("LEFT MENU") },
-	{ FBK_SPACE,				_T("SPACE") },
-	{ FBK_CAPITAL,				_T("CAPSLOCK") },
-	{ FBK_F1,					_T("F1") },
-	{ FBK_F2,					_T("F2") },
-	{ FBK_F3,					_T("F3") },
-	{ FBK_F4,					_T("F4") },
-	{ FBK_F5,					_T("F5") },
-	{ FBK_F6,					_T("F6") },
-	{ FBK_F7,					_T("F7") },
-	{ FBK_F8,					_T("F8") },
-	{ FBK_F9,					_T("F9") },
-	{ FBK_F10,					_T("F10") },
-	{ FBK_NUMLOCK,				_T("NUMLOCK") },
-	{ FBK_SCROLL,				_T("SCROLLLOCK") },
-	{ FBK_NUMPAD7,				_T("NUMPAD 7") },
-	{ FBK_NUMPAD8,				_T("NUMPAD 8") },
-	{ FBK_NUMPAD9,				_T("NUMPAD 9") },
-	{ FBK_SUBTRACT,				_T("NUMPAD SUBTRACT") },
-	{ FBK_NUMPAD4,				_T("NUMPAD 4") },
-	{ FBK_NUMPAD5,				_T("NUMPAD 5") },
-	{ FBK_NUMPAD6,				_T("NUMPAD 6") },
-	{ FBK_ADD,					_T("NUMPAD ADD") },
-	{ FBK_NUMPAD1,				_T("NUMPAD 1") },
-	{ FBK_NUMPAD2,				_T("NUMPAD 2") },
-	{ FBK_NUMPAD3,				_T("NUMPAD 3") },
-	{ FBK_NUMPAD0,				_T("NUMPAD 0") },
-	{ FBK_DECIMAL,				_T("NUMPAD DECIMAL POINT") },
-	{ FBK_DEFNAME(FBK_OEM_102) },
-	{ FBK_F11,					_T("F11") },
-	{ FBK_F12,					_T("F12") },
-	{ FBK_F13,					_T("F13") },
-	{ FBK_F14,					_T("F14") },
-	{ FBK_F15,					_T("F15") },
-	{ FBK_DEFNAME(FBK_KANA) },
-	{ FBK_DEFNAME(FBK_ABNT_C1) },
-	{ FBK_DEFNAME(FBK_CONVERT) },
-	{ FBK_DEFNAME(FBK_NOCONVERT) },
-	{ FBK_DEFNAME(FBK_YEN) },
-	{ FBK_DEFNAME(FBK_ABNT_C2) },
-	{ FBK_NUMPADEQUALS,			_T("NUMPAD EQUALS") },
-	{ FBK_DEFNAME(FBK_PREVTRACK) },
-	{ FBK_DEFNAME(FBK_AT) },
-	{ FBK_COLON,				_T("COLON") },
-	{ FBK_UNDERLINE,			_T("UNDERSCORE") },
-	{ FBK_DEFNAME(FBK_KANJI) },
-	{ FBK_DEFNAME(FBK_STOP) },
-	{ FBK_DEFNAME(FBK_AX) },
-	{ FBK_DEFNAME(FBK_UNLABELED) },
-	{ FBK_DEFNAME(FBK_NEXTTRACK) },
-	{ FBK_NUMPADENTER,			_T("NUMPAD ENTER") },
-	{ FBK_RCONTROL,				_T("RIGHT CONTROL") },
-	{ FBK_DEFNAME(FBK_MUTE) },
-	{ FBK_DEFNAME(FBK_CALCULATOR) },
-	{ FBK_DEFNAME(FBK_PLAYPAUSE) },
-	{ FBK_DEFNAME(FBK_MEDIASTOP) },
-	{ FBK_DEFNAME(FBK_VOLUMEDOWN) },
-	{ FBK_DEFNAME(FBK_VOLUMEUP) },
-	{ FBK_DEFNAME(FBK_WEBHOME) },
-	{ FBK_DEFNAME(FBK_NUMPADCOMMA) },
-	{ FBK_DIVIDE,				_T("NUMPAD DIVIDE") },
-	{ FBK_SYSRQ,				_T("PRINTSCREEN") },
-	{ FBK_RALT,					_T("RIGHT MENU") },
-	{ FBK_PAUSE,				_T("PAUSE") },
-	{ FBK_HOME,					_T("HOME") },
-	{ FBK_UPARROW,				_T("ARROW UP") },
-	{ FBK_PRIOR,				_T("PAGE UP") },
-	{ FBK_LEFTARROW,			_T("ARROW LEFT") },
-	{ FBK_RIGHTARROW,			_T("ARROW RIGHT") },
-	{ FBK_END,					_T("END") },
-	{ FBK_DOWNARROW,			_T("ARROW DOWN") },
-	{ FBK_NEXT,					_T("PAGE DOWN") },
-	{ FBK_INSERT,				_T("INSERT") },
-	{ FBK_DELETE,				_T("DELETE") },
-	{ FBK_LWIN,					_T("LEFT WINDOWS") },
-	{ FBK_RWIN,					_T("RIGHT WINDOWS") },
-	{ FBK_DEFNAME(FBK_APPS) },
-	{ FBK_DEFNAME(FBK_POWER) },
-	{ FBK_DEFNAME(FBK_SLEEP) },
-	{ FBK_DEFNAME(FBK_WAKE) },
-	{ FBK_DEFNAME(FBK_WEBSEARCH) },
-	{ FBK_DEFNAME(FBK_WEBFAVORITES) },
-	{ FBK_DEFNAME(FBK_WEBREFRESH) },
-	{ FBK_DEFNAME(FBK_WEBSTOP) },
-	{ FBK_DEFNAME(FBK_WEBFORWARD) },
-	{ FBK_DEFNAME(FBK_WEBBACK) },
-	{ FBK_DEFNAME(FBK_MYCOMPUTER) },
-	{ FBK_DEFNAME(FBK_MAIL) },
-	{ FBK_DEFNAME(FBK_MEDIASELECT) },
-
-#undef FBK_DEFNAME
-
-	{ 0,				NULL }
-};
-
-TCHAR* InputCodeDesc(int c)
+char* InputCodeDesc(int c)
 {
-	static TCHAR szString[64];
-	TCHAR* szName = _T("");
+	static char szString[64];
+	char* szName = ("");
 
 	// Mouse
 	if (c >= 0x8000) {
 		int nMouse = (c >> 8) & 0x3F;
 		int nCode = c & 0xFF;
 		if (nCode >= 0x80) {
-			_stprintf(szString, _T("Mouse %d Button %d"), nMouse, nCode & 0x7F);
+			_stprintf(szString, ("Mouse %d Button %d"), nMouse, nCode & 0x7F);
 			return szString;
 		}
 		if (nCode < 0x06) {
-			TCHAR szAxis[3][3] = { _T("X"), _T("Y"), _T("Z") };
-			TCHAR szDir[6][16] = { _T("negative"), _T("positive"), _T("Left"), _T("Right"), _T("Up"), _T("Down") };
+			char szAxis[3][3] = { ("X"), ("Y"), ("Z") };
+			char szDir[6][16] = { ("negative"), ("positive"), ("Left"), ("Right"), ("Up"), ("Down") };
 			if (nCode < 4) {
-				_stprintf(szString, _T("Mouse %d %s (%s %s)"), nMouse, szDir[nCode + 2], szAxis[nCode >> 1], szDir[nCode & 1]);
+				_stprintf(szString, ("Mouse %d %s (%s %s)"), nMouse, szDir[nCode + 2], szAxis[nCode >> 1], szDir[nCode & 1]);
 			} else {
-				_stprintf(szString, _T("Mouse %d %s %s"), nMouse, szAxis[nCode >> 1], szDir[nCode & 1]);
+				_stprintf(szString, ("Mouse %d %s %s"), nMouse, szAxis[nCode >> 1], szDir[nCode & 1]);
 			}
 			return szString;
 		}
@@ -828,22 +671,22 @@ TCHAR* InputCodeDesc(int c)
 		int nJoy = (c >> 8) & 0x3F;
 		int nCode = c & 0xFF;
 		if (nCode >= 0x80) {
-			_stprintf(szString, _T("Joy %d Button %d"), nJoy, nCode & 0x7F);
+			_stprintf(szString, ("Joy %d Button %d"), nJoy, nCode & 0x7F);
 			return szString;
 		}
 		if (nCode < 0x10) {
-			TCHAR szAxis[8][3] = { _T("X"), _T("Y"), _T("Z"), _T("rX"), _T("rY"), _T("rZ"), _T("s0"), _T("s1") };
-			TCHAR szDir[6][16] = { _T("negative"), _T("positive"), _T("Left"), _T("Right"), _T("Up"), _T("Down") };
+			char szAxis[8][3] = { ("X"), ("Y"), ("Z"), ("rX"), ("rY"), ("rZ"), ("s0"), ("s1") };
+			char szDir[6][16] = { ("negative"), ("positive"), ("Left"), ("Right"), ("Up"), ("Down") };
 			if (nCode < 4) {
-				_stprintf(szString, _T("Joy %d %s (%s %s)"), nJoy, szDir[nCode + 2], szAxis[nCode >> 1], szDir[nCode & 1]);
+				_stprintf(szString, ("Joy %d %s (%s %s)"), nJoy, szDir[nCode + 2], szAxis[nCode >> 1], szDir[nCode & 1]);
 			} else {
-				_stprintf(szString, _T("Joy %d %s %s"), nJoy, szAxis[nCode >> 1], szDir[nCode & 1]);
+				_stprintf(szString, ("Joy %d %s %s"), nJoy, szAxis[nCode >> 1], szDir[nCode & 1]);
 			}
 			return szString;
 		}
 		if (nCode < 0x20) {
-			TCHAR szDir[4][16] = { _T("Left"), _T("Right"), _T("Up"), _T("Down") };
-			_stprintf(szString, _T("Joy %d POV-hat %d %s"), nJoy, (nCode & 0x0F) >> 2, szDir[nCode & 3]);
+			char szDir[4][16] = { ("Left"), ("Right"), ("Up"), ("Down") };
+			_stprintf(szString, ("Joy %d POV-hat %d %s"), nJoy, (nCode & 0x0F) >> 2, szDir[nCode & 3]);
 			return szString;
 		}
 	}
@@ -858,25 +701,25 @@ TCHAR* InputCodeDesc(int c)
 	}
 
 	if (szName[0]) {
-		_stprintf(szString, _T("%s"), szName);
+		_stprintf(szString, ("%s"), szName);
 	} else {
-		_stprintf(szString, _T("code 0x%.2X"), c);
+		_stprintf(szString, ("code 0x%.2X"), c);
 	}
 
 	return szString;
 }
 
-TCHAR* InpToDesc(struct GameInp* pgi)
+char* InpToDesc(struct GameInp* pgi)
 {
-	static TCHAR szInputName[64] = _T("");
+	static char szInputName[64] = ("");
 
 	if (pgi->nInput == 0) {
-		return _T("");
+		return ("");
 	}
 	if (pgi->nInput == GIT_CONSTANT) {
 		if (pgi->nType & BIT_GROUP_CONSTANT) {
 			for (int i = 0; i < 8; i++) {
-				szInputName[7 - i] = pgi->Input.Constant.nConst & (1 << i) ? _T('1') : _T('0');
+				szInputName[7 - i] = pgi->Input.Constant.nConst & (1 << i) ? ('1') : ('0');
 			}
 			szInputName[8] = 0;
 
@@ -884,31 +727,31 @@ TCHAR* InpToDesc(struct GameInp* pgi)
 		}
 
 		if (pgi->Input.Constant.nConst == 0) {
-			return _T("-");
+			return ("-");
 		}
 	}
 	if (pgi->nInput == GIT_SWITCH) {
 		return InputCodeDesc(pgi->Input.Switch.nCode);
 	}
 	if (pgi->nInput == GIT_MOUSEAXIS) {
-		TCHAR nAxis = _T('?');
+		char nAxis = ('?');
 		switch (pgi->Input.MouseAxis.nAxis) {
 			case 0:
-				nAxis = _T('X');
+				nAxis = ('X');
 				break;
 			case 1:
-				nAxis = _T('Y');
+				nAxis = ('Y');
 				break;
 			case 2:
-				nAxis = _T('Z');
+				nAxis = ('Z');
 				break;
 		}
-		_stprintf(szInputName, _T("Mouse %i %c axis"), pgi->Input.MouseAxis.nMouse, nAxis);
+		_stprintf(szInputName, ("Mouse %i %c axis"), pgi->Input.MouseAxis.nMouse, nAxis);
 		return szInputName;
 	}
 	if (pgi->nInput & GIT_GROUP_JOYSTICK) {
-		TCHAR szAxis[8][3] = { _T("X"), _T("Y"), _T("Z"), _T("rX"), _T("rY"), _T("rZ"), _T("s0"), _T("s1") };
-		TCHAR szRange[4][16] = { _T("unknown"), _T("full"), _T("negative"), _T("positive") };
+		char szAxis[8][3] = { ("X"), ("Y"), ("Z"), ("rX"), ("rY"), ("rZ"), ("s0"), ("s1") };
+		char szRange[4][16] = { ("unknown"), ("full"), ("negative"), ("positive") };
 		int nRange = 0;
 		switch (pgi->nInput) {
 			case GIT_JOYAXIS_FULL:
@@ -922,14 +765,14 @@ TCHAR* InpToDesc(struct GameInp* pgi)
 				break;
 		}
 
-		_stprintf(szInputName, _T("Joy %d %s axis (%s range)"), pgi->Input.JoyAxis.nJoy, szAxis[pgi->Input.JoyAxis.nAxis], szRange[nRange]);
+		_stprintf(szInputName, ("Joy %d %s axis (%s range)"), pgi->Input.JoyAxis.nJoy, szAxis[pgi->Input.JoyAxis.nAxis], szRange[nRange]);
 		return szInputName;
 	}
 
 	return InpToString(pgi);							// Just do the rest as they are in the config file
 }
 
-TCHAR* InpMacroToDesc(struct GameInp* pgi)
+char* InpMacroToDesc(struct GameInp* pgi)
 {
 	if (pgi->nInput & GIT_GROUP_MACRO) {
 		if (pgi->Macro.nMode) {
@@ -937,13 +780,13 @@ TCHAR* InpMacroToDesc(struct GameInp* pgi)
 		}
 	}
 
-	return _T("");
+	return ("");
 }
 
 // ---------------------------------------------------------------------------
 
 // Find the input number by info
-static unsigned int InputInfoToNum(TCHAR* szName)
+static unsigned int InputInfoToNum(char* szName)
 {
 	for (unsigned int i = 0; i < nGameInpCount; i++) {
 		struct BurnInputInfo bii;
@@ -952,7 +795,7 @@ static unsigned int InputInfoToNum(TCHAR* szName)
 			continue;
 		}
 
-		if (_tcsicmp(szName, ANSIToTCHAR(bii.szInfo, NULL, 0)) == 0) {
+		if (csicmp(szName, ANSITochar(bii.szInfo, NULL, 0)) == 0) {
 			return i;
 		}
 	}
@@ -960,7 +803,7 @@ static unsigned int InputInfoToNum(TCHAR* szName)
 }
 
 // Find the input number by name
-static unsigned int InputNameToNum(TCHAR* szName)
+static unsigned int InputNameToNum(char* szName)
 {
 	for (unsigned int i = 0; i < nGameInpCount; i++) {
 		struct BurnInputInfo bii;
@@ -969,30 +812,30 @@ static unsigned int InputNameToNum(TCHAR* szName)
 			continue;
 		}
 
-		if (_tcsicmp(szName, ANSIToTCHAR(bii.szName, NULL, 0)) == 0) {
+		if (csicmp(szName, ANSITochar(bii.szName, NULL, 0)) == 0) {
 			return i;
 		}
 	}
 	return ~0U;
 }
 
-static TCHAR* InputNumToName(unsigned int i)
+static char* InputNumToName(unsigned int i)
 {
 	struct BurnInputInfo bii;
 	bii.szName = NULL;
 	BurnDrvGetInputInfo(&bii, i);
 	if (bii.szName == NULL) {
-		return _T("unknown");
+		return ("unknown");
 	}
-	return ANSIToTCHAR(bii.szName, NULL, 0);
+	return ANSITochar(bii.szName, NULL, 0);
 }
 
-static unsigned int MacroNameToNum(TCHAR* szName)
+static unsigned int MacroNameToNum(char* szName)
 {
 	struct GameInp* pgi = GameInp + nGameInpCount;
 	for (unsigned int i = 0; i < nMacroCount; i++, pgi++) {
 		if (pgi->nInput & GIT_GROUP_MACRO) {
-			if (_tcsicmp(szName, ANSIToTCHAR(pgi->Macro.szName, NULL, 0)) == 0) {
+			if (csicmp(szName, ANSITochar(pgi->Macro.szName, NULL, 0)) == 0) {
 				return i;
 			}
 		}
@@ -1051,10 +894,10 @@ static int GameInpAutoOne(struct GameInp* pgi, char* szi)
 	return 0;
 }
 
-static int AddCustomMacro(TCHAR* szValue, bool bOverWrite)
+static int AddCustomMacro(char* szValue, bool bOverWrite)
 {
-	TCHAR* szQuote = NULL;
-	TCHAR* szEnd = NULL;
+	char* szQuote = NULL;
+	char* szEnd = NULL;
 
 	if (QuoteRead(&szQuote, &szEnd, szValue)) {
 		return 1;
@@ -1067,7 +910,7 @@ static int AddCustomMacro(TCHAR* szValue, bool bOverWrite)
 
 	for (unsigned int j = nGameInpCount; j < nGameInpCount + nMacroCount; j++) {
 		if (GameInp[j].nInput == GIT_MACRO_CUSTOM) {
-			if (LabelCheck(szQuote, ANSIToTCHAR(GameInp[j].Macro.szName, NULL, 0))) {
+			if (LabelCheck(szQuote, ANSITochar(GameInp[j].Macro.szName, NULL, 0))) {
 				nInput = j;
 				break;
 			}
@@ -1082,15 +925,15 @@ static int AddCustomMacro(TCHAR* szValue, bool bOverWrite)
 		bCreateNew = true;
 	}
 
-	_tcscpy(szQuote, ANSIToTCHAR(GameInp[nInput].Macro.szName, NULL, 0));
+	cscpy(szQuote, ANSITochar(GameInp[nInput].Macro.szName, NULL, 0));
 
-	if ((szValue = LabelCheck(szEnd, _T("undefined"))) != NULL) {
+	if ((szValue = LabelCheck(szEnd, ("undefined"))) != NULL) {
 		nMode = 0;
 	} else {
-		if ((szValue = LabelCheck(szEnd, _T("switch"))) != NULL) {
+		if ((szValue = LabelCheck(szEnd, ("switch"))) != NULL) {
 
 			if (bOverWrite || GameInp[nInput].Macro.nMode == 0) {
-				GameInp[nInput].Macro.Switch.nCode = (unsigned short)_tcstol(szValue, &szValue, 0);
+				GameInp[nInput].Macro.Switch.nCode = (unsigned short)cstol(szValue, &szValue, 0);
 			}
 
 			nMode = 1;
@@ -1120,12 +963,12 @@ static int AddCustomMacro(TCHAR* szValue, bool bOverWrite)
 					continue;
 				}
 
-				TCHAR* szString = LabelCheck(szQuote, ANSIToTCHAR(bii.szName, NULL, 0));
+				char* szString = LabelCheck(szQuote, ANSITochar(bii.szName, NULL, 0));
 				if (szString && szEnd) {
 					GameInp[nInput].Macro.pVal[i] = bii.pVal;
 					GameInp[nInput].Macro.nInput[i] = j;
 
-					GameInp[nInput].Macro.nVal[i] = (unsigned char)_tcstol(szEnd, &szValue, 0);
+					GameInp[nInput].Macro.nVal[i] = (unsigned char)cstol(szEnd, &szValue, 0);
 
 					nFound++;
 
@@ -1149,23 +992,23 @@ static int AddCustomMacro(TCHAR* szValue, bool bOverWrite)
 	return 1;
 }
 
-int GameInputAutoIni(int nPlayer, TCHAR* lpszFile, bool bOverWrite)
+int GameInputAutoIni(int nPlayer, char* lpszFile, bool bOverWrite)
 {
-	TCHAR szLine[1024];
+	char szLine[1024];
 	int nFileVersion = 0;
 	unsigned int i;
 
 	nAnalogSpeed = 0x0100;
 
-	FILE* h = _tfopen(lpszFile, _T("rt"));
+	FILE* h = fopen(lpszFile, ("rt"));
 	if (h == NULL) {
 		return 1;
 	}
 
 	// Go through each line of the config file and process inputs
 	while (_fgetts(szLine, sizeof(szLine), h)) {
-		TCHAR* szValue;
-		int nLen = _tcslen(szLine);
+		char* szValue;
+		int nLen = cslen(szLine);
 
 		// Get rid of the linefeed at the end
 		if (szLine[nLen - 1] == 10) {
@@ -1173,26 +1016,26 @@ int GameInputAutoIni(int nPlayer, TCHAR* lpszFile, bool bOverWrite)
 			nLen--;
 		}
 
-		szValue = LabelCheck(szLine, _T("version"));
+		szValue = LabelCheck(szLine, ("version"));
 		if (szValue) {
-			nFileVersion = _tcstol(szValue, NULL, 0);
+			nFileVersion = cstol(szValue, NULL, 0);
 		}
-		szValue = LabelCheck(szLine, _T("analog"));
+		szValue = LabelCheck(szLine, ("analog"));
 		if (szValue) {
-			nAnalogSpeed = _tcstol(szValue, NULL, 0);
+			nAnalogSpeed = cstol(szValue, NULL, 0);
 		}
 
 		if (nConfigMinVersion <= nFileVersion && nFileVersion <= nBurnVer) {
-			szValue = LabelCheck(szLine, _T("input"));
+			szValue = LabelCheck(szLine, ("input"));
 			if (szValue) {
-				TCHAR* szQuote = NULL;
-				TCHAR* szEnd = NULL;
+				char* szQuote = NULL;
+				char* szEnd = NULL;
 				if (QuoteRead(&szQuote, &szEnd, szValue)) {
 					continue;
 				}
 
-				if ((szQuote[0] == _T('p') || szQuote[0] == _T('P')) && szQuote[1] >= _T('1') && szQuote[1] <= _T('0') + nMaxPlayers && szQuote[2] == _T(' ')) {
-					if (szQuote[1] != _T('1') + nPlayer) {
+				if ((szQuote[0] == ('p') || szQuote[0] == ('P')) && szQuote[1] >= ('1') && szQuote[1] <= ('0') + nMaxPlayers && szQuote[2] == (' ')) {
+					if (szQuote[1] != ('1') + nPlayer) {
 						continue;
 					}
 				} else {
@@ -1215,10 +1058,10 @@ int GameInputAutoIni(int nPlayer, TCHAR* lpszFile, bool bOverWrite)
 				}
 			}
 
-			szValue = LabelCheck(szLine, _T("macro"));
+			szValue = LabelCheck(szLine, ("macro"));
 			if (szValue) {
-				TCHAR* szQuote = NULL;
-				TCHAR* szEnd = NULL;
+				char* szQuote = NULL;
+				char* szEnd = NULL;
 				if (QuoteRead(&szQuote, &szEnd, szValue)) {
 					continue;
 				}
@@ -1232,7 +1075,7 @@ int GameInputAutoIni(int nPlayer, TCHAR* lpszFile, bool bOverWrite)
 				}
 			}
 
-			szValue = LabelCheck(szLine, _T("custom"));
+			szValue = LabelCheck(szLine, ("custom"));
 			if (szValue) {
 				AddCustomMacro(szValue, bOverWrite);
 			}
@@ -1304,18 +1147,18 @@ int GameInpWrite(FILE* h)
 {
 	// Write input types
 	for (unsigned int i = 0; i < nGameInpCount; i++) {
-		TCHAR* szName = NULL;
+		char* szName = NULL;
 		int nPad = 0;
 		szName = InputNumToName(i);
-		_ftprintf(h, _T("input  \"%s\" "), szName);
-		nPad = 16 - _tcslen(szName);
+		fprintf(h, ("input  \"%s\" "), szName);
+		nPad = 16 - cslen(szName);
 		for (int j = 0; j < nPad; j++) {
-			_ftprintf(h, _T(" "));
+			fprintf(h, (" "));
 		}
-		_ftprintf(h, _T("%s\n"), InpToString(GameInp + i));
+		fprintf(h, ("%s\n"), InpToString(GameInp + i));
 	}
 
-	_ftprintf(h, _T("\n"));
+	fprintf(h, ("\n"));
 
 	struct GameInp* pgi = GameInp + nGameInpCount;
 	for (unsigned int i = 0; i < nMacroCount; i++, pgi++) {
@@ -1324,10 +1167,10 @@ int GameInpWrite(FILE* h)
 		if (pgi->nInput & GIT_GROUP_MACRO) {
 			switch (pgi->nInput) {
 				case GIT_MACRO_AUTO:									// Auto-assigned macros
-					_ftprintf(h, _T("macro  \"%hs\" "), pgi->Macro.szName);
+					fprintf(h, ("macro  \"%hs\" "), pgi->Macro.szName);
 					break;
 				case GIT_MACRO_CUSTOM:									// Custom macros
-					_ftprintf(h, _T("custom \"%hs\" "), pgi->Macro.szName);
+					fprintf(h, ("custom \"%hs\" "), pgi->Macro.szName);
 					break;
 				default:												// Unknown -- ignore
 					continue;
@@ -1335,9 +1178,9 @@ int GameInpWrite(FILE* h)
 
 			nPad = 16 - strlen(pgi->Macro.szName);
 			for (int j = 0; j < nPad; j++) {
-				_ftprintf(h, _T(" "));
+				fprintf(h, (" "));
 			}
-			_ftprintf(h, _T("%s\n"), InpMacroToString(pgi));
+			fprintf(h, ("%s\n"), InpMacroToString(pgi));
 		}
 	}
 
@@ -1347,11 +1190,11 @@ int GameInpWrite(FILE* h)
 // ---------------------------------------------------------------------------
 
 // Read a GameInp in
-int GameInpRead(TCHAR* szVal, bool bOverWrite)
+int GameInpRead(char* szVal, bool bOverWrite)
 {
 	int nRet;
-	TCHAR* szQuote = NULL;
-	TCHAR* szEnd = NULL;
+	char* szQuote = NULL;
+	char* szEnd = NULL;
 	unsigned int i = 0;
 
 	nRet = QuoteRead(&szQuote, &szEnd, szVal);
@@ -1373,11 +1216,11 @@ int GameInpRead(TCHAR* szVal, bool bOverWrite)
 	return 0;
 }
 
-int GameInpMacroRead(TCHAR* szVal, bool bOverWrite)
+int GameInpMacroRead(char* szVal, bool bOverWrite)
 {
 	int nRet;
-	TCHAR* szQuote = NULL;
-	TCHAR* szEnd = NULL;
+	char* szQuote = NULL;
+	char* szEnd = NULL;
 	unsigned int i = 0;
 
 	nRet = QuoteRead(&szQuote, &szEnd, szVal);
@@ -1396,8 +1239,9 @@ int GameInpMacroRead(TCHAR* szVal, bool bOverWrite)
 	return 0;
 }
 
-int GameInpCustomRead(TCHAR* szVal, bool bOverWrite)
+int GameInpCustomRead(char* szVal, bool bOverWrite)
 {
 	return AddCustomMacro(szVal, bOverWrite);
 }
 
+*/

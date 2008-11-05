@@ -30,7 +30,7 @@
 #include "fbagx.h"
 
 #include "roms.h"
-#include "memory.h"
+#include <stdlib.h>
 
 // FAT file pointer - the only one we should ever use!
 FILE * fatfile;
@@ -200,13 +200,18 @@ LoadFATFile (char * rbuffer, int length)
 		fseek(fatfile, 0, SEEK_END);
 		size = ftell(fatfile);				// get filesize
 		fseek(fatfile, 0, SEEK_SET);
-		// Alloc out the file size
-		rbuffer = (char*)mallocMEM2(size);//(char*)mallocMEM2(size);
-		if ( rbuffer == 0x0 ) { fclose(fatfile); return 1;} 		
 
 		char msg[256];
-		sprintf(msg, "Pointer 0x%08X", rbuffer);
+		sprintf(msg, "Size : 0x%08X", size);
+		WaitPrompt(msg);
+
+		// Alloc out the file size
+		rbuffer = (char*)malloc(size); 		
+
+		sprintf(msg, "Pointer 0x%08X %i", rbuffer, size);
 		WaitPrompt(msg);		
+
+		if ( rbuffer == NULL ) { return 0; }
 
 		fread (zipbuffer, 1, 2048, fatfile);
 
@@ -227,7 +232,7 @@ LoadFATFile (char * rbuffer, int length)
 		fclose(fatfile);
 
 		// No frees yet
-		//freeMEM2(rbuffer);
+		free(rbuffer);
 	}		
 	return 0;
 /*

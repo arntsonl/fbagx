@@ -1,5 +1,6 @@
 // Driver Save State module
 #include "burner.h"
+#include "burn.h"
 
 // If bAll=0 save/load all non-volatile ram to .fs
 // If bAll=1 save/load all ram to .fs
@@ -7,7 +8,7 @@
 // ------------ State len --------------------
 static int nTotalLen = 0;
 
-static int __cdecl StateLenAcb(struct BurnArea* pba)
+static int StateLenAcb(struct BurnArea* pba)
 {
 	nTotalLen += pba->nLen;
 
@@ -165,13 +166,13 @@ int BurnStateLoadEmbed(FILE* fp, int nOffset, int bAll, int (*pLoadGame)())
 }
 
 // State load
-int BurnStateLoad(TCHAR* szName, int bAll, int (*pLoadGame)())
+int BurnStateLoad(char* szName, int bAll, int (*pLoadGame)())
 {
 	const char szHeader[] = "FB1 ";						// File identifier
 	char szReadHeader[4] = "";
 	int nRet = 0;
 
-	FILE* fp = _tfopen(szName, _T("rb"));
+	FILE* fp = fopen(szName, ("rb"));
 	if (fp == NULL) {
 		return 1;
 	}
@@ -279,7 +280,7 @@ int BurnStateSaveEmbed(FILE* fp, int nOffset, int bAll)
 }
 
 // State save
-int BurnStateSave(TCHAR* szName, int bAll)
+int BurnStateSave(char* szName, int bAll)
 {
 	const char szHeader[] = "FB1 ";						// File identifier
 	int nLen = 0, nVer = 0;
@@ -294,7 +295,7 @@ int BurnStateSave(TCHAR* szName, int bAll)
 		return 0;										// Don't return an error code
 	}
 
-	FILE* fp = _tfopen(szName, _T("wb"));
+	FILE* fp = fopen(szName, ("wb"));
 	if (fp == NULL) {
 		return 1;
 	}

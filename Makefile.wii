@@ -20,15 +20,17 @@ include $(DEVKITPPC)/wii_rules
 TARGET := fbagx-$(VERSION)-wii
 TARGETDIR := build/executables
 BUILD := build
-SOURCES := code/ngc code/fba/burn/ code/fba/cpu/m68k code/fba/cpu/z80 \
+SOURCES := code/ngc code/fba/burn/ code/fba/burner code/fba/burner/wii \
+code/fba/cpu/m68k code/fba/cpu/z80 \
 code/fba/cpu/m6502 code/fba/cpu/nec code/fba/generated  code/fba/burn/capcom \
 code/fba/burn/cave code/fba/burn/neogeo code/fba/burn/pgm \
 code/fba/burn/sega code/fba/burn/taito code/fba/burn/toaplan code/fba/burn/misc \
 code/fba/burn/misc/dec0 code/fba/burn/misc/konami code/fba/burn/misc/post90s \
 code/fba/burn/misc/pre90s code/fba/burn/misc/psikyo code/fba/burn/misc/taito_68k \
-code/fba/burn/cps3 code/fba/cpu/sh2
+code/fba/burn/cps3 code/fba/cpu/sh2 
 DATA := resources/processed
-INCLUDES := code/ngc code/fba/burn/ code/fba/cpu/m68k code/fba/cpu/z80 \
+INCLUDES := code/ngc code/fba/burn/ code/fba/burner code/fba/burner/wii \
+code/fba/cpu/m68k code/fba/cpu/z80 \
 code/fba/cpu/m6502 code/fba/cpu/nec code/fba/generated  code/fba/burn/capcom \
 code/fba/burn/cave code/fba/burn/neogeo code/fba/burn/pgm \
 code/fba/burn/sega code/fba/burn/taito code/fba/burn/toaplan code/fba/burn/misc \
@@ -57,7 +59,7 @@ LDFLAGS = -g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS := -ldi -lpngu -lpng -lmxml -lfat -lwiiuse -lz -lbte -logc -lm -lfreetype -ltinysmb
+LIBS := -ldi -lpngu -lpng -lmxml -lfat -lwiiuse -lz -lbte -lfreetype -ltinysmb -logc -lm
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing

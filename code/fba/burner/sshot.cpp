@@ -1,4 +1,5 @@
 #include "burner.h"
+/*
 #include "png.h"
 
 #define SSHOT_NOERROR 0
@@ -16,12 +17,12 @@ static FILE* ff;
 int MakeScreenShot()
 {
 	char szAuthor[256]; char szDescription[256]; char szCopyright[256];	char szSoftware[256]; char szSource[256];
-	png_text text_ptr[8] = { { 0, 0, 0, 0 }, };
-	int num_text = 8;
+	pngext text_ptr[8] = { { 0, 0, 0, 0 }, };
+	int numext = 8;
 
-    time_t currentTime;
+    time currentTime;
     tm* tmTime;
-    png_time_struct png_time;
+    pngime_struct pngime;
 
     char szSShotName[MAX_PATH];
     int w, h;
@@ -134,7 +135,7 @@ int MakeScreenShot()
 	// Get the time
 	time(&currentTime);
     tmTime = localtime(&currentTime);
-	png_convert_from_time_t(&png_time, currentTime);
+	png_convert_fromime(&pngime, currentTime);
 
 	// construct our filename -> "romname-mm-dd-hms.png"
     sprintf(szSShotName,"%s%s-%.2d-%.2d-%.2d%.2d%.2d.png", SSHOT_DIRECTORY, BurnDrvGetTextA(DRV_NAME), tmTime->tm_mon + 1, tmTime->tm_mday, tmTime->tm_hour, tmTime->tm_min, tmTime->tm_sec);
@@ -151,16 +152,16 @@ int MakeScreenShot()
 
 	// Fill the PNG text fields
 #ifdef _UNICODE
-	sprintf(szAuthor, APP_TITLE " v%.20ls", szAppBurnVer);
+	sprintf(szAuthor, APPITLE " v%.20ls", szAppBurnVer);
 #else
-	sprintf(szAuthor, APP_TITLE " v%.20s", szAppBurnVer);
+	sprintf(szAuthor, APPITLE " v%.20s", szAppBurnVer);
 #endif
 	sprintf(szDescription, "Screenshot of %s", DecorateGameName(nBurnDrvSelect));
 	sprintf(szCopyright, "%s %s", BurnDrvGetTextA(DRV_DATE), BurnDrvGetTextA(DRV_MANUFACTURER));
 #ifdef _UNICODE
-	sprintf(szSoftware, APP_TITLE " v%.20ls using LibPNG " PNG_LIBPNG_VER_STRING, szAppBurnVer);
+	sprintf(szSoftware, APPITLE " v%.20ls using LibPNG " PNG_LIBPNG_VER_STRING, szAppBurnVer);
 #else
-	sprintf(szSoftware, APP_TITLE " v%.20s using LibPNG " PNG_LIBPNG_VER_STRING, szAppBurnVer);
+	sprintf(szSoftware, APPITLE " v%.20s using LibPNG " PNG_LIBPNG_VER_STRING, szAppBurnVer);
 #endif
 	sprintf(szSource, "%s video game hardware", BurnDrvGetTextA(DRV_SYSTEM));
 
@@ -168,20 +169,20 @@ int MakeScreenShot()
 	text_ptr[1].key = "Author";			text_ptr[1].text = szAuthor;
 	text_ptr[2].key = "Description";	text_ptr[2].text = szDescription;
 	text_ptr[3].key = "Copyright";		text_ptr[3].text = szCopyright;
-	text_ptr[4].key = "Creation Time";	text_ptr[4].text = png_convert_to_rfc1123(png_ptr, &png_time);
+	text_ptr[4].key = "Creation Time";	text_ptr[4].text = png_converto_rfc1123(png_ptr, &pngime);
 	text_ptr[5].key = "Software";		text_ptr[5].text = szSoftware;
 	text_ptr[6].key = "Source";			text_ptr[6].text = szSource;
 	text_ptr[7].key = "Comment";		text_ptr[7].text = "This screenshot was created by running the game in an emulator; it might not accurately reflect the actual hardware the game was designed to run on.";
 
-	for (int i = 0; i < num_text; i++) {
-		text_ptr[i].compression = PNG_TEXT_COMPRESSION_NONE;
+	for (int i = 0; i < numext; i++) {
+		text_ptr[i].compression = PNGEXT_COMPRESSION_NONE;
 	}
 
-	png_set_text(png_ptr, info_ptr, text_ptr, num_text);
+	png_setext(png_ptr, info_ptr, text_ptr, numext);
 
 	png_init_io(png_ptr, ff);
 
-    png_set_IHDR(png_ptr, info_ptr, w, h, 8, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+    png_set_IHDR(png_ptr, info_ptr, w, h, 8, PNG_COLORYPE_RGB, PNG_INTERLACE_NONE, PNG_COMPRESSIONYPE_DEFAULT, PNG_FILTERYPE_DEFAULT);
     png_write_info(png_ptr, info_ptr);
 
 	png_set_filler(png_ptr, 0, PNG_FILLER_AFTER);
@@ -208,3 +209,4 @@ int MakeScreenShot()
 
 	return SSHOT_NOERROR;
 }
+*/

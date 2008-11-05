@@ -1,9 +1,17 @@
 // Burner Zip module
+#include "burn.h"
+#include "fbagx.h"
 #include "burner.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// only for debug
+#include "menudraw.h"
 
 int nBzipError = 0;												// non-zero if there is a problem with the opened romset
 
-static TCHAR* szBzipName[BZIP_MAX] = { NULL, };					// Zip files to search through
+static char* szBzipName[BZIP_MAX] = { NULL, };					// Zip files to search through
 
 struct RomFind { int nState; int nZip; int nPos; };				// State is non-zero if found. 1 = found totally okay.
 static struct RomFind* RomFind = NULL;
@@ -45,15 +53,15 @@ static char* GetFilenameA(char* szFull)
 	return szFull;
 }
 
-static TCHAR* GetFilenameW(TCHAR* szFull)
+static char* GetFilenameW(char* szFull)
 {
-	int nLen = _tcslen(szFull);
+	int nLen = strlen(szFull);
 
 	if (nLen <= 0) {
 		return szFull;
 	}
 	for (int i = nLen - 1; i >= 0; i--) {
-		if (szFull[i] == _T('\\') || szFull[i] == _T('/')) {
+		if (szFull[i] == ('\\') || szFull[i] == ('/')) {
 			return szFull + i + 1;
 		}
 	}
@@ -61,15 +69,16 @@ static TCHAR* GetFilenameW(TCHAR* szFull)
 	return szFull;
 }
 
-static int FindRomByName(TCHAR* szName)
+static int FindRomByName(char* szName)
 {
 	struct ZipEntry* pl;
 	int i;
 
 	// Find the rom named szName in the List
 	for (i = 0, pl = List; i < nListCount; i++, pl++) {
-		TCHAR szCurrentName[MAX_PATH];
-		if (_tcsicmp(szName, GetFilenameW(ANSIToTCHAR(pl->szName, szCurrentName, MAX_PATH))) == 0) {
+		char szCurrentName[MAX_PATH];
+		sprintf(szCurrentName, "%s", pl->szName);
+		if (strcmp(szName, GetFilenameW(szCurrentName)) == 0) {
 			return i;
 		}
 	}
@@ -118,7 +127,7 @@ static int FindRom(int i)
 		if (nRet) {												// No more rom names
 			break;
 		}
-		nRet = FindRomByName(ANSIToTCHAR(szPossibleName, NULL, 0));
+		nRet = FindRomByName(szPossibleName);
 		if (nRet >= 0) {
 			return nRet;
 		}
@@ -129,13 +138,14 @@ static int FindRom(int i)
 
 static int RomDescribe(struct BurnRomInfo* pri)
 {
+/*
 	if (nBzipError == 0) {
 		nBzipError |= 0x8000;
 
 		FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_INVALID));
 	}
 
-	FBAPopupAddText(PUF_TEXT_DEFAULT, _T(" ") _T(SEPERATOR_1));
+	FBAPopupAddText(PUF_TEXT_DEFAULT, (" ") _T(SEPERATOR_1));
 	if (pri->nType & BRF_ESS) {
 		FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DET_ESS));
 	}
@@ -152,7 +162,7 @@ static int RomDescribe(struct BurnRomInfo* pri)
 		FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DET_SND));
 	}
 	FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DET_ROM));
-
+*/
 	return 0;
 }
 
@@ -211,7 +221,7 @@ static int CheckRoms()
 				char* szName = "Unknown";
 				RomDescribe(&ri);
 				BurnDrvGetRomName(&szName, i, 0);
-				FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_NOTFOUND), szName);
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_NOTFOUND), szName);
 			}
 
 			if (nError == 0) {
@@ -242,15 +252,12 @@ static int CheckRoms()
 
 // ----------------------------------------------------------------------------
 
-static int __cdecl BzipBurnLoadRom(unsigned char* Dest, int* pnWrote, int i)
+static int BzipBurnLoadRom(unsigned char* Dest, int* pnWrote, int i)
 {
-#if defined (BUILD_WIN32)
-	MSG Msg;
-#endif
 
 	struct BurnRomInfo ri;
 	int nWantZip = 0;
-	TCHAR szText[128];
+	char szText[128];
 	char* pszRomName = NULL;
 	int nRet = 0;
 
@@ -266,32 +273,26 @@ static int __cdecl BzipBurnLoadRom(unsigned char* Dest, int* pnWrote, int i)
 	if (pszRomName == NULL) {
 		pszRomName = "unknown";
 	}
-	_stprintf(szText, _T("Loading"));
+	sprintf(szText, ("Loading"));
 	if (ri.nType & (BRF_PRG | BRF_GRA | BRF_SND | BRF_BIOS)) {
 		if (ri.nType & BRF_BIOS) {
-			_stprintf (szText + _tcslen(szText), _T(" %s"), _T("BIOS "));
+			sprintf (szText + strlen(szText), (" %s"), ("BIOS "));
 		}
 		if (ri.nType & BRF_PRG) {
-			_stprintf (szText + _tcslen(szText), _T(" %s"), _T("program "));
+			sprintf (szText + strlen(szText), (" %s"), ("program "));
 		}
 		if (ri.nType & BRF_GRA) {
-			_stprintf (szText + _tcslen(szText), _T(" %s"), _T("graphics "));
+			sprintf (szText + strlen(szText), (" %s"), ("graphics "));
 		}
 		if (ri.nType & BRF_SND) {
-			_stprintf (szText + _tcslen(szText), _T(" %s"), _T("sound "));
+			sprintf (szText + strlen(szText), (" %s"), ("sound "));
 		}
-		_stprintf(szText + _tcslen(szText), _T("(%hs)..."), pszRomName);
+		sprintf(szText + strlen(szText), ("(%s)..."), pszRomName);
 	} else {
-		_stprintf(szText + _tcslen(szText), _T(" %hs..."), pszRomName);
+		sprintf(szText + strlen(szText), (" %s..."), pszRomName);
 	}
-	ProgressUpdateBurner(ri.nLen ? 1.0 / ((double)nTotalSize / ri.nLen) : 0, szText, 0);
-
-#if defined (BUILD_WIN32)
-	// Check for messages:
-	while (PeekMessage(&Msg, NULL, 0, 0, PM_REMOVE)) {
-		DispatchMessage(&Msg);
-	}
-#endif
+    // Update loader
+	//ProgressUpdateBurner(ri.nLen ? 1.0 / ((double)nTotalSize / ri.nLen) : 0, szText, 0);
 
 	if (RomFind[i].nState == 0) {							// Rom not found in zip at all
 		return 1;
@@ -301,7 +302,7 @@ static int __cdecl BzipBurnLoadRom(unsigned char* Dest, int* pnWrote, int i)
 	if (nCurrentZip != nWantZip) {							// If we haven't got the right zip file currently open
 		ZipClose();
 		nCurrentZip = -1;
-		if (ZipOpen(TCHARToANSI(szBzipName[nWantZip], NULL, 0))) {
+		if (ZipOpen(szBzipName[nWantZip])) {
 			return 1;
 		}
 		nCurrentZip = nWantZip;
@@ -309,11 +310,11 @@ static int __cdecl BzipBurnLoadRom(unsigned char* Dest, int* pnWrote, int i)
 
 	// Read in file and return how many bytes we read
 	if (ZipLoadFile(Dest, ri.nLen, pnWrote, RomFind[i].nPos)) {
-
+/*
 		// Error loading from the zip file
 		FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(nRet == 2 ? IDS_ERR_LOAD_DISK_CRC : IDS_ERR_LOAD_DISK), pszRomName, GetFilenameW(szBzipName[nCurrentZip]));
 		FBAPopupDisplay(PUF_TYPE_WARNING);
-
+*/
 		return 1;
 	}
 
@@ -341,7 +342,12 @@ int BzipOpen(bool bootApp)
 	nTotalSize = 0;
 	nBzipError = 0;
 
+	char msg[256];
+
 	if (szBzipName == NULL) {
+// debug
+	sprintf(msg, "szBzipName was null");
+	WaitPrompt(msg);
 		return 1;
 	}
 
@@ -354,6 +360,9 @@ int BzipOpen(bool bootApp)
 		}
 	}
 	if (nRomCount <= 0) {
+// debug
+	sprintf(msg, "nRomCount was less or equal to 0");
+	WaitPrompt(msg);
 		return 1;
 	}
 
@@ -361,6 +370,9 @@ int BzipOpen(bool bootApp)
 	nMemLen = nRomCount * sizeof(struct RomFind);
 	RomFind = (struct RomFind*)malloc(nMemLen);
 	if (RomFind == NULL) {
+// debug
+	sprintf(msg, "RomFind was malloc'd to NULL");
+	WaitPrompt(msg);
 		return 1;
 	}
 	memset(RomFind, 0, nMemLen);
@@ -380,20 +392,20 @@ int BzipOpen(bool bootApp)
 		}
 
 		for (int d = 0; d < DIRS_MAX; d++) {
-			TCHAR szFullName[MAX_PATH];
+			char szFullName[MAX_PATH];
 
-			_stprintf(szFullName, _T("%s%hs"), szAppRomPaths[d], szName);
+			sprintf(szFullName, "%s", szName); //("%s%s"), szAppRomPaths[d], szName);
 
-			if (ZipOpen(TCHARToANSI(szFullName, NULL, 0)) == 0) {		// Open the rom zip file
+			if (ZipOpen(szFullName) == 0) {		// Open the rom zip file
 				ZipClose();
 
 				bFound = true;
 
-				szBzipName[z] = (TCHAR*)malloc(MAX_PATH * sizeof(TCHAR));
-				_tcscpy(szBzipName[z], szFullName);
+				szBzipName[z] = (char*)malloc(MAX_PATH * sizeof(char));
+				strcpy(szBzipName[z], szFullName);
 
 				if (!bootApp) {
-					FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_FOUND), szName, szBzipName[z]);
+					//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_FOUND), szName, szBzipName[z]);
 				}
 
 				z++;
@@ -411,12 +423,12 @@ int BzipOpen(bool bootApp)
 		}
 
 		if (!bootApp && !bFound) {
-			FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_NOTFOUND), szName);
+			//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_NOTFOUND), szName);
 		}
 	}
 
 	if (!bootApp) {
-		FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n"));
+		//FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n"));
 	}
 
 	// Locate the ROM data in the zip files
@@ -426,7 +438,7 @@ int BzipOpen(bool bootApp)
 			continue;
 		}
 
-		if (ZipOpen(TCHARToANSI(szBzipName[z], NULL, 0)) == 0) {		// Open the rom zip file
+		if (ZipOpen(szBzipName[z]) == 0) {		// Open the rom zip file
 			nCurrentZip = z;
 
 			ZipGetList(&List, &nListCount);								// Get the list of entries
@@ -476,13 +488,13 @@ int BzipOpen(bool bootApp)
 						RomDescribe(&ri);
 
 						if (RomFind[i].nState == 2) {
-							FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_CRC), GetFilenameA(List[nFind].szName), List[nFind].nCrc, ri.nCrc);
+							//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_CRC), GetFilenameA(List[nFind].szName), List[nFind].nCrc, ri.nCrc);
 						}
 						if (RomFind[i].nState == 3) {
-							FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_SMALL), GetFilenameA(List[nFind].szName), List[nFind].nLen >> 10, ri.nLen >> 10);
+							//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_SMALL), GetFilenameA(List[nFind].szName), List[nFind].nLen >> 10, ri.nLen >> 10);
 						}
 						if (RomFind[i].nState == 4) {
-							FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_LARGE), GetFilenameA(List[nFind].szName), List[nFind].nLen >> 10, ri.nLen >> 10);
+							//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_LARGE), GetFilenameA(List[nFind].szName), List[nFind].nLen >> 10, ri.nLen >> 10);
 						}
 					}
 				}
@@ -501,67 +513,86 @@ int BzipOpen(bool bootApp)
 
 		if (nBzipError & 0x2000) {
 			if (!(nBzipError & 0x0F0F)) {
-				FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_OK));
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_OK));
+				// debug
+				sprintf(msg, "Load Okay!");
 			} else {
-				FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n"));
-				FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_PROBLEM));
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n"));
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_PROBLEM));
+				sprintf(msg, "Load Problem!");
 			}
 
 			if (nBzipError & 0x0101) {
-				FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n ") _T(SEPERATOR_1));
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n ") _T(SEPERATOR_1));
 				if (nBzipError & 0x0001) {
-					FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_ESS_MISS));
+					//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_ESS_MISS));
+					sprintf(msg, "Missing rom!");
 				} else {
-					FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_ESS_BAD));
+					//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_ESS_BAD));
+					sprintf(msg, "Bad rom!");
 				}
 			}
 			if (nBzipError & 0x0202) {
-				FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n ") _T(SEPERATOR_1));
-				FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DET_PRG));
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n ") _T(SEPERATOR_1));
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DET_PRG));
 				if (nBzipError & 0x0002) {
-					FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_MISS));
+					//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_MISS));
+					sprintf(msg, "Data Missing!");
 				} else {
-					FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_BAD));
+					//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_BAD));
+					sprintf(msg, "Bad Data!");
 				}
 			}
 			if (nBzipError & 0x0404) {
-				FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n ") _T(SEPERATOR_1));
-				FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DET_GRA));
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n ") _T(SEPERATOR_1));
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DET_GRA));
 				if (nBzipError & 0x0004) {
-					FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_MISS));
+					//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_MISS));
+					sprintf(msg, "GRA Data missing!");
 				} else {
-					FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_BAD));
+					//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_BAD));
+					sprintf(msg, "GRA Data bad!");
 				}
 			}
 			if (nBzipError & 0x0808) {
-				FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n ") _T(SEPERATOR_1));
-				FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DET_SND));
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n ") _T(SEPERATOR_1));
+				//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DET_SND));
 				if (nBzipError & 0x0008) {
-					FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_MISS));
+					//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_MISS));
+					sprintf(msg, "SND Data missing!");
 				} else {
-					FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_BAD));
+					//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_BAD));
+					sprintf(msg, "SND Data bad!");
 				}
 			}
 
 			// Catch non-categorised ROMs
 			if ((nBzipError & 0x0F0F) == 0) {
 				if (nBzipError & 0x0010) {
-					FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n ") _T(SEPERATOR_1));
+					//FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n ") _T(SEPERATOR_1));
 					if (nBzipError & 0x1000) {
-						FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_MISS));
+						//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_MISS));
+						sprintf(msg, "Non-categorized Data missing!");
 					} else {
-						FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_BAD));
+						//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DATA_BAD));
+						sprintf(msg, "Non-categorized Data bad!");
 					}
 				}
 			}
+			WaitPrompt(msg);
 		} else {
-			FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n"));
-			FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_NODATA));
+			//FBAPopupAddText(PUF_TEXT_DEFAULT, _T("\n"));
+			//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_NODATA));
+			sprintf(msg, "Non-categorized no data!");
+			WaitPrompt(msg);
 		}
 
 		BurnExtLoadRom = BzipBurnLoadRom;								// Okay to call our function to load each rom
 
 	} else {
+		// debug
+		sprintf(msg, "Checking roms boot");
+		WaitPrompt(msg);
 		return CheckRomsBoot();
 	}
 

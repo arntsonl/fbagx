@@ -31,7 +31,9 @@
 #include "video.h"
 #include "fbagx.h"
 #include "roms.h"
-#include "memory.h"
+extern "C" {
+ #include "lwip/mem.h"
+}
 
 // Final Burn Includes
 #include "burn.h"
@@ -110,13 +112,13 @@ int main(){
 		while (1);
 	}
 
+	// Setup the MEM2 for the rom data
+	//mem_init();
+
 	unpackbackdrop ();
 
     // Set Default Settings
     DefaultSettings();
-
-	// Setup the MEM2 for the rom data
-	initMEM2();
 
 	/*****  Settings and Setup for Final Burn Alpha *****/
 

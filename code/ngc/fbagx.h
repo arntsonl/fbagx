@@ -56,7 +56,6 @@ struct SGCSettings{
     int     yshift;
 };
 
-
 extern struct SGCSettings GCSettings;
 
 #endif // _FBAGX_H_

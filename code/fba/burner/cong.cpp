@@ -5,21 +5,21 @@ const int nConfigMinVersion = 0x020921;
 
 bool bSaveInputs = true;
 
-static TCHAR* GameConfigName()
+static char* GameConfigName()
 {
 	// Return the path of the config file for this game
-	static TCHAR szName[32];
-	_stprintf(szName, _T("config\\games\\%.8s.ini"), BurnDrvGetText(DRV_NAME));
+	static char szName[32];
+	sprintf(szName, ("config\\games\\%.8s.ini"), BurnDrvGetText(DRV_NAME));
 	return szName;
 }
 
 // Read in the config file for the game-specific inputs
 int ConfigGameLoad(bool bOverWrite)
 {
-	TCHAR szLine[256];
+	char szLine[256];
 	int nFileVersion = 0;
 
-	FILE* h = _tfopen(GameConfigName(), _T("rt"));
+	FILE* h = fopen(GameConfigName(), ("rt"));
 	if (h == NULL) {
 		return 1;
 	}
@@ -30,9 +30,9 @@ int ConfigGameLoad(bool bOverWrite)
 	}
 
 	// Go through each line of the config file and process inputs
-	while (_fgetts(szLine, sizeof(szLine), h)) {
-		TCHAR *szValue;
-		int nLen = _tcslen(szLine);
+	while (fgets(szLine, sizeof(szLine), h)) {
+		char *szValue;
+		int nLen = strlen(szLine);
 
 		// Get rid of the linefeed at the end
 		if (szLine[nLen - 1] == 10) {
@@ -40,36 +40,36 @@ int ConfigGameLoad(bool bOverWrite)
 			nLen--;
 		}
 
-		szValue = LabelCheck(szLine, _T("version"));
+		szValue = LabelCheck(szLine, ("version"));
 		if (szValue) {
-			nFileVersion = _tcstol(szValue, NULL, 0);
+			nFileVersion = (int)szValue;//cstol(szValue, NULL, 0);
 		}
 
 		if (bOverWrite) {
-			szValue = LabelCheck(szLine, _T("analog"));
+			szValue = LabelCheck(szLine, ("analog"));
 			if (szValue) {
-				nAnalogSpeed = _tcstol(szValue, NULL, 0);
+				nAnalogSpeed = (int)szValue;//cstol(szValue, NULL, 0);
 			}
-			szValue = LabelCheck(szLine, _T("cpu"));
+			szValue = LabelCheck(szLine, ("cpu"));
 			if (szValue) {
-				nBurnCPUSpeedAdjust = _tcstol(szValue, NULL, 0);
+				nBurnCPUSpeedAdjust = (int)szValue;//cstol(szValue, NULL, 0);
 			}
 		}
 
 		if (nConfigMinVersion <= nFileVersion && nFileVersion <= nBurnVer) {
-			szValue = LabelCheck(szLine, _T("input"));
+			szValue = LabelCheck(szLine, ("input"));
 			if (szValue) {
 				GameInpRead(szValue, bOverWrite);
 				continue;
 			}
 
-			szValue = LabelCheck(szLine, _T("macro"));
+			szValue = LabelCheck(szLine, ("macro"));
 			if (szValue) {
 				GameInpMacroRead(szValue, bOverWrite);
 				continue;
 			}
 
-			szValue = LabelCheck(szLine, _T("custom"));
+			szValue = LabelCheck(szLine, ("custom"));
 			if (szValue) {
 				GameInpCustomRead(szValue, bOverWrite);
 				continue;
@@ -91,24 +91,24 @@ int ConfigGameSave(bool bSave)
 		ConfigGameLoad(false);
 	}
 
-	h = _tfopen(GameConfigName(), _T("wt"));
+	h = fopen(GameConfigName(), ("wt"));
 	if (h == NULL) {
 		return 1;
 	}
 
 	// Write title
-	_ftprintf(h, _T("// ") _T(APP_TITLE) _T(" v%s --- Config File for %s (%s)\n\n"), szAppBurnVer, BurnDrvGetText(DRV_NAME), BurnDrvGetText(DRV_FULLNAME));
+	fprintf(h, ("//  v%s --- Config File for %s (%s)\n\n"), "0.1 CHANGE ME", BurnDrvGetText(DRV_NAME), BurnDrvGetText(DRV_FULLNAME));
 
-	_ftprintf(h, _T("// --- Miscellaneous ----------------------------------------------------------\n\n"));
+	fprintf(h, ("// --- Miscellaneous ----------------------------------------------------------\n\n"));
 	// Write version number
-	_ftprintf(h, _T("version 0x%06X\n\n"), nBurnVer);
+	fprintf(h, ("version 0x%06X\n\n"), nBurnVer);
 	// Write speed for relative analog controls
-	_ftprintf(h, _T("analog  0x%04X\n"), nAnalogSpeed);
+	fprintf(h, ("analog  0x%04X\n"), nAnalogSpeed);
 	// Write CPU speed adjustment
-	_ftprintf(h, _T("cpu     0x%04X\n"), nBurnCPUSpeedAdjust);
+	fprintf(h, ("cpu     0x%04X\n"), nBurnCPUSpeedAdjust);
 
-	_ftprintf(h, _T("\n\n\n"));
-	_ftprintf(h, _T("// --- Inputs -----------------------------------------------------------------\n\n"));
+	fprintf(h, ("\n\n\n"));
+	fprintf(h, ("// --- Inputs -----------------------------------------------------------------\n\n"));
 
 	GameInpWrite(h);
 

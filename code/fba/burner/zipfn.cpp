@@ -1,6 +1,9 @@
 // Zip module
 #include "burner.h"
+#include "fbagx.h"
 #include "unzip.h"
+#include <string.h>
+#include <stdlib.h>
 
 static unzFile Zip=NULL;
 static int nCurrFile=0; // The current file we are pointing to

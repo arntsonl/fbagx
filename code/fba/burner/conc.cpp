@@ -1,12 +1,12 @@
 #include "burner.h"
 
-static bool SkipComma(TCHAR** s)
+static bool SkipComma(char** s)
 {
-	while (**s && **s != _T(',')) {
+	while (**s && **s != (',')) {
 		(*s)++;
 	}
 
-	if (**s == _T(',')) {
+	if (**s == (',')) {
 		(*s)++;
 	}
 
@@ -17,52 +17,52 @@ static bool SkipComma(TCHAR** s)
 	return false;
 }
 
-static void CheatError(TCHAR* pszFilename, int nLineNumber, CheatInfo* pCheat, TCHAR* pszInfo, TCHAR* pszLine)
+static void CheatError(char* pszFilename, int nLineNumber, CheatInfo* pCheat, char* pszInfo, char* pszLine)
 {
-	FBAPopupAddText(PUF_TEXT_NO_TRANSLATE, _T("Cheat file %s is malformed.\nPlease remove or repair the file.\n\n"), pszFilename);
+	//FBAPopupAddText(PUFEXT_NORANSLATE, ("Cheat file %s is malformed.\nPlease remove or repair the file.\n\n"), pszFilename);
 	if (pCheat) {
-		FBAPopupAddText(PUF_TEXT_NO_TRANSLATE, _T("Parse error at line %i, in cheat \"%s\".\n"), nLineNumber, pCheat->szCheatName);
+		//FBAPopupAddText(PUFEXT_NORANSLATE, ("Parse error at line %i, in cheat \"%s\".\n"), nLineNumber, pCheat->szCheatName);
 	} else {
-		FBAPopupAddText(PUF_TEXT_NO_TRANSLATE, _T("Parse error at line %i.\n"), nLineNumber);
+		//FBAPopupAddText(PUFEXT_NORANSLATE, ("Parse error at line %i.\n"), nLineNumber);
 	}
 
 	if (pszInfo) {
-		FBAPopupAddText(PUF_TEXT_NO_TRANSLATE, _T("Problem:\t%s.\n"), pszInfo);
+		//FBAPopupAddText(PUFEXT_NORANSLATE, ("Problem:\t%s.\n"), pszInfo);
 	}
 	if (pszLine) {
-		FBAPopupAddText(PUF_TEXT_NO_TRANSLATE, _T("Text:\t%s\n"), pszLine);
+		//FBAPopupAddText(PUFEXT_NORANSLATE, ("Text:\t%s\n"), pszLine);
 	}
 
-	FBAPopupDisplay(PUF_TYPE_ERROR);
+	//FBAPopupDisplay(PUFYPE_ERROR);
 }
 
-static int ConfigParseFile(TCHAR* pszFilename)
+static int ConfigParseFile(char* pszFilename)
 {
-#define INSIDE_NOTHING (0xFFFF & (1 << (sizeof(TCHAR) * 8) - 1))
+#define INSIDE_NOTHING (0xFFFF & (1 << (sizeof(char) * 8) - 1))
 
-	TCHAR szLine[1024];
-	TCHAR* s;
-	TCHAR* t;
+	char szLine[1024];
+	char* s;
+	char* t;
 	int nLen;
 
 	int nLine = 0;
-	TCHAR nInside = INSIDE_NOTHING;
+	char nInside = INSIDE_NOTHING;
 
 	CheatInfo* pCurrentCheat = NULL;
 
-	FILE* h = _tfopen(pszFilename, _T("rt"));
+	FILE* h = fopen(pszFilename, ("rt"));
 	if (h == NULL) {
 		return 1;
 	}
 
 	while (1) {
-		if (_fgetts(szLine, sizeof(szLine), h) == NULL) {
+		if (fgets(szLine, sizeof(szLine), h) == NULL) {  //_fgetts(szLine, sizeof(szLine), h) == NULL) {
 			break;
 		}
 
 		nLine++;
 
-		nLen = _tcslen(szLine);
+		nLen = strlen(szLine);
 		// Get rid of the linefeed at the end
 		while (szLine[nLen - 1] == 0x0A || szLine[nLen - 1] == 0x0D) {
 			szLine[nLen - 1] = 0;
@@ -71,55 +71,55 @@ static int ConfigParseFile(TCHAR* pszFilename)
 
 		s = szLine;													// Start parsing
 
-		if (s[0] == _T('/') && s[1] == _T('/')) {					// Comment
+		if (s[0] == ('/') && s[1] == ('/')) {					// Comment
 			continue;
 		}
 
-		if ((t = LabelCheck(s, _T("include"))) != 0) {				// Include a file
+		if ((t = LabelCheck(s, ("include"))) != 0) {				// Include a file
 			s = t;
 
-			TCHAR szFilename[MAX_PATH] = _T("");
+			char szFilename[MAX_PATH] = ("");
 
 			// Read name of the cheat file
-			TCHAR* szQuote = NULL;
+			char* szQuote = NULL;
 			QuoteRead(&szQuote, NULL, s);
 
-			_stprintf(szFilename, _T("cheats\\%s.dat"), szQuote);
+			sprintf(szFilename, ("cheats\\%s.dat"), szQuote);
 
 			if (ConfigParseFile(szFilename)) {
-				_stprintf(szFilename, _T("cheats\\%s.ini"), szQuote);
+				sprintf(szFilename, ("cheats\\%s.ini"), szQuote);
 				if (ConfigParseFile(szFilename)) {
-					CheatError(pszFilename, nLine, NULL, _T("included file doesn't exist"), szLine);
+					CheatError(pszFilename, nLine, NULL, ("included file doesn't exist"), szLine);
 				}
 			}
 
 			continue;
 		}
 
-		if ((t = LabelCheck(s, _T("cheat"))) != 0) {				// Add new cheat
+		if ((t = LabelCheck(s, ("cheat"))) != 0) {				// Add new cheat
 			s = t;
 
 			// Read cheat name
-			TCHAR* szQuote = NULL;
-			TCHAR* szEnd = NULL;
+			char* szQuote = NULL;
+			char* szEnd = NULL;
 
 			QuoteRead(&szQuote, &szEnd, s);
 
 			s = szEnd;
 
-			if ((t = LabelCheck(s, _T("advanced"))) != 0) {			// Advanced cheat
+			if ((t = LabelCheck(s, ("advanced"))) != 0) {			// Advanced cheat
 				s = t;
 			}
 
-			SKIP_WS(s);
+			//SKIP_WS(s);
 
-			if (nInside == _T('{')) {
-				CheatError(pszFilename, nLine, pCurrentCheat, _T("missing closing bracket"), NULL);
+			if (nInside == ('{')) {
+				CheatError(pszFilename, nLine, pCurrentCheat, ("missing closing bracket"), NULL);
 				break;
 			}
 #if 0
-			if (*s != _T('\0') && *s != _T('{')) {
-				CheatError(pszFilename, nLine, NULL, _T("malformed cheat declaration"), szLine);
+			if (*s != ('\0') && *s != ('{')) {
+				CheatError(pszFilename, nLine, NULL, ("malformed cheat declaration"), szLine);
 				break;
 			}
 #endif
@@ -147,42 +147,42 @@ static int ConfigParseFile(TCHAR* pszFilename)
 			continue;
 		}
 
-		if ((t = LabelCheck(s, _T("type"))) != 0) {					// Cheat type
+		if ((t = LabelCheck(s, ("type"))) != 0) {					// Cheat type
 #if defined (UNICODE)
 			if (nInside == INSIDE_NOTHING || pCurrentCheat == NULL) {
-				CheatError(pszFilename, nLine, pCurrentCheat, _T("rogue cheat type"), szLine);
+				CheatError(pszFilename, nLine, pCurrentCheat, ("rogue cheat type"), szLine);
 				break;
 			}
 #endif
 			s = t;
 
 			// Set type
-			pCurrentCheat->nType = _tcstol(s, NULL, 0);
+			pCurrentCheat->nType = (int)*s;//cstol(s, NULL, 0);
 
 			continue;
 		}
 
-		if ((t = LabelCheck(s, _T("default"))) != 0) {				// Default option
+		if ((t = LabelCheck(s, ("default"))) != 0) {				// Default option
 #if defined (UNICODE)
 			if (nInside == INSIDE_NOTHING || pCurrentCheat == NULL) {
-				CheatError(pszFilename, nLine, pCurrentCheat, _T("rogue default"), szLine);
+				CheatError(pszFilename, nLine, pCurrentCheat, ("rogue default"), szLine);
 				break;
 			}
 #endif
 			s = t;
 
 			// Set default option
-			pCurrentCheat->nDefault = _tcstol(s, NULL, 0);
+			pCurrentCheat->nDefault = (int)&s;//cstol(s, NULL, 0);
 
 			continue;
 		}
 
-		int n = _tcstol(s, &t, 0);
+		int n = (int)*s; // ?? //cstol(s, &t, 0);
 		if (t != s) {				   								// New option
 
 #if defined (UNICODE)
 			if (nInside == INSIDE_NOTHING || pCurrentCheat == NULL) {
-				CheatError(pszFilename, nLine, pCurrentCheat, _T("rogue option"), szLine);
+				CheatError(pszFilename, nLine, pCurrentCheat, ("rogue option"), szLine);
 				break;
 			}
 #endif
@@ -192,10 +192,10 @@ static int ConfigParseFile(TCHAR* pszFilename)
 				s = t;
 
 				// Read option name
-				TCHAR* szQuote = NULL;
-				TCHAR* szEnd = NULL;
+				char* szQuote = NULL;
+				char* szEnd = NULL;
 				if (QuoteRead(&szQuote, &szEnd, s)) {
-					CheatError(pszFilename, nLine, pCurrentCheat, _T("option name omitted"), szLine);
+					CheatError(pszFilename, nLine, pCurrentCheat, ("option name omitted"), szLine);
 					break;
 				}
 				s = szEnd;
@@ -205,7 +205,7 @@ static int ConfigParseFile(TCHAR* pszFilename)
 				}
 				memset(pCurrentCheat->pOption[n], 0, sizeof(CheatOption));
 
-				memcpy(pCurrentCheat->pOption[n]->szOptionName, szQuote, QUOTE_MAX * sizeof(TCHAR));
+				memcpy(pCurrentCheat->pOption[n]->szOptionName, szQuote, QUOTE_MAX * sizeof(char));
 
 				int nCurrentAddress = 0;
 				bool bOK = true;
@@ -213,28 +213,31 @@ static int ConfigParseFile(TCHAR* pszFilename)
 					int nCPU = 0, nAddress = 0, nValue = 0;
 
 					if (SkipComma(&s)) {
-						nCPU = _tcstol(s, &t, 0);		// CPU number
+						//nCPU = cstol(s, &t, 0);		// CPU number
+						nCPU = (int)*s;						
 						if (t == s) {
-							CheatError(pszFilename, nLine, pCurrentCheat, _T("CPU number omitted"), szLine);
+							CheatError(pszFilename, nLine, pCurrentCheat, ("CPU number omitted"), szLine);
 							bOK = false;
 							break;
 						}
 						s = t;
 
 						SkipComma(&s);
-						nAddress = _tcstol(s, &t, 0);	// Address
+						//nAddress = cstol(s, &t, 0);	// Address
+						nAddress = (int)*s;						
 						if (t == s) {
 							bOK = false;
-							CheatError(pszFilename, nLine, pCurrentCheat, _T("address omitted"), szLine);
+							CheatError(pszFilename, nLine, pCurrentCheat, ("address omitted"), szLine);
 							break;
 						}
 						s = t;
 
 						SkipComma(&s);
-						nValue = _tcstol(s, &t, 0);		// Value
+						//nValue = cstol(s, &t, 0);		// Value
+						nValue = (int)*s;						
 						if (t == s) {
 							bOK = false;
-							CheatError(pszFilename, nLine, pCurrentCheat, _T("value omitted"), szLine);
+							CheatError(pszFilename, nLine, pCurrentCheat, ("value omitted"), szLine);
 							break;
 						}
 					} else {
@@ -243,7 +246,7 @@ static int ConfigParseFile(TCHAR* pszFilename)
 						}
 						if (n) {
 							bOK = false;
-							CheatError(pszFilename, nLine, pCurrentCheat, _T("CPU / address / value omitted"), szLine);
+							CheatError(pszFilename, nLine, pCurrentCheat, ("CPU / address / value omitted"), szLine);
 							break;
 						}
 					}
@@ -263,10 +266,10 @@ static int ConfigParseFile(TCHAR* pszFilename)
 			continue;
 		}
 
-		SKIP_WS(s);
-		if (*s == _T('}')) {
-			if (nInside != _T('{')) {
-				CheatError(pszFilename, nLine, pCurrentCheat, _T("missing opening bracket"), NULL);
+		//SKIP_WS(s);
+		if (*s == ('}')) {
+			if (nInside != ('{')) {
+				CheatError(pszFilename, nLine, pCurrentCheat, ("missing opening bracket"), NULL);
 				break;
 			}
 
@@ -276,7 +279,7 @@ static int ConfigParseFile(TCHAR* pszFilename)
 		// Line isn't (part of) a valid cheat
 #if 0
 		if (*s) {
-			CheatError(pszFilename, nLine, NULL, _T("rogue line"), szLine);
+			CheatError(pszFilename, nLine, NULL, ("rogue line"), szLine);
 			break;
 		}
 #endif
@@ -292,11 +295,13 @@ static int ConfigParseFile(TCHAR* pszFilename)
 
 int ConfigCheatLoad()
 {
-	TCHAR szFilename[MAX_PATH] = _T("");
+	char szFilename[MAX_PATH] = ("");
 
-	_stprintf(szFilename, _T("cheats\\%s.dat"), BurnDrvGetText(DRV_NAME));
+	//_stprintf(szFilename, ("cheats\\%s.dat"), BurnDrvGetText(DRV_NAME));
+	sprintf(szFilename, "cheats\\%s.dat", BurnDrvGetText(DRV_NAME));
 	if (ConfigParseFile(szFilename)) {
-		_stprintf(szFilename, _T("cheats\\%s.ini"), BurnDrvGetText(DRV_NAME));
+		//_stprintf(szFilename, ("cheats\\%s.ini"), BurnDrvGetText(DRV_NAME));
+		sprintf(szFilename, "cheats\\%s.ini", BurnDrvGetText(DRV_NAME));
 		if (ConfigParseFile(szFilename)) {
 			return 1;
 		}

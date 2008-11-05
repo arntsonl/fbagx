@@ -1,5 +1,7 @@
 // FB Alpha - Emulator for MC68000/Z80 based arcade games
 //            Refer to the "license.txt" file for more info
+#ifndef __BURNER_H__
+#define __BURNER_H__
 
 #include <limits.h>
 #include <stdarg.h>
@@ -10,7 +12,8 @@
 #include <assert.h>
 #include <ctype.h>
 
-#include "tchar.h"
+//#include "tchar.h"
+#include "gameinp.h"
 
 // Macro to make quoted strings
 #define MAKE_STRING_2(s) #s
@@ -24,22 +27,29 @@
 
 // ---------------------------------------------------------------------------
 // OS dependent functionality
-
+/*
 #if defined (BUILD_WIN32)
  #include "burner_win32.h"
 #elif defined (BUILD_SDL)
  #include "burner_sdl.h"
 #endif
+*/
+#include "burner_wii.h"
 
 // ---------------------------------------------------------------------------
 // OS independent functionality
 
-#include "interface.h"
+//#include "interface.h"
+
+// Not sure where this was defined
+#define MAX_PATH 256
 
 // Macros for parsing text
+/*
 #define SKIP_WS(s) while (_istspace(*s)) { s++; }			// Skip whitespace
 #define FIND_WS(s) while (*s && !_istspace(*s)) { s++; }	// Find whitespace
 #define FIND_QT(s) while (*s && *s != _T('\"')) { s++; }	// Find quote
+*/
 
 // gami.cpp
 extern struct GameInp* GameInp;
@@ -56,22 +66,22 @@ extern bool bLeftAltkeyMapped;
 
 int GameInpInit();
 int GameInpExit();
-TCHAR* InputCodeDesc(int c);
-TCHAR* InpToDesc(struct GameInp* pgi);
-TCHAR* InpMacroToDesc(struct GameInp* pgi);
+char* InputCodeDesc(int c);
+char* InpToDesc(struct GameInp* pgi);
+char* InpMacroToDesc(struct GameInp* pgi);
 void GameInpCheckLeftAlt();
 void GameInpCheckMouse();
 int GameInpBlank(int bDipSwitch);
-int GameInputAutoIni(int nPlayer, TCHAR* lpszFile, bool bOverWrite);
+int GameInputAutoIni(int nPlayer, char* lpszFile, bool bOverWrite);
 int GameInpDefault();
 int GameInpWrite(FILE* h);
-int GameInpRead(TCHAR* szVal, bool bOverWrite);
-int GameInpMacroRead(TCHAR* szVal, bool bOverWrite);
-int GameInpCustomRead(TCHAR* szVal, bool bOverWrite);
+int GameInpRead(char* szVal, bool bOverWrite);
+int GameInpMacroRead(char* szVal, bool bOverWrite);
+int GameInpCustomRead(char* szVal, bool bOverWrite);
 
 // Player Default Controls
 extern int nPlayerDefaultControls[4];
-extern TCHAR szPlayerDefaultIni[4][MAX_PATH];
+extern char szPlayerDefaultIni[4][MAX_PATH];
 
 // cong.cpp
 extern const int nConfigMinVersion;					// Minimum version of application for which input files are valid
@@ -91,8 +101,8 @@ int GamcPlayerHotRod(struct GameInp* pgi, char* szi, int nPlayer, int nFlags, in
 
 // misc.cpp
 #define QUOTE_MAX (128)															// Maximum length of "quoted strings"
-int QuoteRead(TCHAR** ppszQuote, TCHAR** ppszEnd, TCHAR* pszSrc);					// Read a quoted string from szSrc and point to the end
-TCHAR* LabelCheck(TCHAR* s, TCHAR* pszLabel);
+int QuoteRead(char** ppszQuote, char** ppszEnd, char* pszSrc);					// Read a quoted string from szSrc and point to the end
+char* LabelCheck(char* s, char* pszLabel);
 
 extern int bDoGamma;
 extern int bHardwareGammaOnly;
@@ -104,16 +114,16 @@ void ComputeGammaLUT();
 
 // dat.cpp
 int write_datfile(int nDatType, FILE* fDat);
-int create_datfile(TCHAR* szFilename, int nDatType);
+int create_datfile(char* szFilename, int nDatType);
 
 // sshot.cpp
 int MakeScreenShot();
 
 // state.cpp
 int BurnStateLoadEmbed(FILE* fp, int nOffset, int bAll, int (*pLoadGame)());
-int BurnStateLoad(TCHAR* szName, int bAll, int (*pLoadGame)());
+int BurnStateLoad(char* szName, int bAll, int (*pLoadGame)());
 int BurnStateSaveEmbed(FILE* fp, int nOffset, int bAll);
-int BurnStateSave(TCHAR* szName, int bAll);
+int BurnStateSave(char* szName, int bAll);
 
 // statec.cpp
 int BurnStateCompress(unsigned char** pDef, int* pnDefLen, int bAll);
@@ -138,3 +148,5 @@ int BzipClose();
 int BzipInit();
 int BzipExit();
 int BzipStatus();
+
+#endif // __burner_h__
