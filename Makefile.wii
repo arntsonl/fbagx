@@ -19,10 +19,28 @@ TARGET		:=	fbagx-wii
 TARGETDIR   :=  executables
 BUILD		:=	build
 SOURCES		:=	source/ngc source/ngc/libwiigui source/ngc/images \
-				source/ngc/fonts source/ngc/sounds
+				source/ngc/fonts source/ngc/sounds \
+				source/burn source/burn/atari source/burn/capcom source/burn/cave \
+				source/burn/cps3 source/burn/galaxian source/burn/konami source/burn/megadrive \
+				source/burn/misc source/burn/misc/dec0 source/burn/misc/post90s source/burn/misc/pre90s  \
+				source/burn/neogeo source/burn/pgm source/burn/psikyo source/burn/sega  \
+				source/burn/taito source/burn/toaplan\
+				source/cpu source/cpu/arm7 \
+				source/cpu/hd6309 source/cpu/i8039 source/cpu/konami source/cpu/m68k \
+				source/cpu/m6502 source/fba/cpu/m6800 source/cpu/m6809 source/cpu/nec \
+				source/cpu/s2650 source/cpu/sh2 source/cpu/z80
 				
-INCLUDES	:=	source/ngc
-
+INCLUDES	:=	source/ngc \
+				source/burn source/burn/atari source/burn/capcom source/burn/cave \
+				source/burn/cps3 source/burn/galaxian source/burn/konami source/burn/megadrive \
+				source/burn/misc source/burn/misc/dec0 source/burn/misc/post90s source/burn/misc/pre90s  \
+				source/burn/neogeo source/burn/pgm source/burn/psikyo source/burn/sega  \
+				source/burn/taito source/burn/toaplan\
+				source/cpu source/cpu/arm7 \
+				source/cpu/hd6309 source/cpu/i8039 source/cpu/konami source/cpu/m68k \
+				source/cpu/m6502 source/cpu/m6800 source/cpu/m6809 source/cpu/nec \
+				source/cpu/s2650 source/cpu/sh2 source/cpu/z80
+				
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
@@ -73,7 +91,7 @@ else
 	export LD	:=	$(CXX)
 endif
 
-export OFILES	:=	$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
+export OFILES	:=	$(CFILES:.c=.o) $(CPPFILES:.cpp=.o) \
 					$(sFILES:.s=.o) $(SFILES:.S=.o) \
 					$(TTFFILES:.ttf=.ttf.o) $(PNGFILES:.png=.png.o) \
 					$(OGGFILES:.ogg=.ogg.o) $(PCMFILES:.pcm=.pcm.o)
