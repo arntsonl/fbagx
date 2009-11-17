@@ -165,7 +165,7 @@ static hd6309_Regs hd6309;
 #define pW		hd6309.w
 #define pZ		hd6309.z
 
-#define PPC 	hd6309.ppc.w.l
+#define wPPC 	hd6309.ppc.w.l
 #define PC		hd6309.pc.w.l
 #define PCD 	hd6309.pc.d
 #define U		hd6309.u.w.l
@@ -1261,7 +1261,7 @@ void hd6309_get_info(UINT32 state, cpuinfo *info)
 		case CPUINFO_INT_INPUT_STATE + HD6309_FIRQ_LINE:info->i = hd6309.irq_state[HD6309_FIRQ_LINE]; break;
 		case CPUINFO_INT_INPUT_STATE + HD6309_INPUT_LINE_NMI:	info->i = hd6309.nmi_state;				break;
 
-		case CPUINFO_INT_PREVIOUSPC:					info->i = PPC;							break;
+		case CPUINFO_INT_PREVIOUSPC:					info->i = wPPC;							break;
 
 		case CPUINFO_INT_PC:
 		case CPUINFO_INT_REGISTER + HD6309_PC:			info->i = PC;							break;

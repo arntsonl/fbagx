@@ -55,7 +55,7 @@ bool BurnCheckMMXSupport()
 {
 	unsigned int nSignatureEAX = 0, nSignatureEBX = 0, nSignatureECX = 0, nSignatureEDX = 0;
 
-	CPUID(1, nSignatureEAX, nSignatureEBX, nSignatureECX, nSignatureEDX);
+//	CPUID(1, nSignatureEAX, nSignatureEBX, nSignatureECX, nSignatureEDX);
 
 	return (nSignatureEDX >> 23) & 1;						// bit 23 of edx indicates MMX support
 }
@@ -146,9 +146,9 @@ int BurnStateInit();
 extern "C" TCHAR* BurnDrvGetText(unsigned int i)
 {
 	char* pszStringA = NULL;
-	wchar_t* pszStringW = NULL;
+	//wchar_t* pszStringW = NULL;
 	static char* pszCurrentNameA;
-	static wchar_t* pszCurrentNameW;
+	//static wchar_t* pszCurrentNameW;
 
 #if defined (_UNICODE)
 
@@ -160,7 +160,7 @@ extern "C" TCHAR* BurnDrvGetText(unsigned int i)
 	static wchar_t szSystemW[256];
 	static wchar_t szParentW[32];
 	static wchar_t szBoardROMW[32];
-
+	
 #else
 
 	static char szShortNameA[32];
@@ -178,30 +178,32 @@ extern "C" TCHAR* BurnDrvGetText(unsigned int i)
 		switch (i & 0xFF) {
 			case DRV_FULLNAME:
 				if (i & DRV_NEXTNAME) {
-					if (pszCurrentNameW && pDriver[nBurnDrvSelect]->szFullNameW) {
-						pszCurrentNameW += wcslen(pszCurrentNameW) + 1;
-						if (!pszCurrentNameW[0]) {
+					if (pszCurrentNameA && pDriver[nBurnDrvSelect]->szFullNameA) {
+						pszCurrentNameA += _tcslen(pszCurrentNameA) + 1;
+						if (!pszCurrentNameA[0]) {
 							return NULL;
 						}
-						pszStringW = pszCurrentNameW;
+						pszStringA = pszCurrentNameA;
 					}
 				} else {
 
 #if !defined (_UNICODE)
 
 					// Ensure all of the Unicode titles are printable in the current locale
-					pszCurrentNameW = pDriver[nBurnDrvSelect]->szFullNameW;
-					if (pszCurrentNameW && pszCurrentNameW[0]) {
+					pszCurrentNameA = pDriver[nBurnDrvSelect]->szFullNameA;
+					if (pszCurrentNameA && pszCurrentNameA[0]) {
 						int nRet;
 
 						do {
-							nRet = wcstombs(szFullNameA, pszCurrentNameW, 256);
-							pszCurrentNameW += wcslen(pszCurrentNameW) + 1;
-						} while	(nRet >= 0 && pszCurrentNameW[0]);
+							//nRet = wcstombs(szFullNameA, pszCurrentNameA, 256);
+							nRet = _tcslen(pszCurrentNameA);
+							_tcsncpy(szFullNameA, pszCurrentNameA, 256);
+							pszCurrentNameA += _tcslen(pszCurrentNameA) + 1;
+						} while	(nRet >= 0 && pszCurrentNameA[0]);
 
 						// If all titles can be printed, we can use the Unicode versions
 						if (nRet >= 0) {
-							pszStringW = pszCurrentNameW = pDriver[nBurnDrvSelect]->szFullNameW;
+							pszStringA = pszCurrentNameA = pDriver[nBurnDrvSelect]->szFullNameA;
 						}
 					}
 
@@ -214,13 +216,13 @@ extern "C" TCHAR* BurnDrvGetText(unsigned int i)
 				}
 				break;
 			case DRV_COMMENT:
-				pszStringW = pDriver[nBurnDrvSelect]->szCommentW;
+				pszStringA = pDriver[nBurnDrvSelect]->szCommentA;
 				break;
 			case DRV_MANUFACTURER:
-				pszStringW = pDriver[nBurnDrvSelect]->szManufacturerW;
+				pszStringA = pDriver[nBurnDrvSelect]->szManufacturerA;
 				break;
 			case DRV_SYSTEM:
-				pszStringW = pDriver[nBurnDrvSelect]->szSystemW;
+				pszStringA = pDriver[nBurnDrvSelect]->szSystemA;
 		}
 
 #if defined (_UNICODE)
@@ -258,11 +260,9 @@ extern "C" TCHAR* BurnDrvGetText(unsigned int i)
 				break;
 		}
 
-		if (pszStringW && pszStringA && pszStringW[0]) {
-			if (wcstombs(pszStringA, pszStringW, 256) != -1U) {
-				return pszStringA;
-			}
-
+		// maybe get rid of this?
+		if (pszStringA && pszStringA[0]) {
+			return pszStringA;
 		}
 
 		pszStringA = NULL;
@@ -284,7 +284,7 @@ extern "C" TCHAR* BurnDrvGetText(unsigned int i)
 			break;
 		case DRV_FULLNAME:
 			if (i & DRV_NEXTNAME) {
-				if (!pszCurrentNameW && pDriver[nBurnDrvSelect]->szFullNameA) {
+				if (!pszCurrentNameA && pDriver[nBurnDrvSelect]->szFullNameA) {
 					pszCurrentNameA += strlen(pszCurrentNameA) + 1;
 					if (!pszCurrentNameA[0]) {
 						return NULL;
@@ -293,7 +293,7 @@ extern "C" TCHAR* BurnDrvGetText(unsigned int i)
 				}
 			} else {
 				pszStringA = pszCurrentNameA = pDriver[nBurnDrvSelect]->szFullNameA;
-				pszCurrentNameW = NULL;
+				pszCurrentNameA = NULL;
 			}
 			break;
 		case DRV_COMMENT:
@@ -897,7 +897,7 @@ int BurnTransferCopy(UINT32* pPalette)
 	UINT8* pDest = pBurnDraw;
 	
 	if (!nTransWidth || !nTransHeight || !pTransDraw) {
-		bprintf(PRINT_NORMAL, _T("BurnTransferCopy called without BurnTransferInit!\n"));
+		//bprintf(PRINT_NORMAL, _T("BurnTransferCopy called without BurnTransferInit!\n"));
 		return 1;
 	}
 	

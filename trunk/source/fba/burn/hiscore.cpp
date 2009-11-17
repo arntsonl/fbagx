@@ -355,6 +355,8 @@ void HiscoreInit()
 	
 	HiscoresInUse = 0;
 	
+	// No hiscore for now
+/*	
 	TCHAR szDatFilename[MAX_PATH];
 	_stprintf(szDatFilename, _T("%shiscore.dat"), szAppHiscorePath);
 
@@ -442,7 +444,7 @@ void HiscoreInit()
 
 		fclose(fp);
 	}
-	
+	*/
 	nCpuType = -1;
 }
 
@@ -529,7 +531,7 @@ void HiscoreExit()
 	
 	TCHAR szFilename[MAX_PATH];
 	_stprintf(szFilename, _T("%s%s.hi"), szAppHiscorePath, BurnDrvGetText(DRV_NAME));
-
+/*
 	FILE *fp = _tfopen(szFilename, _T("w"));
 	if (fp) {
 		for (unsigned int i = 0; i < nHiscoreNumRanges; i++) {
@@ -548,7 +550,7 @@ void HiscoreExit()
 		}
 	}
 	fclose(fp);
-	
+	*/
 	nCpuType = -1;
 	nHiscoreNumRanges = 0;
 	
