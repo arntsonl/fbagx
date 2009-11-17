@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="1">
+  <name>Final Burn Alpha GX</name>
+  <coder>Cthulhu32</coder>
+  <version>0.0.1</version>
+  <release_date>20091117</release_date>
+  <short_description>Arcade Emulator</short_description> 
+  <long_description>
+  An Arcade Emulator for the Wii
+
+  Based on Final Burn Alpha 0.2.97.07
+  </long_description> 
+</app>

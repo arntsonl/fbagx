@@ -1,14 +1,15 @@
 .PHONY = all wii wii-clean wii-run
 
-all : wii
+all: wii
+run: wii-run
 
-clean : wii-clean
+clean: wii-clean
 
-wii : 
+wii:
 	$(MAKE) -f Makefile.wii
 
-wii-clean : 
+wii-clean:
 	$(MAKE) -f Makefile.wii clean
 
-wii-run : 
+wii-run: wii
 	$(MAKE) -f Makefile.wii run
