@@ -113,7 +113,7 @@ static m6809_Regs m6809;
 #define pY		m6809.y
 #define pD		m6809.d
 
-#define	PPC		m6809.ppc.w.l
+#define	wPPC		m6809.ppc.w.l
 #define PC  	m6809.pc.w.l
 #define PCD 	m6809.pc.d
 #define U		m6809.u.w.l
@@ -1137,7 +1137,7 @@ void m6809_get_info(UINT32 state, cpuinfo *info)
 		case CPUINFO_INT_INPUT_STATE + M6809_FIRQ_LINE:	info->i = m6809.irq_state[M6809_FIRQ_LINE]; break;
 		case CPUINFO_INT_INPUT_STATE + M6809_INPUT_LINE_NMI:	info->i = m6809.nmi_state;				break;
 
-		case CPUINFO_INT_PREVIOUSPC:					info->i = PPC;							break;
+		case CPUINFO_INT_PREVIOUSPC:					info->i = wPPC;							break;
 
 		case CPUINFO_INT_PC:
 		case CPUINFO_INT_REGISTER + M6809_PC:			info->i = PC;							break;
