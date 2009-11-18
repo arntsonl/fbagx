@@ -36,7 +36,7 @@
 #include "sh2.h"
 
 //#include "tchar.h"
-//extern int (__cdecl *bprintf) (int nStatus, TCHAR* szFormat, ...);
+//extern int ( *bprintf) (int nStatus, TCHAR* szFormat, ...);
 
 int has_sh2;
 

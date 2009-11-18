@@ -161,7 +161,7 @@ typedef char	TCHAR;
 #define	_tprintf	printf
 #define _ftprintf	fprintf
 #define	_stprintf	sprintf
-#define	_sntprintf	_snprintf
+#define	_sntprintf	snprintf
 #define	_vtprintf	vprintf
 #define	_vftprintf	vfprintf
 #define _vstprintf	vsprintf
@@ -198,7 +198,7 @@ typedef char	TCHAR;
 #define	_tcsstr		strstr
 #define _tcstok		strtok
 #define	_tcsdup		_strdup
-#define	_tcsicmp	_stricmp
+#define	_tcsicmp	stricmp
 #define	_tcsnicmp	_strnicmp
 #define	_tcsnset	_strnset
 #define	_tcsrev		_strrev

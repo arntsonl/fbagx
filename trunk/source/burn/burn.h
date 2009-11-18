@@ -7,10 +7,6 @@
  extern "C" {
 #endif
 
-#if !defined (_WIN32)
- #define __cdecl
-#endif
-
 #include <time.h>
 #include "cheat.h"
 #include "state.h"
@@ -71,14 +67,14 @@ extern int nBurnVer;						// Version number of the library
 // Callbacks
 
 // Application-defined rom loading function
-extern int (__cdecl *BurnExtLoadRom)(unsigned char* Dest, int* pnWrote, int i);
+extern int ( *BurnExtLoadRom)(unsigned char* Dest, int* pnWrote, int i);
 
 // Application-defined progress indicator functions
-extern int (__cdecl *BurnExtProgressRangeCallback)(double dProgressRange);
-extern int (__cdecl *BurnExtProgressUpdateCallback)(double dProgress, const TCHAR* pszText, bool bAbs);
+extern int ( *BurnExtProgressRangeCallback)(double dProgressRange);
+extern int ( *BurnExtProgressUpdateCallback)(double dProgress, const TCHAR* pszText, bool bAbs);
 
 // Application-defined colour conversion function
-extern unsigned int (__cdecl *BurnHighCol) (int r, int g, int b, int i);
+extern unsigned int ( *BurnHighCol) (int r, int g, int b, int i);
 
 // ---------------------------------------------------------------------------
 
@@ -186,7 +182,7 @@ extern unsigned int *pBurnDrvPalette;
 #define PRINT_IMPORTANT (2)
 #define PRINT_ERROR		(3)
 
-extern int (__cdecl *bprintf) (int nStatus, TCHAR* szFormat, ...);
+extern int ( *bprintf) (int nStatus, TCHAR* szFormat, ...);
 
 int BurnLibInit();
 int BurnLibExit();

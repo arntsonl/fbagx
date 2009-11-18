@@ -458,7 +458,7 @@ int YMZ280BRender(short* pSoundBuf, int nSegmentLength)
 		}
 		case 3: {									// Use both output channels
 			if (bBurnUseMMX) {
-				BurnSoundCopyClamp_A(pBuffer, pSoundBuf, nSegmentLength);
+				//BurnSoundCopyClamp_A(pBuffer, pSoundBuf, nSegmentLength);
 			} else {
 				BurnSoundCopyClamp_C(pBuffer, pSoundBuf, nSegmentLength);
 			}

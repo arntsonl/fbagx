@@ -1695,7 +1695,7 @@ static void DrvDraw()
 		if (Width != 496) {
 			BurnDrvSetVisibleSize(496, 224);
 			BurnDrvSetAspect(16, 9);
-			Reinitialise();
+			//Reinitialise(); // # DEBUG
 			WideScreenFrameDelay = GetCurrentFrame() + 1;
 		}
 	} else {
@@ -1705,7 +1705,7 @@ static void DrvDraw()
 		if (Width != 384) {
 			BurnDrvSetVisibleSize(384, 224);
 			BurnDrvSetAspect(4, 3);
-			Reinitialise();
+			//Reinitialise(); // #DEBUG
 			WideScreenFrameDelay = GetCurrentFrame() + 1;
 		}
 	}

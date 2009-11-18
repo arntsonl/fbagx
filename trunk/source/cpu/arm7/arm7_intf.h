@@ -38,7 +38,7 @@ void Arm7NewFrame();
 void Arm7Init(int);
 void Arm7Open(int );
 void Arm7Reset();
-int Arm7Run(int cycles);
+extern "C" int Arm7Run(int cycles);
 
 // defined in arm7core.h
 #define ARM7_IRQ_LINE		0

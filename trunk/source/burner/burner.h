@@ -25,18 +25,7 @@
 // ---------------------------------------------------------------------------
 // OS dependent functionality
 
-#if defined (BUILD_WIN32)
- #include "burner_win32.h"
-#elif defined (BUILD_SDL)
- #include "burner_sdl.h"
-#endif
-
-#include <shellapi.h>
-#include <shlwapi.h>
-#include "net.h"
-#include "png.h"
-#include "menugui.h"
-#include "imagebutton.h"
+// None, we're on a Wii
 
 // ---------------------------------------------------------------------------
 // OS independent functionality

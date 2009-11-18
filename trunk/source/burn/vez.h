@@ -17,10 +17,10 @@ struct VezContext {
 	unsigned char (__fastcall *ReadPort)(unsigned int a);
 	void (__fastcall *WritePort)(unsigned int a, unsigned char d);
  #else
-	unsigned char (__cdecl *ReadHandler)(unsigned int a);
-	void (__cdecl *WriteHandler)(unsigned int a, unsigned char d);
-	unsigned char (__cdecl *ReadPort)(unsigned int a);
-	void (__cdecl *WritePort)(unsigned int a, unsigned char d);
+	unsigned char ( *ReadHandler)(unsigned int a);
+	void ( *WriteHandler)(unsigned int a, unsigned char d);
+	unsigned char ( *ReadPort)(unsigned int a);
+	void ( *WritePort)(unsigned int a, unsigned char d);
  #endif
 };
 

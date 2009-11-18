@@ -465,6 +465,7 @@ int write_datfile(int nDatType, int bIncMegadrive, FILE* fDat)
 
 int create_datfile(TCHAR* szFilename, int nDatType, int bIncMegadrive)
 {
+/*
 	FILE *fDat=0;
 	int nRet=0;
 	
@@ -520,4 +521,6 @@ int create_datfile(TCHAR* szFilename, int nDatType, int bIncMegadrive)
 	fclose(fDat);
 
 	return nRet;
+*/
+	return 0;
 }

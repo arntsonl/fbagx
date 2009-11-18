@@ -92,7 +92,7 @@ int nVidImageLeft = 0, nVidImageTop = 0;		// Memory buffer visible area offsets
 int nVidImagePitch = 0, nVidImageBPP = 0;		// Memory buffer pitch and bytes per pixel
 int nVidImageDepth = 0;							// Memory buffer bits per pixel
 
-unsigned int (__cdecl *VidHighCol) (int r, int g, int b, int i);
+unsigned int ( *VidHighCol) (int r, int g, int b, int i);
 static bool bVidRecalcPalette;
 
 static unsigned char* pVidTransImage = NULL;
@@ -101,7 +101,7 @@ static unsigned int* pVidTransPalette = NULL;
 bool bVidUsePlaceholder = true;					// Use a placeholder image when no game is loaded
 TCHAR szPlaceHolder[MAX_PATH] = _T("");
 
-static unsigned int __cdecl HighCol15(int r, int g, int b, int  /* i */)
+static unsigned int  HighCol15(int r, int g, int b, int  /* i */)
 {
 	unsigned int t;
 

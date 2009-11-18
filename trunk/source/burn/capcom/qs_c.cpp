@@ -329,7 +329,7 @@ int QscUpdate(int nEnd)
 		}
 
 		if (bBurnUseMMX) {
-			BurnSoundCopyClamp_A(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
+			//BurnSoundCopyClamp_A(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
 		} else {
 			BurnSoundCopyClamp_C(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
 		}
@@ -374,7 +374,7 @@ int QscUpdate(int nEnd)
 			}
 
 			if (bBurnUseMMX && i > 0) {
-				QChan[c].bKey = (unsigned char)ChannelMix_QS_A(pTemp, i,
+				/*QChan[c].bKey = (unsigned char)ChannelMix_QS_A(pTemp, i,
 															   QChan[c].PlayBank,
 															   QChan[c].nEnd,
 															   &(QChan[c].nPos),
@@ -382,7 +382,7 @@ int QscUpdate(int nEnd)
 															   VolR,
 															   QChan[c].nLoop,
 															   QChan[c].nAdvance,
-															   QChan[c].nEndBuffer);
+															   QChan[c].nEndBuffer);*/
 			} else {
 				while (i > 0) {
 					int s, p;
@@ -435,7 +435,7 @@ int QscUpdate(int nEnd)
 	}
 
 	if (bBurnUseMMX) {
-		BurnSoundCopyClamp_A(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
+		//BurnSoundCopyClamp_A(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
 	} else {
 		BurnSoundCopyClamp_C(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
 	}

@@ -78,7 +78,7 @@ static int CompGo(int bFinish)
 	return 0;
 }
 
-static int __cdecl StateCompressAcb(struct BurnArea* pba)
+static int  StateCompressAcb(struct BurnArea* pba)
 {
 	// Set the data as the next available input
 	Zstr.next_in = (unsigned char*)pba->Data;
@@ -137,7 +137,7 @@ int BurnStateCompress(unsigned char** pDef, int* pnDefLen, int bAll)
 // -----------------------------------------------------------------------------
 // Decompression
 
-static int __cdecl StateDecompressAcb(struct BurnArea* pba)
+static int  StateDecompressAcb(struct BurnArea* pba)
 {
 	Zstr.next_out =(unsigned char*)pba->Data;
 	Zstr.avail_out = pba->nLen;

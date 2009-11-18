@@ -19,25 +19,28 @@ static bool SkipComma(TCHAR** s)
 
 static void CheatError(TCHAR* pszFilename, int nLineNumber, CheatInfo* pCheat, TCHAR* pszInfo, TCHAR* pszLine)
 {
-	FBAPopupAddText(PUF_TEXT_NO_TRANSLATE, _T("Cheat file %s is malformed.\nPlease remove or repair the file.\n\n"), pszFilename);
+/*
+	FBAPopupAddText(_T("Error"), _T("Cheat file %s is malformed.\nPlease remove or repair the file.\n\n"), pszFilename);
 	if (pCheat) {
-		FBAPopupAddText(PUF_TEXT_NO_TRANSLATE, _T("Parse error at line %i, in cheat \"%s\".\n"), nLineNumber, pCheat->szCheatName);
+		FBAPopupAddText(_T("Error"), _T("Parse error at line %i, in cheat \"%s\".\n"), nLineNumber, pCheat->szCheatName);
 	} else {
-		FBAPopupAddText(PUF_TEXT_NO_TRANSLATE, _T("Parse error at line %i.\n"), nLineNumber);
+		FBAPopupAddText(_T("Error"), _T("Parse error at line %i.\n"), nLineNumber);
 	}
 
 	if (pszInfo) {
-		FBAPopupAddText(PUF_TEXT_NO_TRANSLATE, _T("Problem:\t%s.\n"), pszInfo);
+		FBAPopupAddText(_T("Error"), _T("Problem:\t%s.\n"), pszInfo);
 	}
 	if (pszLine) {
-		FBAPopupAddText(PUF_TEXT_NO_TRANSLATE, _T("Text:\t%s\n"), pszLine);
+		FBAPopupAddText(_T("Error"), _T("Text:\t%s\n"), pszLine);
 	}
 
-	FBAPopupDisplay(PUF_TYPE_ERROR);
+	FBAPopupDisplay(_T("Error"));
+*/
 }
 
 static int ConfigParseFile(TCHAR* pszFilename)
 {
+/*
 #define INSIDE_NOTHING (0xFFFF & (1 << ((sizeof(TCHAR) * 8) - 1)))
 
 	TCHAR szLine[1024];
@@ -280,12 +283,13 @@ static int ConfigParseFile(TCHAR* pszFilename)
 	if (h) {
 		fclose(h);
 	}
-
+*/
 	return 0;
 }
 
 static int ConfigParseNebulaFile(TCHAR* pszFilename)
 {
+/*
 	FILE *fp = _tfopen(pszFilename, _T("rt"));
 	if (fp == NULL) {
 		return 1;
@@ -395,13 +399,13 @@ static int ConfigParseNebulaFile(TCHAR* pszFilename)
 	}
 
 	fclose (fp);
-
+*/
 	return 0;
 }
 
 static int ConfigParseMAMEFile()
 {
-
+/*
 #define AddressInfo()	\
 	int k = (flags >> 20) & 3;	\
 	for (int i = 0; i < k+1; i++) {	\
@@ -548,13 +552,14 @@ static int ConfigParseMAMEFile()
 	}
 
 	fclose (fz);
-
+*/
 	return 0;
 }
 
 
 int ConfigCheatLoad()
 {
+/*
 	TCHAR szFilename[MAX_PATH] = _T("");
 
 	_stprintf(szFilename, _T("%s%s.ini"), szAppCheatsPath, BurnDrvGetText(DRV_NAME));
@@ -575,7 +580,7 @@ int ConfigCheatLoad()
 
 		CheatUpdate();
 	}
-
+*/
 	return 0;
 }
 
