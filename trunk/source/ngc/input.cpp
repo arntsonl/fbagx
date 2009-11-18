@@ -1,9 +1,14 @@
 /****************************************************************************
- * libwiigui Template
- * Tantric 2009
+ * Snes9x 1.51 Nintendo Wii/Gamecube Port
+ *
+ * softdev July 2006
+ * crunchy2 May-June 2007
+ * Michniewski 2008
+ * Tantric 2008-2009
  *
  * input.cpp
- * Wii/GameCube controller management
+ *
+ * Wii/Gamecube controller management
  ***************************************************************************/
 
 #include <gccore.h>
@@ -11,10 +16,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
 #include <ogcsys.h>
 #include <unistd.h>
 #include <wiiuse/wpad.h>
 
+//#include "snes9x.h"
+//#include "memmap.h"
+//#include "controls.h"
+
+//#include "snes9xGX.h"
+#include "button_mapping.h"
+//#include "s9xconfig.h"
+#include "fbaGX.h"
 #include "menu.h"
 #include "video.h"
 #include "input.h"
@@ -22,14 +36,162 @@
 
 int rumbleRequest[4] = {0,0,0,0};
 GuiTrigger userInput[4];
+
 static int rumbleCount[4] = {0,0,0,0};
+
+// hold superscope/mouse/justifier cursor positions
+static int cursor_x[5] = {0,0,0,0,0};
+static int cursor_y[5] = {0,0,0,0,0};
+
+/****************************************************************************
+ * Controller Functions
+ *
+ * The following map the Wii controls to the Snes9x controller system
+ ***************************************************************************/
+
+u32 btnmap[4][4][12]; // button mapping
+
+void ResetControls(int consoleCtrl, int wiiCtrl)
+{
+	int i;
+	/*** Gamecube controller Padmap ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_PAD && wiiCtrl == CTRLR_GCPAD))
+	{
+		i=0;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_BUTTON_A;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_BUTTON_B;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_BUTTON_X;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_BUTTON_Y;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_TRIGGER_L;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_TRIGGER_R;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_BUTTON_START;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_TRIGGER_Z;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_BUTTON_UP;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_BUTTON_DOWN;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_BUTTON_LEFT;
+		btnmap[CTRL_PAD][CTRLR_GCPAD][i++] = PAD_BUTTON_RIGHT;
+	}
+
+	/*** Wiimote Padmap ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_PAD && wiiCtrl == CTRLR_WIIMOTE))
+	{
+		i=0;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_B;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_2;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_1;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_A;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = 0x0000;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = 0x0000;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_PLUS;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_MINUS;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_RIGHT;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_LEFT;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_UP;
+		btnmap[CTRL_PAD][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_DOWN;
+	}
+
+	/*** Classic Controller Padmap ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_PAD && wiiCtrl == CTRLR_CLASSIC))
+	{
+		i=0;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_A;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_B;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_X;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_Y;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_FULL_L;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_FULL_R;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_PLUS;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_MINUS;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_UP;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_DOWN;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_LEFT;
+		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_RIGHT;
+	}
+
+	/*** Nunchuk + wiimote Padmap ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_PAD && wiiCtrl == CTRLR_NUNCHUK))
+	{
+		i=0;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_BUTTON_A;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_BUTTON_B;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_NUNCHUK_BUTTON_C;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_NUNCHUK_BUTTON_Z;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_BUTTON_2;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_BUTTON_1;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_BUTTON_PLUS;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_BUTTON_MINUS;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_BUTTON_UP;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_BUTTON_DOWN;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_BUTTON_LEFT;
+		btnmap[CTRL_PAD][CTRLR_NUNCHUK][i++] = WPAD_BUTTON_RIGHT;
+	}
+
+	/*** Superscope : GC controller button mapping ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_SCOPE && wiiCtrl == CTRLR_GCPAD))
+	{
+		i=0;
+		btnmap[CTRL_SCOPE][CTRLR_GCPAD][i++] = PAD_BUTTON_A;
+		btnmap[CTRL_SCOPE][CTRLR_GCPAD][i++] = PAD_BUTTON_B;
+		btnmap[CTRL_SCOPE][CTRLR_GCPAD][i++] = PAD_TRIGGER_Z;
+		btnmap[CTRL_SCOPE][CTRLR_GCPAD][i++] = PAD_BUTTON_Y;
+		btnmap[CTRL_SCOPE][CTRLR_GCPAD][i++] = PAD_BUTTON_X;
+		btnmap[CTRL_SCOPE][CTRLR_GCPAD][i++] = PAD_BUTTON_START;
+	}
+
+	/*** Superscope : wiimote button mapping ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_SCOPE && wiiCtrl == CTRLR_WIIMOTE))
+	{
+		i=0;
+		btnmap[CTRL_SCOPE][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_B;
+		btnmap[CTRL_SCOPE][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_A;
+		btnmap[CTRL_SCOPE][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_MINUS;
+		btnmap[CTRL_SCOPE][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_UP;
+		btnmap[CTRL_SCOPE][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_DOWN;
+		btnmap[CTRL_SCOPE][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_PLUS;
+	}
+
+	/*** Mouse : GC controller button mapping ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_MOUSE && wiiCtrl == CTRLR_GCPAD))
+	{
+		i=0;
+		btnmap[CTRL_MOUSE][CTRLR_GCPAD][i++] = PAD_BUTTON_A;
+		btnmap[CTRL_MOUSE][CTRLR_GCPAD][i++] = PAD_BUTTON_B;
+	}
+
+	/*** Mouse : wiimote button mapping ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_MOUSE && wiiCtrl == CTRLR_WIIMOTE))
+	{
+		i=0;
+		btnmap[CTRL_MOUSE][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_A;
+		btnmap[CTRL_MOUSE][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_B;
+	}
+
+	/*** Justifier : GC controller button mapping ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_JUST && wiiCtrl == CTRLR_GCPAD))
+	{
+		i=0;
+		btnmap[CTRL_JUST][CTRLR_GCPAD][i++] = PAD_BUTTON_B;
+		btnmap[CTRL_JUST][CTRLR_GCPAD][i++] = PAD_BUTTON_A;
+		btnmap[CTRL_JUST][CTRLR_GCPAD][i++] = PAD_BUTTON_START;
+	}
+
+	/*** Justifier : wiimote button mapping ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_JUST && wiiCtrl == CTRLR_WIIMOTE))
+	{
+		i=0;
+		btnmap[CTRL_JUST][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_B;
+		btnmap[CTRL_JUST][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_A;
+		btnmap[CTRL_JUST][CTRLR_WIIMOTE][i++] = WPAD_BUTTON_PLUS;
+	}
+}
 
 /****************************************************************************
  * UpdatePads
  *
  * Scans pad and wpad
  ***************************************************************************/
-void UpdatePads()
+void
+UpdatePads()
 {
 	WPAD_ScanPads();
 	PAD_ScanPads();
@@ -53,11 +215,13 @@ void UpdatePads()
  *
  * Sets up userInput triggers for use
  ***************************************************************************/
-void SetupPads()
+void
+SetupPads()
 {
 	PAD_Init();
-	WPAD_Init();
 
+	WPAD_Init();
+	
 	// read wiimote accelerometer and IR data
 	WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);
 	WPAD_SetVRes(WPAD_CHAN_ALL, screenwidth, screenheight);
@@ -72,22 +236,22 @@ void SetupPads()
 /****************************************************************************
  * ShutoffRumble
  ***************************************************************************/
-
 void ShutoffRumble()
 {
 	for(int i=0;i<4;i++)
 	{
 		WPAD_Rumble(i, 0);
 		rumbleCount[i] = 0;
+		rumbleRequest[i] = 0;
 	}
 }
 
 /****************************************************************************
  * DoRumble
  ***************************************************************************/
-
 void DoRumble(int i)
 {
+//	if(!GCSettings.Rumble) return;
 	if(rumbleRequest[i] && rumbleCount[i] < 3)
 	{
 		WPAD_Rumble(i, 1); // rumble on
@@ -107,54 +271,235 @@ void DoRumble(int i)
 }
 
 /****************************************************************************
- * WPAD_Stick
+ * decodepad
  *
- * Get X/Y value from Wii Joystick (classic, nunchuk) input
+ * Reads the changes (buttons pressed, etc) from a controller and reports
+ * these changes to Snes9x
  ***************************************************************************/
-
-s8 WPAD_Stick(u8 chan, u8 right, int axis)
+static void decodepad (int chan)
 {
-	float mag = 0.0;
-	float ang = 0.0;
-	WPADData *data = WPAD_Data(chan);
+	int i, offset;
+	float t;
 
-	switch (data->exp.type)
+	s8 pad_x = userInput[chan].pad.stickX;
+	s8 pad_y = userInput[chan].pad.stickY;
+	u32 jp = userInput[chan].pad.btns_h;
+
+//	s8 wm_ax = userInput[chan].WPAD_StickX(0);
+//	s8 wm_ay = userInput[chan].WPAD_StickY(0);
+	u32 wp = userInput[chan].wpad->btns_h;
+
+	u32 exp_type;
+	if ( WPAD_Probe(chan, &exp_type) != 0 )
+		exp_type = WPAD_EXP_NONE;
+
+	/***
+	Gamecube Joystick input
+	***/
+	// Is XY inside the "zone"?
+	if (pad_x * pad_x + pad_y * pad_y > PADCAL * PADCAL)
 	{
-		case WPAD_EXP_NUNCHUK:
-		case WPAD_EXP_GUITARHERO3:
-			if (right == 0)
-			{
-				mag = data->exp.nunchuk.js.mag;
-				ang = data->exp.nunchuk.js.ang;
-			}
-			break;
+		/*** we don't want division by zero ***/
+		if (pad_x > 0 && pad_y == 0)
+			jp |= PAD_BUTTON_RIGHT;
+		if (pad_x < 0 && pad_y == 0)
+			jp |= PAD_BUTTON_LEFT;
+		if (pad_x == 0 && pad_y > 0)
+			jp |= PAD_BUTTON_UP;
+		if (pad_x == 0 && pad_y < 0)
+			jp |= PAD_BUTTON_DOWN;
 
-		case WPAD_EXP_CLASSIC:
-			if (right == 0)
+		if (pad_x != 0 && pad_y != 0)
+		{
+			/*** Recalc left / right ***/
+			t = (float) pad_y / pad_x;
+			if (t >= -2.41421356237 && t < 2.41421356237)
 			{
-				mag = data->exp.classic.ljs.mag;
-				ang = data->exp.classic.ljs.ang;
+				if (pad_x >= 0)
+					jp |= PAD_BUTTON_RIGHT;
+				else
+					jp |= PAD_BUTTON_LEFT;
 			}
-			else
-			{
-				mag = data->exp.classic.rjs.mag;
-				ang = data->exp.classic.rjs.ang;
-			}
-			break;
 
-		default:
-			break;
+			/*** Recalc up / down ***/
+			t = (float) pad_x / pad_y;
+			if (t >= -2.41421356237 && t < 2.41421356237)
+			{
+				if (pad_y >= 0)
+					jp |= PAD_BUTTON_UP;
+				else
+					jp |= PAD_BUTTON_DOWN;
+			}
+		}
 	}
 
-	/* calculate x/y value (angle need to be converted into radian) */
-	if (mag > 1.0) mag = 1.0;
-	else if (mag < -1.0) mag = -1.0;
-	double val;
+	/***
+	Wii Joystick (classic, nunchuk) input
+	***/
+	// Is XY inside the "zone"?
+/*
+	if (wm_ax * wm_ax + wm_ay * wm_ay > PADCAL * PADCAL)
+	{
 
-	if(axis == 0) // x-axis
-		val = mag * sin((PI * ang)/180.0f);
-	else // y-axis
-		val = mag * cos((PI * ang)/180.0f);
+	    if (wm_ax > 0 && wm_ay == 0)
+			wp |= (exp_type == WPAD_EXP_CLASSIC) ? WPAD_CLASSIC_BUTTON_RIGHT : WPAD_BUTTON_RIGHT;
+	    if (wm_ax < 0 && wm_ay == 0)
+			wp |= (exp_type == WPAD_EXP_CLASSIC) ? WPAD_CLASSIC_BUTTON_LEFT : WPAD_BUTTON_LEFT;
+	    if (wm_ax == 0 && wm_ay > 0)
+			wp |= (exp_type == WPAD_EXP_CLASSIC) ? WPAD_CLASSIC_BUTTON_UP : WPAD_BUTTON_UP;
+	    if (wm_ax == 0 && wm_ay < 0)
+			wp |= (exp_type == WPAD_EXP_CLASSIC) ? WPAD_CLASSIC_BUTTON_DOWN : WPAD_BUTTON_DOWN;
 
-	return (s8)(val * 128.0f);
+	    if (wm_ax != 0 && wm_ay != 0)
+		{
+			/*** Recalc left / right ***
+			t = (float) wm_ay / wm_ax;
+			if (t >= -2.41421356237 && t < 2.41421356237)
+			{
+				if (wm_ax >= 0)
+				{
+					wp |= (exp_type == WPAD_EXP_CLASSIC) ? WPAD_CLASSIC_BUTTON_RIGHT : WPAD_BUTTON_RIGHT;
+				}
+				else
+				{
+					wp |= (exp_type == WPAD_EXP_CLASSIC) ? WPAD_CLASSIC_BUTTON_LEFT : WPAD_BUTTON_LEFT;
+				}
+			}
+
+			/*** Recalc up / down ***
+			t = (float) wm_ax / wm_ay;
+			if (t >= -2.41421356237 && t < 2.41421356237)
+			{
+				if (wm_ay >= 0)
+				{
+					wp |= (exp_type == WPAD_EXP_CLASSIC) ? WPAD_CLASSIC_BUTTON_UP : WPAD_BUTTON_UP;
+				}
+				else
+				{
+					wp |= (exp_type == WPAD_EXP_CLASSIC) ? WPAD_CLASSIC_BUTTON_DOWN : WPAD_BUTTON_DOWN;
+				}
+			}
+		}
+	}
+	*/
+
+	/*** Fix offset to pad ***/
+	offset = ((chan + 1) << 4);
+
+	/*** Report pressed buttons (gamepads) ***/
+	for (i = 0; i < MAXJP; i++)
+    {
+		if ( (jp & btnmap[CTRL_PAD][CTRLR_GCPAD][i])											// gamecube controller
+		|| ( (exp_type == WPAD_EXP_NONE) && (wp & btnmap[CTRL_PAD][CTRLR_WIIMOTE][i]) )	// wiimote
+		|| ( (exp_type == WPAD_EXP_CLASSIC) && (wp & btnmap[CTRL_PAD][CTRLR_CLASSIC][i]) )	// classic controller
+		|| ( (exp_type == WPAD_EXP_NUNCHUK) && (wp & btnmap[CTRL_PAD][CTRLR_NUNCHUK][i]) )	// nunchuk + wiimote
+		)
+			//S9xReportButton (offset + i, true);
+			i = i;
+		else
+			//S9xReportButton (offset + i, false);
+			i = i;
+    }
+/*
+#ifdef HW_RVL
+	// screenshot (temp)
+	if (wp & CLASSIC_CTRL_BUTTON_ZR)
+		S9xReportButton(0x90, true);
+	else
+		S9xReportButton(0x90, false);
+#endif
+*/
+}
+
+bool MenuRequested()
+{
+	for(int i=0; i<4; i++)
+	{
+		if (
+			(userInput[i].pad.substickX < -70) ||
+			(userInput[i].pad.btns_h & PAD_TRIGGER_L &&
+			userInput[i].pad.btns_h & PAD_TRIGGER_R &&
+			userInput[i].pad.btns_h & PAD_BUTTON_X &&
+			userInput[i].pad.btns_h & PAD_BUTTON_Y
+			) ||
+			(userInput[i].wpad->btns_h & WPAD_BUTTON_HOME) ||
+			(userInput[i].wpad->btns_h & WPAD_CLASSIC_BUTTON_HOME)
+		)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+/****************************************************************************
+ * NGCReportButtons
+ *
+ * Called on each rendered frame
+ * Our way of putting controller input into Snes9x
+ ***************************************************************************/
+void NGCReportButtons ()
+{
+	int i, j;
+
+	UpdatePads();
+/*
+	Settings.TurboMode = (
+		userInput[0].pad.substickX > 70 ||
+		userInput[0].WPAD_StickX(1) > 70
+	);	// RIGHT on c-stick and on classic controller right joystick
+*/
+	/* Check for menu:
+	 * CStick left
+	 * OR "L+R+X+Y" (eg. Homebrew/Adapted SNES controllers)
+	 * OR "Home" on the wiimote or classic controller
+	 * OR Left on classic right analog stick
+	 */
+//	if(MenuRequested())
+//		ScreenshotRequested = 1; // go to the menu
+
+//	j = (Settings.MultiPlayer5Master == true ? 4 : 2);
+
+	for (i = 0; i < j; i++)
+		decodepad (i);
+}
+
+void SetControllers()
+{
+/*
+	if (Settings.MultiPlayer5Master == true)
+	{
+		S9xSetController (0, CTL_JOYPAD, 0, 0, 0, 0);
+		S9xSetController (1, CTL_MP5, 1, 2, 3, -1);
+	}
+	else if (Settings.SuperScopeMaster == true)
+	{
+		S9xSetController (0, CTL_JOYPAD, 0, 0, 0, 0);
+		S9xSetController (1, CTL_SUPERSCOPE, 0, 0, 0, 0);
+	}
+	else if (Settings.MouseMaster == true)
+	{
+		S9xSetController (0, CTL_MOUSE, 0, 0, 0, 0);
+		S9xSetController (1, CTL_JOYPAD, 1, 0, 0, 0);
+	}
+	else if (Settings.JustifierMaster == true)
+	{
+		S9xSetController (0, CTL_JOYPAD, 0, 0, 0, 0);
+		S9xSetController(1, CTL_JUSTIFIER, 1, 0, 0, 0);
+	}
+	else
+	{
+		// Plugin 2 Joypads by default
+		S9xSetController (0, CTL_JOYPAD, 0, 0, 0, 0);
+		S9xSetController (1, CTL_JOYPAD, 1, 0, 0, 0);
+	}
+	*/
+}
+
+/****************************************************************************
+ * Set the default mapping for NGC
+ ***************************************************************************/
+void SetDefaultButtonMap ()
+{
+	SetControllers();
 }
