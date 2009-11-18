@@ -22,8 +22,8 @@ SOURCES		:=	source/ngc source/ngc/libwiigui source/ngc/images source/ngc/fonts s
 				source/burn/galaxian source/burn/konami source/burn/megadrive \
 				source/burn/misc source/burn/misc/dec0 source/burn/misc/post90s source/burn/misc/pre90s \
 				source/burn/neogeo source/burn/pgm source/burn/psikyo source/burn/sega source/burn/taito \
-				source/burn/toaplan source/cpu source/cpu/a68k source/cpu/arm7 source/cpu/hd6309 source/cpu/i8039 \
-				source/cpu/konami source/cpu/m68k source/cpu/m6502 source/cpu/m6800 source/cpu/m6809 \
+				source/burn/toaplan source/cpu source/cpu/i8039 \
+				source/cpu/m68k source/cpu/m6502 \
 				source/cpu/nec source/cpu/s2650 source/cpu/sh2 source/cpu/z80
 				
 INCLUDES	:=	source/ngc/ source/fba/generated \
@@ -31,7 +31,7 @@ INCLUDES	:=	source/ngc/ source/fba/generated \
 				source/burn/galaxian source/burn/konami source/burn/megadrive \
 				source/burn/misc source/burn/misc/dec0 source/burn/misc/post90s source/burn/misc/pre90s \
 				source/burn/neogeo source/burn/pgm source/burn/psikyo source/burn/sega source/burn/taito \
-				source/burn/toaplan source/cpu source/cpu/a68k source/cpu/arm7 source/cpu/hd6309 source/cpu/i8039 \
+				source/burn/toaplan source/cpu source/cpu/arm7 source/cpu/hd6309 source/cpu/i8039 \
 				source/cpu/konami source/cpu/m68k source/cpu/m6502 source/cpu/m6800 source/cpu/m6809 \
 				source/cpu/nec source/cpu/s2650 source/cpu/sh2 source/cpu/z80
 
