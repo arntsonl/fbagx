@@ -7,7 +7,7 @@
 // ------------ State len --------------------
 static int nTotalLen = 0;
 
-static int __cdecl StateLenAcb(struct BurnArea* pba)
+static int  StateLenAcb(struct BurnArea* pba)
 {
 	nTotalLen += pba->nLen;
 
@@ -170,7 +170,7 @@ int BurnStateLoad(TCHAR* szName, int bAll, int (*pLoadGame)())
 	const char szHeader[] = "FB1 ";						// File identifier
 	char szReadHeader[4] = "";
 	int nRet = 0;
-
+/*
 	FILE* fp = _tfopen(szName, _T("rb"));
 	if (fp == NULL) {
 		return 1;
@@ -186,7 +186,8 @@ int BurnStateLoad(TCHAR* szName, int bAll, int (*pLoadGame)())
 		return -nRet;
 	} else {
 		return 0;
-	}
+	}*/
+	return 0;
 }
 
 // Write a savestate as a chunk of an "FB1 " file
@@ -293,7 +294,7 @@ int BurnStateSave(TCHAR* szName, int bAll)
 	if (nLen <= 0) {									// No data, so exit without creating a savestate
 		return 0;										// Don't return an error code
 	}
-
+/*
 	FILE* fp = _tfopen(szName, _T("wb"));
 	if (fp == NULL) {
 		return 1;
@@ -308,4 +309,6 @@ int BurnStateSave(TCHAR* szName, int bAll)
 	} else {
 		return 0;
 	}
+	*/
+	return 0;
 }

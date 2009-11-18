@@ -6,9 +6,16 @@
 #include "driverlist.h"
 
 // filler function, used if the application is not printing debug messages
-static int __cdecl BurnbprintfFiller(int, TCHAR* , ...) { return 0; }
+static int  BurnbprintfFiller(int, TCHAR* , ...) { return 0; }
 // pointer to burner printing function
-int (__cdecl *bprintf)(int nStatus, TCHAR* szFormat, ...) = BurnbprintfFiller;
+int ( *bprintf)(int nStatus, TCHAR* szFormat, ...) = BurnbprintfFiller;
+
+bool bDoPatch = false;
+void ApplyPatches(UINT8* base, char* rom_name)
+{
+	base=base;
+	rom_name=rom_name;
+}
 
 int nBurnVer = BURN_VERSION;		// Version number of the library
 
@@ -799,8 +806,8 @@ extern "C" int BurnJukeboxFrame()
 
 // ----------------------------------------------------------------------------
 
-int (__cdecl *BurnExtProgressRangeCallback)(double fProgressRange) = NULL;
-int (__cdecl *BurnExtProgressUpdateCallback)(double fProgress, const TCHAR* pszText, bool bAbs) = NULL;
+int ( *BurnExtProgressRangeCallback)(double fProgressRange) = NULL;
+int ( *BurnExtProgressUpdateCallback)(double fProgress, const TCHAR* pszText, bool bAbs) = NULL;
 
 int BurnSetProgressRange(double fProgressRange)
 {
@@ -873,11 +880,11 @@ int BurnByteswap(UINT8* pMem, int nLen)
 }
 
 // Application-defined rom loading function:
-int (__cdecl *BurnExtLoadRom)(unsigned char *Dest,int *pnWrote,int i) = NULL;
+int ( *BurnExtLoadRom)(unsigned char *Dest,int *pnWrote,int i) = NULL;
 
 // Application-defined colour conversion function
-static unsigned int __cdecl BurnHighColFiller(int, int, int, int) { return (unsigned int)(~0); }
-unsigned int (__cdecl *BurnHighCol) (int r, int g, int b, int i) = BurnHighColFiller;
+static unsigned int  BurnHighColFiller(int, int, int, int) { return (unsigned int)(~0); }
+unsigned int ( *BurnHighCol) (int r, int g, int b, int i) = BurnHighColFiller;
 
 // ----------------------------------------------------------------------------
 // Colour-depth independant image transfer
@@ -965,8 +972,8 @@ int BurnTransferInit()
 // Savestate support
 
 // Application-defined callback for processing the area
-static int __cdecl DefAcb (struct BurnArea* /* pba */) { return 1; }
-int (__cdecl *BurnAcb) (struct BurnArea* pba) = DefAcb;
+static int  DefAcb (struct BurnArea* /* pba */) { return 1; }
+int ( *BurnAcb) (struct BurnArea* pba) = DefAcb;
 
 // Scan driver data
 int BurnAreaScan(int nAction, int* pnMin)

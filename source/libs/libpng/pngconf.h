@@ -1330,7 +1330,7 @@ typedef z_stream FAR *  png_zstreamp;
 
 #if defined(__CYGWIN__)
 #  undef PNGAPI
-#  define PNGAPI __cdecl
+#  define PNGAPI 
 #  undef PNG_IMPEXP
 #  define PNG_IMPEXP
 #endif
@@ -1358,7 +1358,7 @@ typedef z_stream FAR *  png_zstreamp;
 
 #  ifndef PNGAPI
 #     if defined(__GNUC__) || (defined (_MSC_VER) && (_MSC_VER >= 800))
-#        define PNGAPI __cdecl
+#        define PNGAPI 
 #     else
 #        define PNGAPI _cdecl
 #     endif

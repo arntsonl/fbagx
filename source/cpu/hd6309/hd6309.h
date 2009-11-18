@@ -42,6 +42,9 @@ void HD6309WriteByte(unsigned short Address, unsigned char Data);
 unsigned char HD6309ReadOp(unsigned short Address);
 unsigned char HD6309ReadOpArg(unsigned short Address);
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 void hd6309_init();
 void hd6309_reset(void);
 int hd6309_get_pc();
@@ -49,7 +52,9 @@ int hd6309_execute(int cycles);
 void hd6309_set_irq_line(int irqline, int state);
 void hd6309_get_context(void *dst);
 void hd6309_set_context(void *src);
-
+#ifdef __cplusplus
+}
+#endif
 
 /* PUBLIC FUNCTIONS */
 //void hd6309_get_info(UINT32 state, cpuinfo *info);

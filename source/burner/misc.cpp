@@ -20,7 +20,7 @@ void ComputeGammaLUT()
 }
 
 // Standard callbacks for 16/24/32 bit color:
-static unsigned int __cdecl HighCol15(int r, int g, int b, int  /* i */)
+static unsigned int  HighCol15(int r, int g, int b, int  /* i */)
 {
 	unsigned int t;
 	t =(r<<7)&0x7c00; // 0rrr rr00 0000 0000
@@ -29,7 +29,7 @@ static unsigned int __cdecl HighCol15(int r, int g, int b, int  /* i */)
 	return t;
 }
 
-static unsigned int __cdecl HighCol16(int r, int g, int b, int /* i */)
+static unsigned int  HighCol16(int r, int g, int b, int /* i */)
 {
 	unsigned int t;
 	t =(r<<8)&0xf800; // rrrr r000 0000 0000
@@ -39,7 +39,7 @@ static unsigned int __cdecl HighCol16(int r, int g, int b, int /* i */)
 }
 
 // 24-bit/32-bit
-static unsigned int __cdecl HighCol24(int r, int g, int b, int  /* i */)
+static unsigned int  HighCol24(int r, int g, int b, int  /* i */)
 {
 	unsigned int t;
 	t =(r<<16)&0xff0000;
@@ -49,7 +49,7 @@ static unsigned int __cdecl HighCol24(int r, int g, int b, int  /* i */)
 	return t;
 }
 
-static unsigned int __cdecl HighCol15Gamma(int r, int g, int b, int  /* i */)
+static unsigned int  HighCol15Gamma(int r, int g, int b, int  /* i */)
 {
 	unsigned int t;
 	t = (GammaLUT[r] << 7) & 0x7C00; // 0rrr rr00 0000 0000
@@ -58,7 +58,7 @@ static unsigned int __cdecl HighCol15Gamma(int r, int g, int b, int  /* i */)
 	return t;
 }
 
-static unsigned int __cdecl HighCol16Gamma(int r, int g ,int b, int  /* i */)
+static unsigned int  HighCol16Gamma(int r, int g ,int b, int  /* i */)
 {
 	unsigned int t;
 	t = (GammaLUT[r] << 8) & 0xF800; // rrrr r000 0000 0000
@@ -68,7 +68,7 @@ static unsigned int __cdecl HighCol16Gamma(int r, int g ,int b, int  /* i */)
 }
 
 // 24-bit/32-bit
-static unsigned int __cdecl HighCol24Gamma(int r, int g, int b, int  /* i */)
+static unsigned int  HighCol24Gamma(int r, int g, int b, int  /* i */)
 {
 	unsigned int t;
 	t = (GammaLUT[r] << 16);
@@ -103,9 +103,9 @@ int SetBurnHighCol(int nDepth)
 			VidHighCol = HighCol24;
 		}
 	}
-	if ((bDrvOkay && !(BurnDrvGetFlags() & BDF_16BIT_ONLY)) || nDepth <= 16) {
-		BurnHighCol = VidHighCol;
-	}
+//	if ((bDrvOkay && !(BurnDrvGetFlags() & BDF_16BIT_ONLY)) || nDepth <= 16) {
+//		BurnHighCol = VidHighCol;
+//	}
 
 	return 0;
 }
@@ -189,7 +189,7 @@ TCHAR* DecorateGenreInfo()
 	
 	_stprintf(szDecoratedGenre, _T(""));
 	_stprintf(szFamily, _T(""));
-	
+	/*
 	if (nGenre) {
 		if (nGenre & GBF_HORSHOOT) {
 			_stprintf(szDecoratedGenre, _T("%s%s, "), szDecoratedGenre, FBALoadStringEx(hAppInst, IDS_GENRE_HORSHOOT, true));
@@ -318,7 +318,7 @@ TCHAR* DecorateGenreInfo()
 	}
 	
 	_stprintf(szDecoratedGenre, _T("%s%s"), szDecoratedGenre, szFamily);
-	
+	*/
 	return szDecoratedGenre;
 }
 

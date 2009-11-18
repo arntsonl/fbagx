@@ -271,7 +271,7 @@ int GamcAnalogKey(struct GameInp* pgi, char* szi, int nPlayer, int nSlide)
 	char *szSearch = NULL;
 	int k0 = 0, k1 = 0;
 	szSearch = szPlay[nPlayer & 3];
-	if (_strnicmp(szSearch, szi, 3) != 0) {			// Not our player
+	if (strncmp(szSearch, szi, 3) != 0) {			// Not our player
 		return 1;
 	}
 	szi += 3;
@@ -310,7 +310,7 @@ int GamcAnalogJoy(struct GameInp* pgi, char* szi, int nPlayer, int nJoy, int nSl
 	int nAxis = 0;
 
 	char* szSearch = szPlay[nPlayer & 3];
-	if (_strnicmp(szSearch, szi, 3) != 0)	{	// Not our player
+	if (strncmp(szSearch, szi, 3) != 0)	{	// Not our player
 		return 1;
 	}
 	szi += 3;
@@ -384,7 +384,7 @@ int GamcPlayer(struct GameInp* pgi, char* szi, int nPlayer, int nDevice)
 	char* szSearch = szPlay[nPlayer & 3];
 	int nJoyBase = 0;
 	
-	if (_strnicmp(szSearch, szi, 3) != 0) {	// Not our player
+	if (strncmp(szSearch, szi, 3) != 0) {	// Not our player
 		return 1;
 	}
 	szi += 3;
@@ -446,13 +446,13 @@ int GamcPlayer(struct GameInp* pgi, char* szi, int nPlayer, int nDevice)
 				KEY(FBK_V);
 			}
 
-//			if (_stricmp(szi, "Button ABC") == 0) {
+//			if (stricmp(szi, "Button ABC") == 0) {
 //				MACRO(FBK_A);
 //			}
-//			if (_stricmp(szi, "Button BCD") == 0) {
+//			if (stricmp(szi, "Button BCD") == 0) {
 //				MACRO(FBK_S);
 //			}
-//			if (_stricmp(szi, "Button ABCD") == 0) {
+//			if (stricmp(szi, "Button ABCD") == 0) {
 //				MACRO(FBK_D);
 //			}
 
@@ -476,10 +476,10 @@ int GamcPlayer(struct GameInp* pgi, char* szi, int nPlayer, int nDevice)
 				if (strcmp(szi, "fire 6") == 0) {
 					KEY(FBK_C);
 				}
-				if (_stricmp(szi, "3× Punch") == 0) {
+				if (stricmp(szi, "3× Punch") == 0) {
 					MACRO(FBK_F);
 				}
-				if (_stricmp(szi, "3× Kick") == 0) {
+				if (stricmp(szi, "3× Kick") == 0) {
 					MACRO(FBK_V);
 				}
 			} else {
@@ -550,7 +550,7 @@ int GamcPlayerHotRod(struct GameInp* pgi, char* szi, int nPlayer, int nFlags, in
 	szSearch = szPlay[nPlayer & 3];
 	int k0 = 0, k1 = 0;
 
-	if (_strnicmp(szSearch, szi, 3) != 0) {				// Not our player
+	if (strncmp(szSearch, szi, 3) != 0) {				// Not our player
 		return 1;
 	}
 	szi += 3;
@@ -617,10 +617,10 @@ int GamcPlayerHotRod(struct GameInp* pgi, char* szi, int nPlayer, int nFlags, in
 
 				// Map the 3x macros on X-Arcade
 				if ((nFlags & 0x10)) {
-					if (_stricmp(szi, "3× Punch") == 0) {
+					if (stricmp(szi, "3× Punch") == 0) {
 						MACRO(FBK_C);
 					}
-					if (_stricmp(szi, "3× Kick") == 0) {
+					if (stricmp(szi, "3× Kick") == 0) {
 						MACRO(FBK_5);
 					}
 				}
@@ -723,10 +723,10 @@ int GamcPlayerHotRod(struct GameInp* pgi, char* szi, int nPlayer, int nFlags, in
 
 					// Map the 3x macros on X-Arcade
 					if ((nFlags & 0x10)) {
-						if (_stricmp(szi, "3× Punch") == 0) {
+						if (stricmp(szi, "3× Punch") == 0) {
 							MACRO(FBK_RBRACKET);
 						}
-						if (_stricmp(szi, "3× Kick") == 0) {
+						if (stricmp(szi, "3× Kick") == 0) {
 							MACRO(FBK_6);
 						}
 					}

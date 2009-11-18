@@ -10,6 +10,7 @@
 // A hiscore.dat support module for FBA - written by Treble Winner, Feb 2009
 // At some point we really need a CPU interface to track CPU types and numbers,
 // to make this module and the cheat engine foolproof
+TCHAR szAppHiscorePath[MAX_PATH]; // define this somewhere I guess
 
 #define MAX_CONFIG_LINE_SIZE 		48
 

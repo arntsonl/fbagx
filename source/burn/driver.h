@@ -10,12 +10,8 @@
 #include <string.h>
 #include <math.h>
 
-#if !defined (_WIN32)
- #define __cdecl
-#endif
-
 #ifndef INLINE
- #define INLINE __inline static
+ #define INLINE static
 #endif
 
 #define FBA
@@ -63,7 +59,7 @@ enum {
   typedef void (*write8_handler)(unsigned int offset,unsigned int data);
 
  #ifdef MAME_USE_LOGERROR
-  void __cdecl logerror(char* szFormat, ...);
+  void  logerror(char* szFormat, ...);
  #else
   #define logerror
  #endif

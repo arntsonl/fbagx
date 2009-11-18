@@ -114,7 +114,7 @@ int ZipLoadFile(unsigned char* Dest, int nLen, int* pnWrote, int nEntry)
 }
 
 // Load one file directly, added by regret
-int __cdecl ZipLoadOneFile(const char* arcName, const char* fileName, void** Dest, int* pnWrote)
+int  ZipLoadOneFile(const char* arcName, const char* fileName, void** Dest, int* pnWrote)
 {
 	if (ZipOpen(arcName)) {
 		return 1;

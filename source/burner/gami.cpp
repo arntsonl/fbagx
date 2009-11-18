@@ -92,7 +92,7 @@ void GameInpCheckMouse()
 				continue;
 		}
 	}
-
+/*
 	if (bDrvOkay) {
 		if (!bRunPause) {
 			InputSetCooperativeLevel(bMouseMapped, bAlwaysProcessKeyboardInput);
@@ -102,6 +102,7 @@ void GameInpCheckMouse()
 	} else {
 		InputSetCooperativeLevel(false, false);
 	}
+	*/
 }
 
 // ---------------------------------------------------------------------------
@@ -181,57 +182,57 @@ static void GameInpInitMacros()
 				}
 			}
 
-			if (_stricmp(" Weak Punch", bii.szName + 2) == 0) {
+			if (stricmp(" Weak Punch", bii.szName + 2) == 0) {
 				nPunchx3[nPlayer] |= 1;
 				nPunchInputs[nPlayer][0] = i;
 			}
-			if (_stricmp(" Medium Punch", bii.szName + 2) == 0) {
+			if (stricmp(" Medium Punch", bii.szName + 2) == 0) {
 				nPunchx3[nPlayer] |= 2;
 				nPunchInputs[nPlayer][1] = i;
 			}
-			if (_stricmp(" Strong Punch", bii.szName + 2) == 0) {
+			if (stricmp(" Strong Punch", bii.szName + 2) == 0) {
 				nPunchx3[nPlayer] |= 4;
 				nPunchInputs[nPlayer][2] = i;
 			}
-			if (_stricmp(" Weak Kick", bii.szName + 2) == 0) {
+			if (stricmp(" Weak Kick", bii.szName + 2) == 0) {
 				nKickx3[nPlayer] |= 1;
 				nKickInputs[nPlayer][0] = i;
 			}
-			if (_stricmp(" Medium Kick", bii.szName + 2) == 0) {
+			if (stricmp(" Medium Kick", bii.szName + 2) == 0) {
 				nKickx3[nPlayer] |= 2;
 				nKickInputs[nPlayer][1] = i;
 			}
-			if (_stricmp(" Strong Kick", bii.szName + 2) == 0) {
+			if (stricmp(" Strong Kick", bii.szName + 2) == 0) {
 				nKickx3[nPlayer] |= 4;
 				nKickInputs[nPlayer][2] = i;
 			}
 			
 			if ((BurnDrvGetHardwareCode() & HARDWARE_PUBLIC_MASK) == HARDWARE_SNK_NEOGEO) {
-				if (_stricmp(" Button A", bii.szName + 2) == 0) {
+				if (stricmp(" Button A", bii.szName + 2) == 0) {
 					nNeogeoButtons[nPlayer][0] = i;
 				}
-				if (_stricmp(" Button B", bii.szName + 2) == 0) {
+				if (stricmp(" Button B", bii.szName + 2) == 0) {
 					nNeogeoButtons[nPlayer][1] = i;
 				}
-				if (_stricmp(" Button C", bii.szName + 2) == 0) {
+				if (stricmp(" Button C", bii.szName + 2) == 0) {
 					nNeogeoButtons[nPlayer][2] = i;
 				}
-				if (_stricmp(" Button D", bii.szName + 2) == 0) {
+				if (stricmp(" Button D", bii.szName + 2) == 0) {
 					nNeogeoButtons[nPlayer][3] = i;
 				}
 			}
 			
 			if ((BurnDrvGetHardwareCode() & HARDWARE_PUBLIC_MASK) == HARDWARE_IGS_PGM) {
-				if (_stricmp(" Button 1", bii.szName + 2) == 0) {
+				if (stricmp(" Button 1", bii.szName + 2) == 0) {
 					nPgmButtons[nPlayer][0] = i;
 				}
-				if (_stricmp(" Button 2", bii.szName + 2) == 0) {
+				if (stricmp(" Button 2", bii.szName + 2) == 0) {
 					nPgmButtons[nPlayer][1] = i;
 				}
-				if (_stricmp(" Button 3", bii.szName + 2) == 0) {
+				if (stricmp(" Button 3", bii.szName + 2) == 0) {
 					nPgmButtons[nPlayer][2] = i;
 				}
-				if (_stricmp(" Button 4", bii.szName + 2) == 0) {
+				if (stricmp(" Button 4", bii.szName + 2) == 0) {
 					nPgmButtons[nPlayer][3] = i;
 				}
 			}
@@ -634,7 +635,7 @@ int GameInpInit()
 
 	GameInpBlank(1);
 
-	InpDIPSWResetDIPs();
+//	InpDIPSWResetDIPs();
 
 	GameInpInitMacros();
 
@@ -1222,6 +1223,26 @@ TCHAR* InpMacroToDesc(struct GameInp* pgi)
 }
 
 // ---------------------------------------------------------------------------
+char* TCHARToANSI(const TCHAR* pszInString, char* pszOutString, int /*nOutSize*/)
+{
+	if (pszOutString) {
+		strcpy(pszOutString, pszInString);
+		return pszOutString;
+	}
+
+	return (char*)pszInString;
+}
+
+TCHAR* ANSIToTCHAR(const char* pszInString, TCHAR* pszOutString, int /*nOutSize*/)
+{
+	if (pszOutString) {
+		_tcscpy(pszOutString, pszInString);
+		return pszOutString;
+	}
+
+	return (TCHAR*)pszInString;
+}
+
 
 // Find the input number by info
 static unsigned int InputInfoToNum(TCHAR* szName)
@@ -1437,7 +1458,7 @@ int GameInputAutoIni(int nPlayer, TCHAR* lpszFile, bool bOverWrite)
 	unsigned int i;
 
 	nAnalogSpeed = 0x0100;
-	
+	/*
 	FILE* h = _tfopen(lpszFile, _T("rt"));
 	if (h == NULL) {
 		return 1;
@@ -1521,7 +1542,7 @@ int GameInputAutoIni(int nPlayer, TCHAR* lpszFile, bool bOverWrite)
 	}
 
 	fclose(h);
-
+	*/
 	return 0;
 }
 

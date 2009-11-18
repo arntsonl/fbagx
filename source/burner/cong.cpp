@@ -16,6 +16,7 @@ static TCHAR* GameConfigName()
 // Read in the config file for the game-specific inputs
 int ConfigGameLoad(bool bOverWrite)
 {
+/*
 	TCHAR szLine[256];
 	int nFileVersion = 0;
 
@@ -78,12 +79,14 @@ int ConfigGameLoad(bool bOverWrite)
 	}
 
 	fclose(h);
+	*/
 	return 0;
 }
 
 // Write out the config file for the game-specific inputs
 int ConfigGameSave(bool bSave)
 {
+/*
 	FILE* h;
 
 	if (!bSave) {
@@ -113,6 +116,7 @@ int ConfigGameSave(bool bSave)
 	GameInpWrite(h);
 
 	fclose(h);
+	*/
 	return 0;
 }
 

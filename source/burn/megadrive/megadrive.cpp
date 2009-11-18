@@ -1206,7 +1206,7 @@ static int MegadriveResetDo()
 	
 	if (Hardware & 0x40) {
 		BurnSetRefreshRate(50.0);
-		Reinitialise();
+		//Reinitialise(); // # DEBUG!
 		
 		BurnYM2612Exit();
 		BurnYM2612Init(1, OSC_PAL / 7, NULL, MegadriveSynchroniseStreamPAL, MegadriveGetTimePAL, 0);
@@ -1218,7 +1218,7 @@ static int MegadriveResetDo()
 		SN76496Init(0, OSC_PAL / 15, 1);
 	} else {
 		BurnSetRefreshRate(60.0);
-		Reinitialise();
+		//Reinitialise(); // # DEBUG!
 		
 		BurnYM2612Exit();
 		BurnYM2612Init(1, OSC_NTSC / 7, NULL, MegadriveSynchroniseStream, MegadriveGetTime, 0);

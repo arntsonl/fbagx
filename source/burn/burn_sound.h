@@ -2,7 +2,7 @@
 // based on code by Daniel Moreno (ComaC) < comac2k@teleline.es >
 
 extern "C" {
-	int __cdecl ChannelMix_QS_A(int* Dest, int nLen,
+	int  ChannelMix_QS_A(int* Dest, int nLen,
 								char* Sample, int LoopEnd,
 								int* Pos,
 								int VolL, int VolR,
@@ -10,18 +10,18 @@ extern "C" {
 								int IncPos,
 								char* EndBuff);
 
-	void __cdecl BurnSoundCopyClamp_A(int* Src, short* Dest, int Len);
-	void __cdecl BurnSoundCopyClamp_Add_A(int* Src, short* Dest, int Len);
+	void  BurnSoundCopyClamp_A(int* Src, short* Dest, int Len);
+	void  BurnSoundCopyClamp_Add_A(int* Src, short* Dest, int Len);
 
-	void __cdecl BurnSoundCopyClamp_Mono_A(int* Src, short* Dest, int Len);
-	void __cdecl BurnSoundCopyClamp_Mono_Add_A(int* Src, short* Dest, int Len);
+	void  BurnSoundCopyClamp_Mono_A(int* Src, short* Dest, int Len);
+	void  BurnSoundCopyClamp_Mono_Add_A(int* Src, short* Dest, int Len);
 
-	void __cdecl BurnSoundCopy_FM_A(short* SrcL, short* SrcR, short* Dest, int Len, int VolL, int VolR);
-	void __cdecl BurnSoundCopy_FM_Add_A(short* SrcL, short* SrcR, short* Dest, int Len, int VolL, int VolR);
+	void  BurnSoundCopy_FM_A(short* SrcL, short* SrcR, short* Dest, int Len, int VolL, int VolR);
+	void  BurnSoundCopy_FM_Add_A(short* SrcL, short* SrcR, short* Dest, int Len, int VolL, int VolR);
 
 	/* SrcOPN should have left channel data at SrcOPN, right channel at SrcOPN + 4096, SrcPSG should have all summed channels */
-	void __cdecl BurnSoundCopy_FM_OPN_A(short* SrcOPN, int* SrcPSG, short* Dest, int Len, int VolPSGL, int VolPSGR);
-	void __cdecl BurnSoundCopy_FM_OPN_Add_A(short* SrcOPN, int* SrcPSG, short* Dest, int Len, int VolPSGL, int VolPSGR);
+	void  BurnSoundCopy_FM_OPN_A(short* SrcOPN, int* SrcPSG, short* Dest, int Len, int VolPSGL, int VolPSGR);
+	void  BurnSoundCopy_FM_OPN_Add_A(short* SrcOPN, int* SrcPSG, short* Dest, int Len, int VolPSGL, int VolPSGR);
 }
 
 void BurnSoundCopyClamp_C(int* Src, short* Dest, int Len);

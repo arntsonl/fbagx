@@ -6,8 +6,8 @@
 void _2xpm_lq(void *SrcPtr, void *DstPtr, unsigned long SrcPitch, unsigned long DstPitch, unsigned long SrcW, unsigned long SrcH, int nDepth);
 void _2xpm_hq(void *SrcPtr, void *DstPtr, unsigned long SrcPitch, unsigned long DstPitch, unsigned long SrcW, unsigned long SrcH, int nDepth);
 
-extern "C" void __cdecl superscale_line(UINT16 *src0, UINT16 *src1, UINT16 *src2, UINT16 *dst, UINT32 width, UINT64 *mask);
-extern "C" void __cdecl  superscale_line_75(UINT16 *src0, UINT16 *src1, UINT16 *src2, UINT16 *dst, UINT32 width, UINT64 *mask);
+extern "C" void  superscale_line(UINT16 *src0, UINT16 *src1, UINT16 *src2, UINT16 *dst, UINT32 width, UINT64 *mask);
+extern "C" void   superscale_line_75(UINT16 *src0, UINT16 *src1, UINT16 *src2, UINT16 *dst, UINT32 width, UINT64 *mask);
 
 #ifdef __ELF__
  #define LUT16to32 _LUT16to32
@@ -26,16 +26,16 @@ extern "C" void __cdecl  superscale_line_75(UINT16 *src0, UINT16 *src1, UINT16 *
 #endif
 #include "scale3x.h"
 
-extern "C" void __cdecl _eagle_mmx16(unsigned long* lb, unsigned long* lb2, short width, unsigned long* screen_address1, unsigned long* screen_address2);
+extern "C" void  _eagle_mmx16(unsigned long* lb, unsigned long* lb2, short width, unsigned long* screen_address1, unsigned long* screen_address2);
 
 typedef unsigned long uint32;
 typedef unsigned short uint16;
 typedef unsigned char uint8;
 
-extern "C" void __cdecl _2xSaISuperEagleLine(uint8* srcPtr, uint8* deltaPtr, uint32 srcPitch, uint32 width, uint8* dstPtr, uint32 dstPitch, uint16 dstBlah);
-extern "C" void __cdecl _2xSaILine(uint8* srcPtr, uint8* deltaPtr, uint32 srcPitch, uint32 width, uint8* dstPtr, uint32 dstPitch, uint16 dstBlah);
-extern "C" void __cdecl _2xSaISuper2xSaILine(uint8* srcPtr, uint8* deltaPtr, uint32 srcPitch, uint32 width, uint8* dstPtr, uint32 dstPitch, uint16 dstBlah);
-extern "C" void __cdecl Init_2xSaIMMX(uint32 BitFormat);
+extern "C" void  _2xSaISuperEagleLine(uint8* srcPtr, uint8* deltaPtr, uint32 srcPitch, uint32 width, uint8* dstPtr, uint32 dstPitch, uint16 dstBlah);
+extern "C" void  _2xSaILine(uint8* srcPtr, uint8* deltaPtr, uint32 srcPitch, uint32 width, uint8* dstPtr, uint32 dstPitch, uint16 dstBlah);
+extern "C" void  _2xSaISuper2xSaILine(uint8* srcPtr, uint8* deltaPtr, uint32 srcPitch, uint32 width, uint8* dstPtr, uint32 dstPitch, uint16 dstBlah);
+extern "C" void  Init_2xSaIMMX(uint32 BitFormat);
 
 extern void hq2xS_init(unsigned bits_per_pixel);
 extern void hq2xS(unsigned char*, unsigned int, unsigned char*, unsigned char*, unsigned int, int, int);
@@ -62,9 +62,9 @@ void RenderEPXC(unsigned char*, unsigned int, unsigned char*, unsigned int, int,
 #endif
 
 extern "C" {
-	void __cdecl hq2x_32(unsigned char*, unsigned char*, DWORD, DWORD, DWORD);
-	void __cdecl hq3x_32(unsigned char*, unsigned char*, DWORD, DWORD, DWORD);
-	void __cdecl hq4x_32(unsigned char*, unsigned char*, DWORD, DWORD, DWORD);
+	void  hq2x_32(unsigned char*, unsigned char*, DWORD, DWORD, DWORD);
+	void  hq3x_32(unsigned char*, unsigned char*, DWORD, DWORD, DWORD);
+	void  hq4x_32(unsigned char*, unsigned char*, DWORD, DWORD, DWORD);
 
 	unsigned int LUT16to32[65536];
 	unsigned int RGBtoYUV[65536];

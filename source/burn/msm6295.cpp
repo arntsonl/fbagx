@@ -296,9 +296,9 @@ int MSM6295Render(int nChip, short* pSoundBuf, int nSegmentLength)
 	if (nChip == nLastChip)	{
 		if (bBurnUseMMX) {
 			if (bAdd) {
-				BurnSoundCopyClamp_Mono_Add_A(pBuffer, pSoundBuf, nSegmentLength);
+				//BurnSoundCopyClamp_Mono_Add_A(pBuffer, pSoundBuf, nSegmentLength);
 			} else {
-				BurnSoundCopyClamp_Mono_A(pBuffer, pSoundBuf, nSegmentLength);
+				//BurnSoundCopyClamp_Mono_A(pBuffer, pSoundBuf, nSegmentLength);
 			}
 		} else {
 			if (bAdd) {

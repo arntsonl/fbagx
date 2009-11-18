@@ -29,8 +29,8 @@
 #endif
 
 #ifdef EMU_A68K
- extern "C" void __cdecl M68000_RUN();
- extern "C" void __cdecl M68000_RESET();
+ extern "C" void  M68000_RUN();
+ extern "C" void  M68000_RESET();
 #endif
 
 #ifdef EMU_A68K

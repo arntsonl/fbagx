@@ -188,7 +188,7 @@ extern int nVidImageLeft, nVidImageTop;
 extern int nVidImagePitch, nVidImageBPP;
 extern int nVidImageDepth;
 
-extern "C" unsigned int (__cdecl *VidHighCol) (int r, int g, int b, int i);
+extern "C" unsigned int ( *VidHighCol) (int r, int g, int b, int i);
 
 extern bool bVidUsePlaceholder;
 extern TCHAR szPlaceHolder[MAX_PATH];

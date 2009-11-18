@@ -195,7 +195,7 @@ static void YM2608UpdateNormal(short* pSoundBuf, int nSegmentEnd)
 		for (int n = nFractionalPosition; n < nSegmentLength; n++) {
 			pAYBuffer[n] = pYM2608Buffer[2][n] + pYM2608Buffer[3][n] + pYM2608Buffer[4][n];
 		}
-		BurnSoundCopy_FM_OPN_A(pYM2608Buffer[0], pAYBuffer, pSoundBuf, nSegmentLength, 65536 * 60 / 100, 65536 * 60 / 100);
+		//BurnSoundCopy_FM_OPN_A(pYM2608Buffer[0], pAYBuffer, pSoundBuf, nSegmentLength, 65536 * 60 / 100, 65536 * 60 / 100);
 	} else {
 		for (int n = nFractionalPosition; n < nSegmentLength; n++) {
 			int nAYSample, nTotalSample;

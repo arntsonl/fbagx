@@ -9,11 +9,12 @@
 
 static unsigned char* pSShot = NULL;
 static unsigned char* pConvertedImage = NULL;
-static png_bytep* pSShotImageRows = NULL;
+//static png_bytep* pSShotImageRows = NULL;
 static FILE* ff;
 
 int MakeScreenShot()
 {
+/*
 	char szAuthor[256]; char szDescription[256]; char szCopyright[256];	char szSoftware[256]; char szSource[256];
 	png_text text_ptr[8] = { { 0, 0, 0, 0 }, };
 	int num_text = 8;
@@ -204,6 +205,6 @@ int MakeScreenShot()
 
 	free(pConvertedImage);
 	pConvertedImage = NULL;
-
+*/
 	return SSHOT_NOERROR;
 }
