@@ -191,51 +191,44 @@ static void YM2608UpdateNormal(short* pSoundBuf, int nSegmentEnd)
 	pYM2608Buffer[3] = pBuffer + 4 + 3 * 4096;
 	pYM2608Buffer[4] = pBuffer + 4 + 4 * 4096;
 
-	if (bBurnUseMMX) {
-		for (int n = nFractionalPosition; n < nSegmentLength; n++) {
-			pAYBuffer[n] = pYM2608Buffer[2][n] + pYM2608Buffer[3][n] + pYM2608Buffer[4][n];
+	for (int n = nFractionalPosition; n < nSegmentLength; n++) {
+		int nAYSample, nTotalSample;
+
+		nAYSample  = pYM2608Buffer[2][n];
+		nAYSample += pYM2608Buffer[3][n];
+		nAYSample += pYM2608Buffer[4][n];
+
+		nAYSample  *= 4096 * 60 / 100;
+		nAYSample >>= 12;
+
+		nTotalSample = nAYSample + pYM2608Buffer[0][n];
+		if (nTotalSample < -32768) {
+			nTotalSample = -32768;
+		} else {
+			if (nTotalSample > 32767) {
+				nTotalSample = 32767;
+			}
 		}
-		//BurnSoundCopy_FM_OPN_A(pYM2608Buffer[0], pAYBuffer, pSoundBuf, nSegmentLength, 65536 * 60 / 100, 65536 * 60 / 100);
-	} else {
-		for (int n = nFractionalPosition; n < nSegmentLength; n++) {
-			int nAYSample, nTotalSample;
+		
+		if (bYM2208AddSignal) {
+			pSoundBuf[(n << 1) + 0] += nTotalSample;
+		} else {
+			pSoundBuf[(n << 1) + 0] = nTotalSample;
+		}
 
-			nAYSample  = pYM2608Buffer[2][n];
-			nAYSample += pYM2608Buffer[3][n];
-			nAYSample += pYM2608Buffer[4][n];
-
-			nAYSample  *= 4096 * 60 / 100;
-			nAYSample >>= 12;
-
-			nTotalSample = nAYSample + pYM2608Buffer[0][n];
-			if (nTotalSample < -32768) {
-				nTotalSample = -32768;
-			} else {
-				if (nTotalSample > 32767) {
-					nTotalSample = 32767;
-				}
+		nTotalSample = nAYSample + pYM2608Buffer[1][n];
+		if (nTotalSample < -32768) {
+			nTotalSample = -32768;
+		} else {
+			if (nTotalSample > 32767) {
+				nTotalSample = 32767;
 			}
-			
-			if (bYM2208AddSignal) {
-				pSoundBuf[(n << 1) + 0] += nTotalSample;
-			} else {
-				pSoundBuf[(n << 1) + 0] = nTotalSample;
-			}
-
-			nTotalSample = nAYSample + pYM2608Buffer[1][n];
-			if (nTotalSample < -32768) {
-				nTotalSample = -32768;
-			} else {
-				if (nTotalSample > 32767) {
-					nTotalSample = 32767;
-				}
-			}
-			
-			if (bYM2208AddSignal) {
-				pSoundBuf[(n << 1) + 1] += nTotalSample;
-			} else {
-				pSoundBuf[(n << 1) + 1] = nTotalSample;
-			}
+		}
+		
+		if (bYM2208AddSignal) {
+			pSoundBuf[(n << 1) + 1] += nTotalSample;
+		} else {
+			pSoundBuf[(n << 1) + 1] = nTotalSample;
 		}
 	}
 

@@ -328,11 +328,8 @@ int QscUpdate(int nEnd)
 			}
 		}
 
-		if (bBurnUseMMX) {
-			//BurnSoundCopyClamp_A(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
-		} else {
-			BurnSoundCopyClamp_C(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
-		}
+		BurnSoundCopyClamp_C(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
+
 		nPos = nEnd;
 
 		return 0;
@@ -373,72 +370,58 @@ int QscUpdate(int nEnd)
 				}
 			}
 
-			if (bBurnUseMMX && i > 0) {
-				/*QChan[c].bKey = (unsigned char)ChannelMix_QS_A(pTemp, i,
-															   QChan[c].PlayBank,
-															   QChan[c].nEnd,
-															   &(QChan[c].nPos),
-															   VolL,
-															   VolR,
-															   QChan[c].nLoop,
-															   QChan[c].nAdvance,
-															   QChan[c].nEndBuffer);*/
-			} else {
-				while (i > 0) {
-					int s, p;
+			while (i > 0) {
+				int s, p;
 
-					// Check for end of sample
-					if (QChan[c].nPos >= (QChan[c].nEnd - 0x3000)) {
-						if (QChan[c].nPos < QChan[c].nEnd) {
-							int nIndex = 4 - ((QChan[c].nEnd - QChan[c].nPos) >> 12);
-							s = INTERPOLATE4PS_CUSTOM((QChan[c].nPos) & ((1 << 12) - 1),
-													  QChan[c].nEndBuffer[nIndex + 0],
-													  QChan[c].nEndBuffer[nIndex + 1],
-													  QChan[c].nEndBuffer[nIndex + 2],
-													  QChan[c].nEndBuffer[nIndex + 3],
-													  256);
-						} else {
-							if (QChan[c].nLoop) {					// Loop sample
-								if (QChan[c].nLoop <= 0x1000) {		// Don't play, but leave bKey on
-									QChan[c].nPos = QChan[c].nEnd - 0x1000;
-									break;
-								}
-								QChan[c].nPos -= QChan[c].nLoop;
-								continue;
-							} else {
-								QChan[c].bKey = 0;					// Stop playing
+				// Check for end of sample
+				if (QChan[c].nPos >= (QChan[c].nEnd - 0x3000)) {
+					if (QChan[c].nPos < QChan[c].nEnd) {
+						int nIndex = 4 - ((QChan[c].nEnd - QChan[c].nPos) >> 12);
+						s = INTERPOLATE4PS_CUSTOM((QChan[c].nPos) & ((1 << 12) - 1),
+												  QChan[c].nEndBuffer[nIndex + 0],
+												  QChan[c].nEndBuffer[nIndex + 1],
+												  QChan[c].nEndBuffer[nIndex + 2],
+												  QChan[c].nEndBuffer[nIndex + 3],
+												  256);
+					} else {
+						if (QChan[c].nLoop) {					// Loop sample
+							if (QChan[c].nLoop <= 0x1000) {		// Don't play, but leave bKey on
+								QChan[c].nPos = QChan[c].nEnd - 0x1000;
 								break;
 							}
+							QChan[c].nPos -= QChan[c].nLoop;
+							continue;
+						} else {
+							QChan[c].bKey = 0;					// Stop playing
+							break;
 						}
-					} else {
-						p = (QChan[c].nPos >> 12) & 0xFFFF;
-						s = INTERPOLATE4PS_CUSTOM((QChan[c].nPos) & ((1 << 12) - 1),
-												  QChan[c].PlayBank[p + 0],
-												  QChan[c].PlayBank[p + 1],
-												  QChan[c].PlayBank[p + 2],
-												  QChan[c].PlayBank[p + 3],
-												  256);
 					}
-
-					// Add to the sound currently in the buffer
-					pTemp[0] += s * VolL;
-					pTemp[1] += s * VolR;
-
-					pTemp += 2;
-
-					QChan[c].nPos += QChan[c].nAdvance;				// increment sample position based on pitch
-
-					i--;
+				} else {
+					p = (QChan[c].nPos >> 12) & 0xFFFF;
+					s = INTERPOLATE4PS_CUSTOM((QChan[c].nPos) & ((1 << 12) - 1),
+											  QChan[c].PlayBank[p + 0],
+											  QChan[c].PlayBank[p + 1],
+											  QChan[c].PlayBank[p + 2],
+											  QChan[c].PlayBank[p + 3],
+											  256);
 				}
+
+				// Add to the sound currently in the buffer
+				pTemp[0] += s * VolL;
+				pTemp[1] += s * VolR;
+
+				pTemp += 2;
+
+				QChan[c].nPos += QChan[c].nAdvance;				// increment sample position based on pitch
+
+				i--;
 			}
+			
 		}
 	}
 
-	if (bBurnUseMMX) {
-		//BurnSoundCopyClamp_A(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
-	} else {
-		BurnSoundCopyClamp_C(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
-	}
+	BurnSoundCopyClamp_C(Qs_s, pBurnSoundOut + (nPos << 1), nLen);
+
 	nPos = nEnd;
 
 	return 0;

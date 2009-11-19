@@ -85,13 +85,9 @@ static void YM2413RenderNormal(short* pSoundBuf, int nSegmentLength)
 
 	YM2413UpdateOne(0, pYM2413Buffer, nSegmentLength);
 
-	if (bBurnUseMMX) {
-		//BurnSoundCopy_FM_A(pYM2413Buffer[0], pYM2413Buffer[1], pSoundBuf, nSegmentLength, nYM2413Volume, nYM2413Volume);
-	} else {
-		for (int n = 0; n < nSegmentLength; n++) {
-			pSoundBuf[(n << 1) + 0] = (pYM2413Buffer[0][n] * nYM2413Volume) >> 12;
-			pSoundBuf[(n << 1) + 1] = (pYM2413Buffer[1][n] * nYM2413Volume) >> 12;
-		}
+	for (int n = 0; n < nSegmentLength; n++) {
+		pSoundBuf[(n << 1) + 0] = (pYM2413Buffer[0][n] * nYM2413Volume) >> 12;
+		pSoundBuf[(n << 1) + 1] = (pYM2413Buffer[1][n] * nYM2413Volume) >> 12;
 	}
 }
 

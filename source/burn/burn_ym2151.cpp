@@ -85,13 +85,9 @@ static void YM2151RenderNormal(short* pSoundBuf, int nSegmentLength)
 
 	YM2151UpdateOne(0, pYM2151Buffer, nSegmentLength);
 
-	if (bBurnUseMMX) {
-		//BurnSoundCopy_FM_A(pYM2151Buffer[0], pYM2151Buffer[1], pSoundBuf, nSegmentLength, nYM2151Volume, nYM2151Volume);
-	} else {
-		for (int n = 0; n < nSegmentLength; n++) {
-			pSoundBuf[(n << 1) + 0] = (pYM2151Buffer[0][n] * nYM2151Volume) >> 12;
-			pSoundBuf[(n << 1) + 1] = (pYM2151Buffer[1][n] * nYM2151Volume) >> 12;
-		}
+	for (int n = 0; n < nSegmentLength; n++) {
+		pSoundBuf[(n << 1) + 0] = (pYM2151Buffer[0][n] * nYM2151Volume) >> 12;
+		pSoundBuf[(n << 1) + 1] = (pYM2151Buffer[1][n] * nYM2151Volume) >> 12;
 	}
 }
 
