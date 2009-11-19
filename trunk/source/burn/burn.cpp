@@ -22,8 +22,7 @@ int nBurnVer = BURN_VERSION;		// Version number of the library
 unsigned int nBurnDrvCount = 0;		// Count of game drivers
 unsigned int nBurnDrvSelect = ~0U;	// Which game driver is selected
 
-bool bBurnUseMMX;
-bool bBurnUseASMCPUEmulation = true;
+bool bBurnUseASMCPUEmulation = false;
 
 #if defined (FBA_DEBUG)
  clock_t starttime = 0;
@@ -58,22 +57,12 @@ bool bSaveCRoms = 0;
 
 unsigned int *pBurnDrvPalette;
 
-bool BurnCheckMMXSupport()
-{
-	unsigned int nSignatureEAX = 0, nSignatureEBX = 0, nSignatureECX = 0, nSignatureEDX = 0;
-
-//	CPUID(1, nSignatureEAX, nSignatureEBX, nSignatureECX, nSignatureEDX);
-
-	return (nSignatureEDX >> 23) & 1;						// bit 23 of edx indicates MMX support
-}
-
 extern "C" int BurnLibInit()
 {
 	BurnLibExit();
 	nBurnDrvCount = sizeof(pDriver) / sizeof(pDriver[0]);	// count available drivers
 
 	cmc_4p_Precalc();
-	bBurnUseMMX = BurnCheckMMXSupport();
 
 	return 0;
 }
