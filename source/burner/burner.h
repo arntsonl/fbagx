@@ -26,6 +26,7 @@
 // OS dependent functionality
 
 // None, we're on a Wii
+#include "burner_wii.h"
 
 // ---------------------------------------------------------------------------
 // OS independent functionality

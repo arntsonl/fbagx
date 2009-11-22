@@ -21,6 +21,8 @@
 #include "filelist.h"
 #include "filebrowser.h"
 
+#include "fileop.h"
+
 #define THREAD_SLEEP 100
 
 static GuiImageData * pointer[4];
@@ -29,6 +31,12 @@ static GuiSound * bgMusic = NULL;
 static GuiWindow * mainWindow = NULL;
 static lwp_t guithread = LWP_THREAD_NULL;
 static bool guiHalt = true;
+
+int nMenuHeight = 0;
+int nWindowSize = 0;
+int nScreenSize = 0;
+int nScreenSizeHor = 0;
+int nScreenSizeVer = 0;
 
 /****************************************************************************
  * ResumeGui
@@ -397,6 +405,7 @@ static int MenuBrowseDevice()
 					ShutoffRumble();
 					mainWindow->SetState(STATE_DISABLED);
 					// load file
+					LoadBurnerRom(browserList[browser.selIndex].filename, browser.dir);
 					mainWindow->SetState(STATE_DEFAULT);
 				}
 			}

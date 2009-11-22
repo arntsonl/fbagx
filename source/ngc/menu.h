@@ -12,6 +12,7 @@
 #include <ogcsys.h>
 
 void InitGUIThreads();
+int WindowPrompt(const char*, const char*, const char*, const char*);
 void MainMenu (int menuitem);
 
 enum

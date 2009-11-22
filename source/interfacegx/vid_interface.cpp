@@ -6,27 +6,9 @@
 
 #define ENABLE_PREVIEW
 
-#if defined (BUILD_WIN32)
-	extern struct VidOut VidOutDDraw;
-	extern struct VidOut VidOutD3D;
-	extern struct VidOut VidOutDDrawFX;
-	extern struct VidOut VidOutDX9;
-#elif defined (BUILD_SDL)
-	extern struct VidOut VidOutSDLOpenGL;
-	extern struct VidOut VidOutSDLFX;
-#endif
-	struct VidOut VidOutGX;
+	extern struct VidOut VidOutGX;
 
 static struct VidOut *pVidOut[] = {
-#if defined (BUILD_WIN32)
-	&VidOutDDraw,
-	&VidOutD3D,
-	&VidOutDDrawFX,
-	&VidOutDX9,
-#elif defined (BUILD_SDL)
-	&VidOutSDLOpenGL,
-	&VidOutSDLFX,
-#endif
 // Wii
 	&VidOutGX
 };
@@ -128,54 +110,18 @@ int VidSelect(unsigned int nPlugin)
 // Forward to VidOut functions
 int VidInit()
 {
-#if defined (BUILD_WIN32) && defined (ENABLE_PREVIEW)
-	HBITMAP hbitmap = NULL;
-	BITMAP bitmap;
-#endif
-
 	int nRet = 1;
 
 	VidExit();
 
-#if defined (BUILD_WIN32) && defined (ENABLE_PREVIEW)
-	if (!bDrvOkay && bVidUsePlaceholder) {
-		if (_tcslen(szPlaceHolder)) {
-			LPTSTR p = _tcsrchr(szPlaceHolder, '.');
-			if (!_tcsicmp(p+1, _T("bmp"))) {
-				hbitmap = (HBITMAP)LoadImage(hAppInst, szPlaceHolder, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-			} else {
-				if (!_tcsicmp(p+1, _T("png"))) {
-					FILE *fp = _tfopen(szPlaceHolder, _T("rb"));
-					if (fp) {
-						char szTemp[MAX_PATH];
-						sprintf(szTemp, _TtoA(szPlaceHolder));
-						hbitmap = PNGtoBMP_Simple(hScrnWnd, szTemp);
-						fclose(fp);
-					}
-				}
-			}
-		} else {
-			hbitmap = (HBITMAP)LoadImage(hAppInst, _T("BMP_SPLASH"), IMAGE_BITMAP, 0, 0, 0);
-		}
-		
-		if (!hbitmap) hbitmap = (HBITMAP)LoadImage(hAppInst, _T("BMP_SPLASH"), IMAGE_BITMAP, 0, 0, 0);
-		
-		GetObject(hbitmap, sizeof(BITMAP), &bitmap);
-
-		nVidImageWidth = bitmap.bmWidth; nVidImageHeight = bitmap.bmHeight;
-		nVidImageLeft = nVidImageTop = 0;
-	}
-#endif
-
-
-	if ((nVidSelect < VID_LEN)/* && bDrvOkay*/) {// take out drv okay for NOW
+	if ((nVidSelect < VID_LEN) && bDrvOkay) {
 		nVidActive = nVidSelect;
 		if ((nRet = pVidOut[nVidActive]->Init()) == 0) {
 			nBurnBpp = nVidImageBPP;								// Set Burn library Bytes per pixel
 
 			bVidOkay = true;
 
-			if (/*bDrvOkay &&*/ (BurnDrvGetFlags() & BDF_16BIT_ONLY) && nVidImageBPP > 2) {
+			if (bDrvOkay && (BurnDrvGetFlags() & BDF_16BIT_ONLY) && nVidImageBPP > 2) {
 				nBurnBpp = 2;
 
 				pVidTransPalette = (unsigned int*)malloc(32768 * sizeof(int));
@@ -191,60 +137,6 @@ int VidInit()
 		}
 	}
 
-#if defined (BUILD_WIN32) && defined (ENABLE_PREVIEW)
-	if (bVidOkay && hbitmap) {
-		BITMAPINFO bitmapinfo;
-		unsigned char* pLineBuffer = (unsigned char*)malloc(bitmap.bmWidth * 4);
-		HDC hDC = GetDC(hVidWnd);
-
-		if (hDC && pLineBuffer) {
-
-			memset(&bitmapinfo, 0, sizeof(BITMAPINFO));
-			bitmapinfo.bmiHeader.biSize = sizeof(BITMAPINFO);
-			bitmapinfo.bmiHeader.biWidth = bitmap.bmWidth;
-			bitmapinfo.bmiHeader.biHeight = bitmap.bmHeight;
-			bitmapinfo.bmiHeader.biPlanes = 1;
-			bitmapinfo.bmiHeader.biBitCount = 24;
-			bitmapinfo.bmiHeader.biCompression = BI_RGB;
-			
-			for (int y = 0; y < nVidImageHeight; y++) {
-				unsigned char* pd = pVidImage + y * nVidImagePitch;
-				unsigned char* ps = pLineBuffer;
-
-				GetDIBits(hDC, hbitmap, nVidImageHeight - 1 - y, 1, ps, &bitmapinfo, DIB_RGB_COLORS);
-
-				for (int x = 0; x < nVidImageWidth; x++, ps += 3) {
-					unsigned int nColour = VidHighCol(ps[2], ps[1], ps[0], 0);
-					switch (nVidImageBPP) {
-						case 2:
-							*((unsigned short*)pd) = (unsigned short)nColour;
-							pd += 2;
-							break;
-						case 3:
-							pd[0] = (nColour >> 16) & 0xFF;
-							ps[1] = (nColour >>  8) & 0xFF;
-							pd[2] = (nColour >>  0) & 0xFF;
-							pd += 3;
-							break;
-						case 4:
-							*((unsigned int*)pd) = nColour;
-							pd += 4;
-							break;
-					}
-				}
-			}
-		}
-		if (hDC) {
-			ReleaseDC(hVidWnd, hDC);
-		}
-		free(pLineBuffer);
-	}
-
-	if (hbitmap) {
-		DeleteObject(hbitmap);
-	}
-#endif
-
 	return nRet;
 }
 
@@ -254,10 +146,6 @@ int VidExit()
 
 	if (bVidOkay) {
 		int nRet = pVidOut[nVidActive]->Exit();
-
-#if defined (BUILD_WIN32)
-		hVidWnd = NULL;
-#endif
 
 		bVidOkay = false;
 
@@ -422,17 +310,7 @@ InterfaceInfo* VidGetInfo()
 
 		VidInfo.pszModuleName = pVidOut[nVidActive]->szModuleName;
 
-#if defined (BUILD_WIN32)
-		GetClientScreenRect(hVidWnd, &rect);
-		if (nVidFullscreen == 0) {
-			rect.top += nMenuHeight;
-			_sntprintf(szString, MAX_PATH, _T("Running in windowed mode, $ix%i, %ibpp"), rect.right - rect.left, rect.bottom - rect.top, nVidScrnDepth);
-		} else {
-			_sntprintf(szString, MAX_PATH, _T("Running fullscreen, $ix$i, %ibpp"), nVidScrnWidth, nVidScrnHeight, nVidScrnDepth);
-		}
-#elif defined (BUILD_SDL)
 		_sntprintf(szString, MAX_PATH, _T("Filler for fullscreen/windowed mode & image size"));
-#endif
 
 		IntInfoAddStringInterface(&VidInfo, szString);
 

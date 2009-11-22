@@ -17,6 +17,8 @@
 #include <unistd.h>
 #include <wiiuse/wpad.h>
 #include <fat.h>
+#include <debug.h> // USB Gecko
+#include <sys/iosupport.h>
 
 #include "FreeTypeGX.h"
 #include "video.h"
@@ -123,13 +125,70 @@ void AppCleanup()
 	AppExit();
 }
 
+/****************************************************************************
+ * USB Gecko Debugging
+ ***************************************************************************/
+static bool gecko = false;
+static mutex_t gecko_mutex = 0;
+
+static ssize_t __out_write(struct _reent *r, int fd, const char *ptr, size_t len)
+{
+	u32 level;
+
+	if (!ptr || len <= 0 || !gecko)
+		return -1;
+
+	LWP_MutexLock(gecko_mutex);
+	level = IRQ_Disable();
+	usb_sendbuffer(1, ptr, len);
+	IRQ_Restore(level);
+	LWP_MutexUnlock(gecko_mutex);
+	return len;
+}
+
+const devoptab_t gecko_out = {
+	"stdout",	// device name
+	0,			// size of file structure
+	NULL,		// device open
+	NULL,		// device close
+	__out_write,// device write
+	NULL,		// device read
+	NULL,		// device seek
+	NULL,		// device fstat
+	NULL,		// device stat
+	NULL,		// device link
+	NULL,		// device unlink
+	NULL,		// device chdir
+	NULL,		// device rename
+	NULL,		// device mkdir
+	0,			// dirStateSize
+	NULL,		// device diropen_r
+	NULL,		// device dirreset_r
+	NULL,		// device dirnext_r
+	NULL,		// device dirclose_r
+	NULL		// device statvfs_r
+};
+
+void USBGeckoOutput()
+{
+	LWP_MutexInit(&gecko_mutex, false);
+	gecko = usb_isgeckoalive(1);
+	
+	devoptab_list[STD_OUT] = &gecko_out;
+	devoptab_list[STD_ERR] = &gecko_out;
+}
+
 // Main program entry point
 int main(int argc, char *argv[])
 {
+	USBGeckoOutput();
+	// Init USB Gecko First
+	DEBUG_Init(GDBSTUB_DEVICE_USB,1);
+	_break();
 	InitVideo(); // Initialize video
 	SetupPads(); // Initialize input
 	InitAudio(); // Initialize audio
-	fatInitDefault(); // Initialize file system
+	fatInitDefault(); // Initialize file syste
 	
 	if (!(AppInit())) {							// Init the application
 		// Some kinda warning?
@@ -145,7 +204,6 @@ int main(int argc, char *argv[])
 	
 	DefaultSettings();
 	
-
 	MainMenu(MENU_SETTINGS);
 	AppExit();									// Exit the application
 
