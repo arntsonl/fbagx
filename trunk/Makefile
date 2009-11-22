@@ -17,6 +17,7 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	fbagx_beta
 BUILD		:=	build
+HBC			:=  hbc
 SOURCES		:=	source/ngc source/ngc/libwiigui source/ngc/images source/ngc/fonts source/ngc/sounds \
 				source/burn source/burner source/interfacegx source/burn/atari source/burn/capcom source/burn/cave source/burn/cps3 \
 				source/burn/galaxian source/burn/konami source/burn/megadrive \
@@ -46,7 +47,7 @@ LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS :=	-lpng -lz -lfat -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype
+LIBS :=	-lpng -lz -lfat -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype -ldb
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
@@ -111,16 +112,22 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+	@cp $(OUTPUT).dol $(HBC)/boot.dol
 
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).dol
+	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).dol $(HBC)/boot.dol
 
 #---------------------------------------------------------------------------------
 run:
 	wiiload $(OUTPUT).dol
 
+#---------------------------------------------------------------------------------
+debug:
+	wiiload $(TARGET).dol
+	powerpc-eabi-gdb -n $(TARGET).elf -x gdb.txt
+	
 #---------------------------------------------------------------------------------
 reload:
 	wiiload -r $(OUTPUT).dol
