@@ -17,10 +17,11 @@ static int oldRenderMode = -1; // set to GCSettings.render when changing (tempor
 int CheckVideo = 0; // for forcing video reset
 
 /*** GX ***/
-#define TEX_WIDTH 1024
-#define TEX_HEIGHT 1024
-#define TEXTUREMEM_SIZE 	TEX_WIDTH*(TEX_HEIGHT+8)*2
-static unsigned char texturemem[TEXTUREMEM_SIZE] ATTRIBUTE_ALIGN (32);
+#define TEX_WIDTH 640
+#define TEX_HEIGHT 480
+#define TEX_PITCH (TEX_WIDTH*4) // this might be off
+#define TEXTUREMEM_SIZE 	TEX_WIDTH*TEX_HEIGHT*4
+static unsigned char texturemem[TEXTUREMEM_SIZE] ATTRIBUTE_ALIGN (32); // RGBA8 = (width*height*4bpp?)
 
 #define DEFAULT_FIFO_SIZE 256 * 1024
 static unsigned int copynow = GX_FALSE;
@@ -452,52 +453,6 @@ static void SetupVideoMode(GXRModeObj * mode)
 	vmode = mode;
 }
 
-/****************************************************************************
- * MakeTexture
- *
- * Modified for a buffer with an offset (border)
- ***************************************************************************/
-void
-MakeTexture (const void *src, void *dst, s32 width, s32 height)
-{
-	register u32 tmp0=0,tmp1=0,tmp2=0,tmp3=0;
-
-	__asm__ __volatile__ (
-		"	srwi		%6,%6,2\n"
-		"	srwi		%7,%7,2\n"
-		"	subi		%3,%4,4\n"
-		"	mr			%4,%3\n"
-		"	subi		%4,%4,4\n"
-
-		"2: mtctr		%6\n"
-		"	mr			%0,%5\n"
-		//
-		"1: lwz			%1,0(%5)\n"			//1
-		"	stwu		%1,8(%4)\n"
-		"	lwz			%2,4(%5)\n"			//1
-		"	stwu		%2,8(%3)\n"
-		"	lwz			%1,1032(%5)\n"		//2
-		"	stwu		%1,8(%4)\n"
-		"	lwz			%2,1036(%5)\n"		//2
-		"	stwu		%2,8(%3)\n"
-		"	lwz			%1,2064(%5)\n"		//3
-		"	stwu		%1,8(%4)\n"
-		"	lwz			%2,2068(%5)\n"		//3
-		"	stwu		%2,8(%3)\n"
-		"	lwz			%1,3096(%5)\n"		//4
-		"	stwu		%1,8(%4)\n"
-		"	lwz			%2,3100(%5)\n"		//4
-		"	stwu		%2,8(%3)\n"
-		"	addi		%5,%5,8\n"
-		"	bdnz		1b\n"
-		"	addi		%5,%0,4128\n"		//5
-		"	subic.		%7,%7,1\n"
-		"	bne			2b"
-		//		0			 1			  2			   3		   4		  5		    6		    7
-		: "=&b"(tmp0), "=&b"(tmp1), "=&b"(tmp2), "=&b"(tmp3), "+b"(dst) : "b"(src), "b"(width), "b"(height)
-	);
-}
-
 static int vidExit()
 {
 	return 0;
@@ -546,7 +501,7 @@ static int vidInit()
 		// No rotation for now
 		// C32 - Maybe init video texture here?
 		// initialize the texture obj we are going to use
-		GX_InitTexObj (&texobj, texturemem, nGameWidth, nGameHeight, GX_TF_RGBA8, GX_CLAMP, GX_CLAMP, GX_FALSE);
+		GX_InitTexObj (&texobj, texturemem, TEX_WIDTH, TEX_HEIGHT, GX_TF_RGBA8, GX_CLAMP, GX_CLAMP, GX_FALSE);
 	    GX_InitTexObjLOD(&texobj,GX_NEAR,GX_NEAR_MIP_NEAR,2.5,9.0,0.0,GX_FALSE,GX_FALSE,GX_ANISO_1); // original/unfiltered video mode: force texture filtering OFF
 		GX_LoadTexObj (&texobj, GX_TEXMAP0);	// load texture object so its ready to use
 
@@ -580,19 +535,18 @@ static int vidBurnToSurface()
 	whichfb ^= 1;
 	//MakeTexture((char *) GFX.Screen, (char *) texturemem, 640, 480);
 	unsigned char *pd, *ps, *pdd;
-	unsigned char *Surf;
-	int nPitch;
+	int nPitch = TEX_PITCH;
 	
 	pd = texturemem;
 	switch (nVidImageBPP) {
 		case 4: {
 			for (int y = 0; y < nGameHeight; y++, pd += nPitch) {
-				ps = pVidImage + (nGameHeight - 1 - y) * 4;
-				pdd = pd;
-				for (int x = 0; x < nGameWidth; x++) {
-					*(int*)pdd = *(int*)ps;
-					ps += nVidImagePitch;
-					pdd += 4;
+				ps = pVidImage + (nGameHeight - 1 - y) * 4; // bottom to top?
+				pdd = pd;									// point at our texture mem (+= nPitch each time)
+				for (int x = 0; x < nGameWidth; x++) {		// Loop through all x values
+					*(int*)pdd = *(int*)ps;					// 4bpp -> 4bpp is a straight copy
+					ps += nVidImagePitch;					// move our pVidImage pointer by pVidImagePitch
+					pdd += 4;								// move our texture mem pointer by 4 chars (RGBA8)
 				}
 			}
 			break;
