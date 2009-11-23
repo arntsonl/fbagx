@@ -13,10 +13,10 @@
 
 extern const u8		font_ttf[];
 extern const u32	font_ttf_size;
-
+/*
 extern const u8		bg_music_ogg[];
 extern const u32	bg_music_ogg_size;
-
+*/
 extern const u8		button_over_pcm[];
 extern const u32	button_over_pcm_size;
 

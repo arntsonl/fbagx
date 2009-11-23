@@ -168,7 +168,6 @@ int VidExit()
 static int VidDoFrame(bool bRedraw)
 {
 	int nRet;
-	
 	if (pVidTransImage) {
 		unsigned short* pSrc = (unsigned short*)pVidTransImage;
 		unsigned char* pDest = pVidImage;
@@ -237,7 +236,7 @@ int VidReInitialise()
 
 int VidFrame()
 {
-	if (bVidOkay /*&& bDrvOkay*/) {
+	if (bVidOkay && bDrvOkay) {
 		return VidDoFrame(0);
 	} else {
 		return 1;
@@ -246,7 +245,7 @@ int VidFrame()
 
 int VidRedraw()
 {
-	if (bVidOkay /* && bDrvOkay */) {
+	if (bVidOkay  && bDrvOkay ) {
 		return VidDoFrame(1);
 	} else {
 		return 1;
@@ -263,7 +262,7 @@ int VidRecalcPal()
 // If bValidate & 1, the video code should use ValidateRect() to validate the rectangle it draws.
 int VidPaint(int bValidate)
 {
-	if (bVidOkay /* && bDrvOkay */) {
+	if (bVidOkay && bDrvOkay) {
 		return pVidOut[nVidActive]->Paint(bValidate);
 	} else {
 		return 1;

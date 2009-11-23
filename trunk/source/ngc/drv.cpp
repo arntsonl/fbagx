@@ -1,19 +1,17 @@
 // Driver Init module
 #include "burner.h"
-#define TRUE true
-#define FALSE false
 
 int bDrvOkay = 0;						// 1 if the Driver has been initted okay, and it's okay to use the BurnDrv functions
 
-char szAppRomPaths[DIRS_MAX][MAX_PATH] = { {"" }, { "" }, { "" }, { "" }, { "" }, { "" }, { "" }, { "sd:\\fbagx\\roms\\" } };
+char szAppRomPaths[DIRS_MAX][MAX_PATH] = { {"" }, { "" }, { "" }, { "" }, { "" }, { "" }, { "" }, { "sd:/fbagx/roms/" } };
 
 static bool bSaveRAM = false;
 
 static int DoLibInit()					// Do Init of Burn library driver
 {
 	int nRet = 0;
-
-	BzipOpen(FALSE);
+	
+	nRet = BzipOpen(false);
 
 	// If there is a problem with the romset, report it
 	switch (BzipStatus()) {
@@ -27,7 +25,7 @@ static int DoLibInit()					// Do Init of Burn library driver
 #if 0 || !defined FBA_DEBUG
 			// Don't even bother trying to start the game if we know it won't work
 			BzipClose();
-			return 1;
+			return nRet; // debug
 #endif
 
 			break;
@@ -48,7 +46,7 @@ static int DoLibInit()					// Do Init of Burn library driver
 //	if (bJukeboxInUse) {
 //		nRet = BurnJukeboxInit();
 //	} else {
-		nRet = BurnDrvInit();
+		nRet = BurnDrvInit();	// Chip calls up its own drivers here!
 //	}
 
 	BzipClose();
@@ -68,7 +66,7 @@ static int DrvLoadRom(unsigned char* Dest, int* pnWrote, int i)
 {
 	int nRet;
 
-	BzipOpen(FALSE);
+	BzipOpen(false);
 
 	if ((nRet = BurnExtLoadRom(Dest, pnWrote, i)) != 0) {
 		char* pszFilename;
@@ -119,7 +117,7 @@ int DrvInit(int nDrvNum, bool bRestore)
 			//FBAPopupDisplay(PUF_TYPE_WARNING);
 		}
 
-		return 1;
+		return nStatus;
 	}
 
 	BurnExtLoadRom = DrvLoadRom;

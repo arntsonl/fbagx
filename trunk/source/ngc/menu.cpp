@@ -27,7 +27,7 @@
 
 static GuiImageData * pointer[4];
 static GuiImage * bgImg = NULL;
-static GuiSound * bgMusic = NULL;
+//static GuiSound * bgMusic = NULL;
 static GuiWindow * mainWindow = NULL;
 static lwp_t guithread = LWP_THREAD_NULL;
 static bool guiHalt = true;
@@ -405,7 +405,10 @@ static int MenuBrowseDevice()
 					ShutoffRumble();
 					mainWindow->SetState(STATE_DISABLED);
 					// load file
-					LoadBurnerRom(browserList[browser.selIndex].filename, browser.dir);
+					if(LoadBurnerRom(browserList[browser.selIndex].filename, browser.dir))
+					{
+						menu = MENU_EXIT;
+					}
 					mainWindow->SetState(STATE_DEFAULT);
 				}
 			}
@@ -785,9 +788,10 @@ void MainMenu(int menu)
 
 	ResumeGui();
 
-	bgMusic = new GuiSound(bg_music_ogg, bg_music_ogg_size, SOUND_OGG);
-	bgMusic->SetVolume(50);
-	bgMusic->Play(); // startup music
+	//bgMusic = new GuiSound(bg_music_ogg, bg_music_ogg_size, SOUND_OGG);
+	//bgMusic->SetVolume(50);
+	//bgMusic->SetLoop(true);
+	//bgMusic->Play(); // startup music
 
 	while(currentMenu != MENU_EXIT)
 	{
@@ -808,14 +812,14 @@ void MainMenu(int menu)
 		}
 	}
 
-	ResumeGui();
-	ExitRequested = 1;
-	while(1) usleep(THREAD_SLEEP);
+	//ResumeGui();
+	//ExitRequested = 1;
+	//while(1) usleep(THREAD_SLEEP);
 
 	HaltGui();
 
-	bgMusic->Stop();
-	delete bgMusic;
+//	bgMusic->Stop();
+//	delete bgMusic;
 	delete bgImg;
 	delete mainWindow;
 

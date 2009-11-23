@@ -1,6 +1,7 @@
 // Run module
 #include "burner.h"
-#include "ogcsys.h" // for sleeping
+#include <ogcsys.h> // for sleeping
+#include <ogc/lwp_watchdog.h>
 
 int bRunPause = 0;
 int bAltPause = 0;
@@ -15,6 +16,7 @@ int counter;								// General purpose variable used when debugging
 #endif
 
 static unsigned int nNormalLast = 0;		// Last value of timeGetTime()
+static int nNormalFrac = 0;					// Extra fraction we did
 
 static bool bAppDoStep = 0;
 static bool bAppDoFast = 0;
@@ -111,7 +113,6 @@ static int RunFrame(int bDraw, int bPause)
 */
 		if (bDraw) {
 			nFramesRendered++;
-
 			if (VidFrame()) {					// Do one frame
 				AudBlankSound();
 			}
@@ -184,17 +185,18 @@ int RunIdle()
 	}
 
 	// Run without sound
-	nTime = clock() - nNormalLast;
-	nCount = (nTime) / 100000;
+	nTime = ticks_to_millisecs(gettime()) - nNormalLast;
+	nCount = (nTime * 6000 - nNormalFrac) / 100000;
 	if (nCount <= 0) {						// No need to do anything for a bit
-		nanoTimer.tv_nsec = 2;
+		nanoTimer.tv_nsec = 2000000;
 		nanosleep(&nanoTimer); // sleep 2 milliseconds
-
 		return 0;
 	}
 
-	nNormalLast += nCount * 100000;// / nAppVirtualFps; // no virtual fps for now
-
+	nNormalFrac += nCount * 100000;
+	nNormalLast += nNormalFrac / 6000;// / nAppVirtualFps; // no virtual fps for now
+	nNormalFrac %= 6000;
+	
 	if (bAppDoFast){						// Temporarily increase virtual fps
 		nCount *= nFastSpeed;
 	}
@@ -222,7 +224,8 @@ int RunIdle()
 int RunReset()
 {
 	// Reset the speed throttling code
-	nNormalLast = 0;
+	nNormalLast = 0; 
+	nNormalFrac = 0;
 	// Reset FPS display
 	nDoFPS = 0;
 
@@ -248,7 +251,7 @@ static int RunInit()
 	return 0;
 }
 
-static int RunExit()
+int RunExit()
 {
 	nNormalLast = 0;
 	// Stop sound if it was playing

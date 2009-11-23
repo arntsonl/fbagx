@@ -61,33 +61,6 @@ void ResetCB()
 	ResetRequested = 1;
 }
 
-void Emulate()
-{
-	// Initialize emulator settings?
-	/*
-	 * here
-	 *
-	 */
-	MainMenu(MENU_SETTINGS); // make this game selection instead
-	
-	// Load game here, we've allocated everything in MainMenu and selected the file apparently
-	
-	while(1)
-	{
-		// FBA Main loop
-		NGCReportButtons ();
-		if(ResetRequested)
-		{
-			//S9xSoftReset (); // reset game
-			ResetRequested = 0;
-		}
-		#ifdef HW_RVL
-		if(ShutdownRequested)
-			ExitApp();
-		#endif
-	}
-}
-
 int nAppVirtualFps = 6000;			// App fps * 100
 
 static int AppInit()
@@ -106,7 +79,8 @@ static int AppInit()
 	}
 
 	// Build the ROM information
-	//CreateROMInfo(NULL);
+	CreateROMInfo();
+	AnalyzeRoms(); // look at all the roms? maybe?
 
 	return 0;
 }
@@ -114,7 +88,7 @@ static int AppInit()
 static int AppExit()
 {
 	//DrvExit();						// Make sure any game driver is exitted
-	//FreeROMInfo();
+	FreeROMInfo();
 	//MediaExit();
 	BurnLibExit();					// Exit the Burn library
 	return 0;
@@ -181,10 +155,15 @@ void USBGeckoOutput()
 // Main program entry point
 int main(int argc, char *argv[])
 {
+#ifdef GECKO_PRINTF
 	USBGeckoOutput();
+#endif
+#ifdef GECKO_DEBUG
 	// Init USB Gecko First
 	DEBUG_Init(GDBSTUB_DEVICE_USB,1);
 	_break();
+#endif
+
 	InitVideo(); // Initialize video
 	SetupPads(); // Initialize input
 	InitAudio(); // Initialize audio
@@ -192,6 +171,7 @@ int main(int argc, char *argv[])
 	
 	if (!(AppInit())) {							// Init the application
 		// Some kinda warning?
+		MediaInit();
 	}
 
 	InitFreeType((u8*)font_ttf, font_ttf_size); // Initialize font system
@@ -204,8 +184,24 @@ int main(int argc, char *argv[])
 	
 	DefaultSettings();
 	
+	// go back to checking if devices were inserted/removed
+	// since we're entering the menu
 	MainMenu(MENU_SETTINGS);
-	AppExit();									// Exit the application
 
+	MediaInit();						// sets up videoinit
+	
+	while(1)
+	{
+		// RunMessageLoop goes here.
+		RunIdle();
+		NGCReportButtons ();
+		if(ShutdownRequested)
+		{
+			RunExit();
+			MediaExit();
+			AppExit();									// Exit the application
+			ExitApp();									// Exit the Wii app
+		}
+	} // main loop
 	return 0;
 }

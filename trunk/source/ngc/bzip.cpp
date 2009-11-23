@@ -117,13 +117,13 @@ static int FindRom(int i)
 
 static int RomDescribe(struct BurnRomInfo* pri)
 {
-/*
+
 	if (nBzipError == 0) {
 		nBzipError |= 0x8000;
 
-		FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_INVALID));
+		//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_INVALID));
 	}
-
+/*
 	FBAPopupAddText(PUF_TEXT_DEFAULT, _T(" ") _T(SEPERATOR_1));
 	if (pri->nType & BRF_ESS) {
 		FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_DET_ESS));
@@ -319,7 +319,7 @@ int BzipOpen(bool bootApp)
 
 	nTotalSize = 0;
 	nBzipError = 0;
-
+	
 	if (szBzipName == NULL) {
 		return 1;
 	}
@@ -332,15 +332,16 @@ int BzipOpen(bool bootApp)
 			break;
 		}
 	}
+
 	if (nRomCount <= 0) {
-		return 1;
+		return 2;
 	}
 
 	// Create an array for holding lookups for each rom -> zip entries
 	nMemLen = nRomCount * sizeof(struct RomFind);
 	RomFind = (struct RomFind*)malloc(nMemLen);
 	if (RomFind == NULL) {
-		return 1;
+		return 3;
 	}
 	memset(RomFind, 0, nMemLen);
 
@@ -357,33 +358,35 @@ int BzipOpen(bool bootApp)
 		if (BurnDrvGetZipName(&szName, y)) {
 			break;
 		}
-
+	
 		for (int d = 0; d < DIRS_MAX; d++) {
-			TCHAR szFullName[MAX_PATH];
+			if ( strlen(szAppRomPaths[d]) > 0 ){
+				TCHAR szFullName[MAX_PATH];
 
-			_stprintf(szFullName, _T("%s%hs"), szAppRomPaths[d], szName);
+				_stprintf(szFullName, _T("%s%hs"), szAppRomPaths[d], szName);
 
-			if (ZipOpen(szFullName) == 0) {		// Open the rom zip file
-				ZipClose();
+				if (ZipOpen(szFullName) == 0) {		// Open the rom zip file
+					ZipClose();
 
-				bFound = true;
+					bFound = true;
 
-				szBzipName[z] = (TCHAR*)malloc(MAX_PATH * sizeof(TCHAR));
-				_tcscpy(szBzipName[z], szFullName);
+					szBzipName[z] = (TCHAR*)malloc(MAX_PATH * sizeof(TCHAR));
+					_tcscpy(szBzipName[z], szFullName);
 
-				if (!bootApp) {
-					//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_FOUND), szName, szBzipName[z]);
-				}
+					if (!bootApp) {
+						//FBAPopupAddText(PUF_TEXT_DEFAULT, MAKEINTRESOURCE(IDS_ERR_LOAD_FOUND), szName, szBzipName[z]);
+					}
 
-				z++;
+					z++;
 
-				// Look further in the last path specified, so you can put files with ROMs
-				// used only by FB Alpha there without causing problems with dat files
-				if (d < DIRS_MAX - 2) {
-					d = DIRS_MAX - 2;
-				} else {
-					if (d >= DIRS_MAX - 1) {
-						break;
+					// Look further in the last path specified, so you can put files with ROMs
+					// used only by FB Alpha there without causing problems with dat files
+					if (d < DIRS_MAX - 2) {
+						d = DIRS_MAX - 2;
+					} else {
+						if (d >= DIRS_MAX - 1) {
+							break;
+						}
 					}
 				}
 			}
