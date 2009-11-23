@@ -20,7 +20,7 @@ BUILD		:=	build
 HBC			:=  hbc
 SOURCES		:=	source/ngc source/ngc/libwiigui source/ngc/images source/ngc/fonts source/ngc/sounds \
 				source/burn source/burner source/interfacegx source/burn/atari source/burn/capcom source/burn/cave source/burn/cps3 \
-				source/burn/galaxian source/burn/konami source/burn/megadrive \
+				source/burn/galaxian source/burn/konami \
 				source/burn/misc source/burn/misc/dec0 source/burn/misc/post90s source/burn/misc/pre90s \
 				source/burn/neogeo source/burn/pgm source/burn/psikyo source/burn/sega source/burn/taito \
 				source/burn/toaplan source/cpu source/cpu/arm7 source/cpu/hd6309 source/cpu/i8039 \
@@ -29,7 +29,7 @@ SOURCES		:=	source/ngc source/ngc/libwiigui source/ngc/images source/ngc/fonts s
 				
 INCLUDES	:=	source/ngc/ \
 				source/burn source/burner source/interfacegx source/burn/atari source/burn/capcom source/burn/cave source/burn/cps3 \
-				source/burn/galaxian source/burn/konami source/burn/megadrive \
+				source/burn/galaxian source/burn/konami \
 				source/burn/misc source/burn/misc/dec0 source/burn/misc/post90s source/burn/misc/pre90s \
 				source/burn/neogeo source/burn/pgm source/burn/psikyo source/burn/sega source/burn/taito \
 				source/burn/toaplan source/cpu source/cpu/arm7 source/cpu/hd6309 source/cpu/i8039 \
@@ -40,7 +40,7 @@ INCLUDES	:=	source/ngc/ \
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-g -O1 -Wall $(MACHDEP) $(INCLUDE)
+CFLAGS		=	-g -O0 -Wall $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 

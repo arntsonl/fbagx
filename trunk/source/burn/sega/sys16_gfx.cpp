@@ -2924,7 +2924,7 @@ void UpdateSystem18VDP()
 {
 	for (int y = 0; y < 224; y++) {
 		unsigned short* pPixel = pTempDraw + (y * 320);
-		vdp_drawline(pPixel, y, 0xffff);
+		//vdp_drawline(pPixel, y, 0xffff);
 	}
 }
 

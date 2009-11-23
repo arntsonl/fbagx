@@ -1896,11 +1896,12 @@ int System16Init()
 			SekMapMemory(System16SpriteRam     , 0x440000, 0x4407ff, SM_RAM);
 			SekMapMemory(System16PaletteRam    , 0x840000, 0x840fff, SM_RAM);
 			SekMapMemory(System16Ram           , 0xffc000, 0xffffff, SM_RAM);
-			
+/*			
 			SekSetReadWordHandler(0, System18ReadWord);
 			SekSetWriteWordHandler(0, System18WriteWord);
 			SekSetReadByteHandler(0, System18ReadByte);
 			SekSetWriteByteHandler(0, System18WriteByte);
+*/
 			SekClose();
 		}
 		
@@ -1922,11 +1923,12 @@ int System16Init()
 			ZetMapArea(0xe000, 0xffff, 1, System16Z80Ram);
 			ZetMapArea(0xe000, 0xffff, 2, System16Z80Ram);
 			ZetMemEnd();
-		
+/*		
 			ZetSetReadHandler(System18Z80Read);
 			ZetSetWriteHandler(System18Z80Write);
 			ZetSetInHandler(System18Z80PortRead);
 			ZetSetOutHandler(System18Z80PortWrite);
+*/
 			ZetClose();
 		}
 		
@@ -1939,12 +1941,12 @@ int System16Init()
 		System16CreateOpaqueTileMaps = 1;
 		System16BTileMapsInit(1);
 		
-		StartGenesisVDP(0, System16Palette);
-		GenesisPaletteBase = 0x1800;
-		GenesisBgPalLookup[0] = GenesisSpPalLookup[0] = 0x1800;
-		GenesisBgPalLookup[1] = GenesisSpPalLookup[1] = 0x1810;
-		GenesisBgPalLookup[2] = GenesisSpPalLookup[2] = 0x1820;
-		GenesisBgPalLookup[3] = GenesisSpPalLookup[3] = 0x1830;
+		//StartGenesisVDP(0, System16Palette);
+		//GenesisPaletteBase = 0x1800;
+		//GenesisBgPalLookup[0] = GenesisSpPalLookup[0] = 0x1800;
+		//GenesisBgPalLookup[1] = GenesisSpPalLookup[1] = 0x1810;
+		//GenesisBgPalLookup[2] = GenesisSpPalLookup[2] = 0x1820;
+		//GenesisBgPalLookup[3] = GenesisSpPalLookup[3] = 0x1830;
 	}
 	
 	if ((BurnDrvGetHardwareCode() & HARDWARE_PUBLIC_MASK) == HARDWARE_SEGA_HANGON) {
