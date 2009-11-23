@@ -188,6 +188,7 @@ extern int bAltPause;
 extern int bAlwaysDrawFrames;
 extern int kNetGame;
 int RunIdle();
+int RunExit();
 int RunMessageLoop();
 int RunReset();
 void ToggleLayer(unsigned char thisLayer);
@@ -336,14 +337,16 @@ void CPUClockDialog();
 void CubicSharpnessDialog();
 // sfactd.cpp
 int SFactdCreate();
-
+*/
 // roms.cpp
 extern char* gameAv;
 extern bool avOk;
-int RomsDirCreate(HWND hParentWND);
-int CreateROMInfo(HWND hParentWND);
+int AnalyzeRoms(void); // wii specific
+int RomsDirCreate();
+int CreateROMInfo();
 void FreeROMInfo();
 
+/*
 // support_paths.cpp
 extern TCHAR szAppPreviewsPath[MAX_PATH];
 extern TCHAR szAppTitlesPath[MAX_PATH];
@@ -501,4 +504,8 @@ int __cdecl ZipLoadOneFile(const char* arcName, const char* fileName, void** Des
 */
 
 //fileop.cpp
-int LoadBurnerRom(char*);
+bool LoadBurnerRom(char*,char*);
+
+// Custom Wii defines
+//#define GECKO_DEBUG
+//#define GECKO_PRINTF

@@ -47,7 +47,7 @@ void __fastcall ZetWriteIO(unsigned int a, unsigned char d)
 unsigned char __fastcall ZetReadProg(unsigned int a)
 {
 	// check mem map
-	unsigned char * pr = ZetCPUContext[nOpenedCPU].pZetMemMap[0x000 | (a >> 8)];
+	unsigned char * pr = (unsigned char*)ZetCPUContext[nOpenedCPU].pZetMemMap[0x000 | ((a >> 8)&0xFF)];
 	if (pr != NULL) {
 		return pr[a & 0xff];
 	}
@@ -63,7 +63,7 @@ unsigned char __fastcall ZetReadProg(unsigned int a)
 void __fastcall ZetWriteProg(unsigned int a, unsigned char d)
 {
 	// check mem map
-	unsigned char * pr = ZetCPUContext[nOpenedCPU].pZetMemMap[0x100 | (a >> 8)];
+	unsigned char * pr = (unsigned char*)ZetCPUContext[nOpenedCPU].pZetMemMap[0x100 | ((a >> 8)&0xFF)];
 	if (pr != NULL) {
 		pr[a & 0xff] = d;
 		return;
@@ -79,7 +79,7 @@ void __fastcall ZetWriteProg(unsigned int a, unsigned char d)
 unsigned char __fastcall ZetReadOp(unsigned int a)
 {
 	// check mem map
-	unsigned char * pr = ZetCPUContext[nOpenedCPU].pZetMemMap[0x200 | (a >> 8)];
+	unsigned char * pr = (unsigned char *)ZetCPUContext[nOpenedCPU].pZetMemMap[0x200 | ((a >> 8)&0xFF)];
 	if (pr != NULL) {
 		return pr[a & 0xff];
 	}
@@ -95,7 +95,7 @@ unsigned char __fastcall ZetReadOp(unsigned int a)
 unsigned char __fastcall ZetReadOpArg(unsigned int a)
 {
 	// check mem map
-	unsigned char * pr = ZetCPUContext[nOpenedCPU].pZetMemMap[0x300 | (a >> 8)];
+	unsigned char * pr = (unsigned char *)ZetCPUContext[nOpenedCPU].pZetMemMap[0x300 | ((a >> 8)&0xFF)];
 	if (pr != NULL) {
 		return pr[a & 0xff];
 	}
