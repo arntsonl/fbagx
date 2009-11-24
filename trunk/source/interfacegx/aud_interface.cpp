@@ -16,21 +16,11 @@ short* nAudNextSound = NULL;		// The next sound seg we will add to the sample lo
 unsigned int nAudSelect = 0;		// Which audio plugin is selected
 static unsigned int nAudActive = 0;
 
-#if defined (BUILD_WIN32)
-	extern struct AudOut AudOutDx;
-	extern struct AudOut AudOutXAudio2;
-#elif defined (BUILD_SDL)
-	extern struct AudOut AudOutSDL;
-#endif
+extern struct AudOut AudOutWii;
 
 static struct AudOut *pAudOut[]=
 {
-#if defined (BUILD_WIN32)
-	&AudOutDx,
-	&AudOutXAudio2,
-#elif defined (BUILD_SDL)
-	&AudOutSDL,
-#endif
+	&AudOutWii,
 };
 
 #define AUD_LEN (sizeof(pAudOut)/sizeof(pAudOut[0]))

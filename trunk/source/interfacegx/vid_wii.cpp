@@ -541,10 +541,13 @@ static int vidBurnToSurface()
 	switch (nVidImageBPP) {
 		case 4: {
 			for (int y = 0; y < nGameHeight; y++, pd += nPitch) {
-				ps = pVidImage + (nGameHeight - 1 - y) * 4; // bottom to top?
+				ps = pVidImage + y*4; 						// bottom to top?
 				pdd = pd;									// point at our texture mem (+= nPitch each time)
 				for (int x = 0; x < nGameWidth; x++) {		// Loop through all x values
-					*(int*)pdd = *(int*)ps;					// 4bpp -> 4bpp is a straight copy
+					//*(int*)pdd = *(int*)ps;				// 4bpp -> 4bpp is a straight copy
+					pdd[0] = ps[2]; // B = B
+					pdd[2] = ps[0]; // R = R
+					pdd[3] = ps[1]; // G = G
 					ps += nVidImagePitch;					// move our pVidImage pointer by pVidImagePitch
 					pdd += 4;								// move our texture mem pointer by 4 chars (RGBA8)
 				}
