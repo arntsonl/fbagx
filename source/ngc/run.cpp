@@ -231,7 +231,7 @@ int RunReset()
 
 	if (!bAudPlaying) {
 		// run without sound
-		nNormalLast = clock();
+		nNormalLast = ticks_to_millisecs(gettime());
 	}
 	return 0;
 }

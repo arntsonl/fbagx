@@ -114,13 +114,14 @@ int VidInit()
 
 	VidExit();
 
+	nVidImageLeft = nVidImageTop = 0;
+	
 	if ((nVidSelect < VID_LEN) && bDrvOkay) {
 		nVidActive = nVidSelect;
 		if ((nRet = pVidOut[nVidActive]->Init()) == 0) {
 			nBurnBpp = nVidImageBPP;								// Set Burn library Bytes per pixel
 
 			bVidOkay = true;
-
 			if (bDrvOkay && (BurnDrvGetFlags() & BDF_16BIT_ONLY) && nVidImageBPP > 2) {
 				nBurnBpp = 2;
 
