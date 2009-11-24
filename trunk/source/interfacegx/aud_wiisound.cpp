@@ -4,8 +4,10 @@
 #include <ogcsys.h>
 #include <asndlib.h>
 
-static unsigned char soundbuffer[2][3840] ATTRIBUTE_ALIGN (32);
-static unsigned char mixbuffer[16000];
+//static unsigned char soundbuffer[2][3840] ATTRIBUTE_ALIGN (32);
+//static unsigned char mixbuffer[16000];
+static unsigned char * soundbuffer; // primary buffer to play sounds
+static unsigned char * loopbuffer;	// secondary buffer to play in the background
 static int mixhead = 0;
 static int mixtail = 0;
 static int whichab = 0;
@@ -14,6 +16,32 @@ static int IsPlaying = 0;
 int (*DSoundGetNextSound)(int);				// Callback used to request more sound
 
 static int cbLoopLen = 0;					// Loop length (in bytes) calculated
+
+/* align_size has to be a power of two !! */
+static void *aligned_malloc(size_t size, size_t align_size) {
+
+  char *ptr,*ptr2,*aligned_ptr;
+  int align_mask = align_size - 1;
+
+  ptr=(char *)malloc(size + align_size + sizeof(int));
+  if(ptr==NULL) return(NULL);
+
+  ptr2 = ptr + sizeof(int);
+  aligned_ptr = ptr2 + (align_size - ((size_t)ptr2 & align_mask));
+
+
+  ptr2 = aligned_ptr - sizeof(int);
+  *((int *)ptr2)=(int)(aligned_ptr - ptr);
+
+  return(aligned_ptr);
+}
+
+static void aligned_free(void *ptr) {
+
+  int *ptr2=(int *)ptr - 1;
+  ptr -= *ptr2;
+  free(ptr);
+}
 
 static int DSoundGetNextSoundFiller(int)							// int bDraw
 {
@@ -38,8 +66,11 @@ static int WiiSetCallback(int (*pCallback)(int))
 
 static int WiiBlankSound()
 {
-	memset(soundbuffer, 0, 3840*2);
-	memset(mixbuffer, 0, 16000);
+	//memset(soundbuffer, 0, 3840*2);
+	//memset(mixbuffer, 0, 16000);
+	memset(soundbuffer, 0, nAudSegLen);
+	//memset(loopbuffer, 0, cbLoopLen); // Loop buffer clear?
+	
 	mixhead = mixtail = 0;
 
 	// Also blank the nAudNextSound buffer
@@ -75,28 +106,19 @@ static int nDSoundNextSeg = 0;										// We have filled the sound in the loop 
 // This function checks the DSound loop, and if necessary does a callback to update the emulation
 static int WiiSoundCheck()
 {
-/*
-	int nPlaySeg = 0, nFollowingSeg = 0;
-	DWORD nPlay = 0, nWrite = 0;
+	int nPlaySeg = 0, nFollowingSeg;
 
-	if (pdsbLoop == NULL) {
-		return 1;
-	}
-
-	// We should do nothing until nPlay has left nDSoundNextSeg
-	pdsbLoop->GetCurrentPosition(&nPlay, &nWrite);
-
-	nPlaySeg = nPlay / (nAudSegLen << 2);
-
-	if (nPlaySeg > nAudSegCount -1 ) {
+	// Get the current position?
+	nPlaySeg = 0;  // pdsbLoop->GetCurrentPosition
+	if ( nPlaySeg > nAudSegCount -1 ){
 		nPlaySeg = nAudSegCount - 1;
 	}
-	if (nPlaySeg < 0) {												// important to ensure nPlaySeg clipped for below
+	if (nPlaySeg < 0 ){
 		nPlaySeg = 0;
 	}
-
+	
 	if (nDSoundNextSeg == nPlaySeg) {
-		Sleep(2);													// Don't need to do anything for a bit
+		//Sleep(2);													// Don't need to do anything for a bit
 
 		return 0;
 	}
@@ -107,20 +129,23 @@ static int WiiSoundCheck()
 
 	while (nDSoundNextSeg != nPlaySeg) {
 		void *pData = NULL, *pData2 = NULL;
-		DWORD cbLen = 0, cbLen2 = 0;
 		int bDraw;
 
+		// copy the data to pData?
+		
 		// fill nNextSeg
 
 		// Lock the relevant seg of the loop buffer
-		if (SUCCEEDED(pdsbLoop->Lock(nDSoundNextSeg * (nAudSegLen << 2), nAudSegLen << 2, &pData, &cbLen, &pData2, &cbLen2, 0))) {
-			// Locked the segment, so write the sound we calculated last time
-			memcpy(pData, nAudNextSound, nAudSegLen << 2);
+		//if (SUCCEEDED(pdsbLoop->Lock(nDSoundNextSeg * (nAudSegLen << 2), nAudSegLen << 2, &pData, &cbLen, &pData2, &cbLen2, 0))) {
+		// Locked the segment, so write the sound we calculated last time
+		//memcpy(pData, nAudNextSound, nAudSegLen << 2);
 
 			// Unlock (2nd 0 is because we wrote nothing to second part)
-			pdsbLoop->Unlock(pData, cbLen, pData2, 0);
-		}
+		//	pdsbLoop->Unlock(pData, cbLen, pData2, 0);
+	//	}
 
+		memcpy(loopbuffer, nAudNextSound, nAudSegLen << 2);
+	
 		bDraw = (nFollowingSeg == nPlaySeg)	|| bAlwaysDrawFrames;	// If this is the last seg of sound, flag bDraw (to draw the graphics)
 
 		DSoundGetNextSound(bDraw);									// get more sound into nAudNextSound
@@ -132,27 +157,23 @@ static int WiiSoundCheck()
 		nDSoundNextSeg = nFollowingSeg;
 		WRAP_INC(nFollowingSeg);
 	}
-*/
 	return 0;
 }
 
 static int WiiSoundExit()
 {
-/*
+	AUDIO_StopDMA();
+
 	DspExit();
 
 	free(nAudNextSound);
 	nAudNextSound = NULL;
 
 	DSoundGetNextSound = NULL;
-
-	// Release the (Secondary) Loop Sound Buffer
-	RELEASE(pdsbLoop);
-	// Release the Primary Sound Buffer
-	RELEASE(pdsbPrim);
-	// Release the DirectSound interface
-	RELEASE(pDS);
-*/
+	
+	aligned_free(soundbuffer);
+	aligned_free(loopbuffer);
+	
 	return 0;
 }
 
@@ -164,12 +185,23 @@ static int WiiSoundInit()
 		return 1;
 	}
 	
-	nAudSegLen = (nAudSampleRate[0] * 100 + (6000 >> 1)) / 6000;
-	cbLoopLen = (nAudSegLen * nAudSegCount) << 2;
+	nAudSegLen = (nAudSampleRate[0] * 100 + (6000 >> 1)) / 6000; // this is how big our audio segment should be?
+	cbLoopLen = (nAudSegLen * nAudSegCount) << 2;				 // how many audio segments can we have?
 	
-	memset(soundbuffer, 0, 3840*2);
-	memset(mixbuffer, 0, 16000);
+	//memset(soundbuffer, 0, 3840*2);
+	//memset(mixbuffer, 0, 16000);
+	soundbuffer = (unsigned char*)aligned_malloc(nAudSegLen << 2, 32);	// Align 32 for the main sound
+	loopbuffer = (unsigned char*)aligned_malloc(cbLoopLen, 32);			// Align 32 for the loop buffer sound
 	
+	nAudNextSound = (short*)malloc(nAudSegLen << 2);		// The next sound block to put in the stream
+	if (nAudNextSound == NULL) {
+		WiiSoundExit();
+		return 1;
+	}
+	
+	WiiSetCallback(NULL);
+	
+	DspInit();
 	/*
 	int nRet = 0;
 	DSBUFFERDESC dsbd;
@@ -258,6 +290,15 @@ static int WiiSoundPlay()
 		return 1;
 	}
 	*/
+	
+	WiiBlankSound(); // why do this?
+	// Set Volume
+	
+	// Play the Sound?
+	DCFlushRange(loopbuffer, cbLoopLen+(cbLoopLen%32));
+	AUDIO_InitDMA((u32)loopbuffer, cbLoopLen+(cbLoopLen%32));
+	AUDIO_StartDMA();
+	
 	bAudPlaying = 1;
 
 	return 0;
@@ -270,35 +311,25 @@ static int WiiSoundStop()
 	if (bAudOkay == 0) {
 		return 1;
 	}
-	/*
-	// Stop the looping buffer
-	pdsbLoop->Stop();
-	*/
+
+	ASND_Pause(1); // no need for DMA switching yet
 	
 	return 0;
 }
 
 static int WiiSoundSetVolume()
 {
-	/*
 	if (nAudVolume == 10000) {
-		nDSoundVol = DSBVOLUME_MAX;
-	} else {
+		//nDSoundVol = DSBVOLUME_MAX;
+	} 
+	else {
 		if (nAudVolume == 0) {
-			nDSoundVol = DSBVOLUME_MIN;
-		} else {
-			nDSoundVol = DSBVOLUME_MAX - (long)(10000.0 * pow(10.0, nAudVolume / -5000.0)) + 100;
+			//nDSoundVol = DSBVOLUME_MIN;
+		} 
+		else {
+			//nDSoundVol = DSBVOLUME_MAX - (long)(10000.0 * pow(10.0, nAudVolume / -5000.0)) + 100;
 		}
 	}
-
-	if (nDSoundVol < DSBVOLUME_MIN) {
-		nDSoundVol = DSBVOLUME_MIN;
-	}
-
-	if (FAILED(pdsbLoop->SetVolume(nDSoundVol))) {
-		return 0;
-	}
-	*/
 	
 	return 1;
 }
